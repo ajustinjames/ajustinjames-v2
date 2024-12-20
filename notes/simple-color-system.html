@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Color System</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .color-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .color-sample {
+            height: 100px;
+            width: 100%;
+        }
+        .color-info {
+            padding: 1rem;
+            background: white;
+        }
+        .color-name {
+            font-weight: bold;
+            margin: 0 0 0.5rem 0;
+        }
+        .color-hex {
+            font-family: monospace;
+            color: #666;
+            margin: 0 0 0.5rem 0;
+        }
+        .color-usage {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.4;
+        }
+        h1 {
+            margin: 0 0 2rem 0;
+        }
+        h2 {
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Website Color System</h1>
+
+        <div class="section">
+            <h2>Core Brand Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #FF8C00;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Primary (Dark Orange)</p>
+                        <p class="color-hex">#FF8C00</p>
+                        <p class="color-usage">Main accent color, primary buttons, important interactive elements</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #FFFAFA;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Background (Snow)</p>
+                        <p class="color-hex">#FFFAFA</p>
+                        <p class="color-usage">Light mode background</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #111827;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Background (Deep Ocean)</p>
+                        <p class="color-hex">#111827</p>
+                        <p class="color-usage">Dark mode background</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Typography Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #1F2937;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Mode Primary Text</p>
+                        <p class="color-hex">#1F2937</p>
+                        <p class="color-usage">Main text in light mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #4B5563;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Mode Secondary Text</p>
+                        <p class="color-hex">#4B5563</p>
+                        <p class="color-usage">Secondary text in light mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #FFFFFF;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Mode Primary Text</p>
+                        <p class="color-hex">#FFFFFF</p>
+                        <p class="color-usage">Main text in dark mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #9CA3AF;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Mode Secondary Text</p>
+                        <p class="color-hex">#9CA3AF</p>
+                        <p class="color-usage">Secondary text in dark mode</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Surface Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #FFFFFF;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Mode Surface</p>
+                        <p class="color-hex">#FFFFFF</p>
+                        <p class="color-usage">Cards and elevated surfaces in light mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #F3F4F6;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Mode Surface Hover</p>
+                        <p class="color-hex">#F3F4F6</p>
+                        <p class="color-usage">Hover state for surface elements in light mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #1F2937;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Mode Surface</p>
+                        <p class="color-hex">#1F2937</p>
+                        <p class="color-usage">Cards and elevated surfaces in dark mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #374151;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Mode Surface Hover</p>
+                        <p class="color-hex">#374151</p>
+                        <p class="color-usage">Hover state for surface elements in dark mode</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Feedback Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #10B981;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Success</p>
+                        <p class="color-hex">#10B981</p>
+                        <p class="color-usage">Success messages and indicators</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #EF4444;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Error</p>
+                        <p class="color-hex">#EF4444</p>
+                        <p class="color-usage">Error messages and indicators</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #F59E0B;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Warning</p>
+                        <p class="color-hex">#F59E0B</p>
+                        <p class="color-usage">Warning messages and indicators</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #3B82F6;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Info</p>
+                        <p class="color-hex">#3B82F6</p>
+                        <p class="color-usage">Information messages and indicators</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Interactive States</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #F87B16;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Primary Hover</p>
+                        <p class="color-hex">#F87B16</p>
+                        <p class="color-usage">Hover state for primary buttons and links</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #E67200;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Primary Active</p>
+                        <p class="color-hex">#E67200</p>
+                        <p class="color-usage">Active/pressed state for primary elements</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #E5E7EB;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Light Mode Border</p>
+                        <p class="color-hex">#E5E7EB</p>
+                        <p class="color-usage">Borders and dividers in light mode</p>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background-color: #374151;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Dark Mode Border</p>
+                        <p class="color-hex">#374151</p>
+                        <p class="color-usage">Borders and dividers in dark mode</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Generated By Claude Sonnet 3.5 -->
