@@ -1,0 +1,29 @@
+---
+
+---
+
+<header>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<nav class="flex h-16 items-center justify-between">
+			<a href="/" class="text-lg font-medium" id="home">ajustinjames</a>
+
+			<ul class="flex gap-8">
+				<li>
+					<a href="/apps" class="text-light-text-primary hover:text-primary"
+						>Apps</a>
+				</li>
+				<li>
+					<a href="/blog" class="text-light-text-primary hover:text-primary"
+						>Blog</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<script>
+	const home = document.getElementById("home");
+	const effects = ["scale-hover", "underline-hover"];
+	const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+	home?.classList.add(randomEffect);
+</script>
