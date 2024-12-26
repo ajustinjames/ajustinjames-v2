@@ -1,22 +1,36 @@
 ---
-
+import { Icon } from "astro-icon/components";
 ---
 
 <header>
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<nav class="flex h-16 items-center justify-between">
-			<a href="/" class="text-2xl font-medium" id="home">ajustinjames</a>
-
-			<ul class="flex gap-8">
-				<li>
-					<a href="/apps" class="text-light-text-primary hover:text-primary text-lg"
-						>Apps</a>
-				</li>
-				<li>
-					<a href="/blog" class="text-light-text-primary hover:text-primary text-lg"
-						>Blog</a>
-				</li>
-			</ul>
+			<a href="/" class="text-2xl font-medium flex items-center" id="home"
+				>ajustinjames</a
+			>
+			<div class="flex gap-6 items-center">
+				<ul class="flex gap-8 items-center">
+					<li class="flex items-center">
+						<a
+							href="/apps"
+							class="text-[var(--text-primary)] hover:text-primary text-lg"
+							>Apps</a
+						>
+					</li>
+					<li class="flex items-center">
+						<a href="/blog" class="hover:text-primary text-lg">Blog</a>
+					</li>
+				</ul>
+				<div class="flex items-center">
+					<button
+						class="--text-primary hover:text-primary text-lg flex items-center"
+						onclick="toggleTheme()"
+					>
+						<Icon name="line-md:sunny" size="22px" class="dark:hidden" />
+						<Icon name="line-md:moon" size="22px" class="hidden dark:block" />
+					</button>
+				</div>
+			</div>
 		</nav>
 	</div>
 </header>

@@ -17,9 +17,10 @@
   },
   "devDependencies": {
     "@iconify-json/fa6-brands": "^1.2.5",
-    "@iconify-json/logos": "^1.2.4",
+    "@iconify-json/line-md": "^1.2.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.0.2",
     "jsdom": "^25.0.1",
     "vitest": "^2.1.8"
   }
