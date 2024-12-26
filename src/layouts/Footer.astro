@@ -2,19 +2,22 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<footer class="mt-auto w-full">
+<footer class="mt-auto w-full" aria-label="Page footer">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-		<div class="flex justify-between items-center">
-			<div>
+		<div class="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-0">
+			<div class="text-center sm:text-left">
 				<p>© 2024 Aaron James All rights reserved.</p>
 				<p>Built with Astro, React, and Tailwind</p>
+				<a href="/sitemap" class="transition-colors hover:text-primary">Sitemap</a>
 			</div>
 			<div>
-				<div class="flex space-x-4">
+				<h3 class="text-center sm:text-middle mb-2 text-lg font-medium">Connect with me!</h3>
+				<div class="flex justify-center sm:justify-end space-x-4">
 					<a
 						href="https://github.com/ajustinjames"
 						target="_blank"
 						rel="noopener noreferrer"
+						aria-label="Visit my GitHub profile"
 						class="p-2 rounded-full transition-colors bg-surfaceLightHover dark:bg-surfaceDarkHover hover:bg-borderLight dark:hover:bg-lightTextSecondary"
 					>
 						<Icon name="fa6-brands:github" size="28px" />
@@ -24,6 +27,7 @@ import { Icon } from "astro-icon/components";
 						href="https://www.linkedin.com/in/ajustinjames/"
 						target="_blank"
 						rel="noopener noreferrer"
+						aria-label="Connect with me on LinkedIn"
 						class="p-2 rounded-full transition-colors bg-surfaceLightHover dark:bg-surfaceDarkHover hover:bg-borderLight dark:hover:bg-lightTextSecondary"
 					>
 						<Icon name="fa6-brands:linkedin" size="28px" />
@@ -33,6 +37,7 @@ import { Icon } from "astro-icon/components";
 						href="https://www.youtube.com/@ajustinjames"
 						target="_blank"
 						rel="noopener noreferrer"
+						aria-label="Subscribe to my YouTube channel"
 						class="p-2 rounded-full transition-colors bg-surfaceLightHover dark:bg-surfaceDarkHover hover:bg-borderLight dark:hover:bg-lightTextSecondary"
 					>
 						<Icon name="fa6-brands:youtube" size="28px" />
@@ -42,6 +47,7 @@ import { Icon } from "astro-icon/components";
 						href="https://bsky.app/profile/ajustinjames.com"
 						target="_blank"
 						rel="noopener noreferrer"
+						aria-label="Follow me on Bluesky"
 						class="p-2 rounded-full transition-colors bg-surfaceLightHover dark:bg-surfaceDarkHover hover:bg-borderLight dark:hover:bg-lightTextSecondary"
 					>
 						<Icon name="fa6-brands:square-bluesky" size="28px" />
