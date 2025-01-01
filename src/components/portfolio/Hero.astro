@@ -1,0 +1,68 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="flex flex-col justify-center items-center text-center">
+	<div class="mb-6">
+		<!-- logo -->
+		<img
+			src="/src/assets/ajlogo.svg"
+			alt="Logo of Aaron Justin James"
+			class="w-48 h-48 mx-auto logo-animation"
+		/>
+	</div>
+	<div class="mb-6">
+		<!-- grab attention -->
+		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
+		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-2">
+			Software Engineer
+		</h2>
+		<p class="text-base md:text-lg mt-4">
+			Building quality solutions through software best practices
+		</p>
+	</div>
+	<div class="mb-6">
+		<!-- call to action -->
+		<div class="flex justify-center gap-2 mb-6">
+			<Icon name="devicon-plain:dotnetcore" size="36px" aria-hidden="true" />
+			<Icon name="devicon-plain:csharp" size="36px" aria-hidden="true" />
+			<Icon name="devicon-plain:angular" size="36px" aria-hidden="true" />
+			<Icon name="devicon-plain:typescript" size="36px" aria-hidden="true" />
+			<Icon name="devicon-plain:kubernetes" size="36px" aria-hidden="true" />
+			<Icon
+				name="devicon-plain:amazonwebservices-wordmark"
+				size="36px"
+				aria-hidden="true"
+			/>
+		</div>
+
+		<div class="flex justify-center items-center gap-2">
+			<Icon name="line-md:chevron-down-circle" size="32px" aria-hidden="true"   class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"/>
+			<p class="text-xl">Scroll down to learn more!</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	@keyframes logo-entrance {
+		from {
+			transform: scale(0.8) rotate(-10deg);
+			opacity: 0;
+		}
+		to {
+			transform: scale(1) rotate(0);
+			opacity: 1;
+		}
+	}
+
+	/* Add these classes to your existing img tag */
+	.logo-animation {
+		animation: logo-entrance 0.6s ease-out forwards;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.logo-animation {
+			animation: none;
+		}
+	}
+</style>
