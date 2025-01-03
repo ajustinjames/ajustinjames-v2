@@ -1,18 +1,26 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const techIcons = [
+	"devicon-plain:dotnetcore",
+	"devicon-plain:csharp",
+	"devicon-plain:angular",
+	"devicon-plain:typescript",
+	"devicon-plain:kubernetes",
+	"devicon-plain:amazonwebservices-wordmark",
+];
 ---
 
-<div class="flex flex-col justify-center items-center text-center">
+<section class="flex flex-col justify-center items-center text-center">
 	<div class="mb-6">
-		<!-- logo -->
 		<img
 			src="/src/assets/ajlogo.svg"
-			alt="Logo of Aaron Justin James"
+			alt="Logo"
 			class="w-48 h-48 mx-auto logo-animation"
+			loading="lazy"
 		/>
 	</div>
 	<div class="mb-6">
-		<!-- grab attention -->
 		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
 		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-2">
 			Software Engineer
@@ -22,26 +30,25 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 	<div class="mb-6">
-		<!-- call to action -->
-		<div class="flex justify-center gap-2 mb-6">
-			<Icon name="devicon-plain:dotnetcore" size="36px" aria-hidden="true" />
-			<Icon name="devicon-plain:csharp" size="36px" aria-hidden="true" />
-			<Icon name="devicon-plain:angular" size="36px" aria-hidden="true" />
-			<Icon name="devicon-plain:typescript" size="36px" aria-hidden="true" />
-			<Icon name="devicon-plain:kubernetes" size="36px" aria-hidden="true" />
-			<Icon
-				name="devicon-plain:amazonwebservices-wordmark"
-				size="36px"
-				aria-hidden="true"
-			/>
+		<div class="flex gap-2 mb-6 justify-center">
+			{
+				techIcons.map((icon) => (
+					<Icon name={icon} size="36px" aria-hidden="true" class="icon-hover" />
+				))
+			}
 		</div>
 
 		<div class="flex justify-center items-center gap-2">
-			<Icon name="line-md:chevron-down-circle" size="32px" aria-hidden="true"   class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"/>
+			<Icon
+				name="line-md:chevron-down-circle"
+				size="32px"
+				aria-hidden="true"
+				class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"
+			/>
 			<p class="text-xl">Scroll down to learn more!</p>
 		</div>
 	</div>
-</div>
+</section>
 
 <style>
 	@keyframes logo-entrance {
@@ -55,7 +62,6 @@ import { Icon } from "astro-icon/components";
 		}
 	}
 
-	/* Add these classes to your existing img tag */
 	.logo-animation {
 		animation: logo-entrance 0.6s ease-out forwards;
 	}
