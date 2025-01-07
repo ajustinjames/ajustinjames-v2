@@ -1,5 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const years = (new Date().getFullYear() - 2019).toString();
 ---
 
 <section
@@ -13,7 +15,7 @@ import { Icon } from "astro-icon/components";
 			loading="lazy"
 		/>
 	</div>
-	<div class="mb-8">
+	<div class="mb-6">
 		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
 		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-3">
 			Software Engineer
@@ -21,22 +23,45 @@ import { Icon } from "astro-icon/components";
 		<p
 			class="text-base md:text-lg mt-4 max-w-2xl mx-auto text-neutral-content"
 		>
-			Building quality solutions through software best practices
+			I've spent over {years} years building web and mobile apps. I love tackling
+			tough problems and finding smart solutions. Tech is always changing,
+			and I'm always learning. That's what keeps this work exciting.
 		</p>
 	</div>
 	<div class="mb-6">
-		<div class="flex justify-center items-center gap-2">
+		<div class="flex justify-center space-x-4 mb-6">
 			<a
-				href="#skills"
-				class="text-neutral-content hover:text-primary transition-colors duration-300"
-				onclick="event.preventDefault(); document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })">
+				href="https://github.com/ajustinjames"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Visit my GitHub profile"
+				class="p-2 rounded-full hover:text-primary transition-transform hover:scale-125 duration-150"
+			>
+				<Icon name="fa6-brands:github" size="48px" />
+			</a>
+
+			<a
+				href="https://www.linkedin.com/in/ajustinjames/"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Connect with me on LinkedIn"
+				class="p-2 rounded-full hover:text-primary transition-transform hover:scale-125 duration-150"
+			>
+				<Icon name="fa6-brands:linkedin" size="48px" />
+			</a>
+		</div>
+		<div class="flex justify-center items-center gap-2">
+			<button
+				class="text-neutral-content transition-colors duration-300"
+				onclick="document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })"
+			>
 				<Icon
 					name="line-md:chevron-down-circle"
 					size="32px"
 					aria-hidden="true"
 					class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"
 				/>
-			</a>
+			</button>
 			<p class="text-xl">Scroll down to learn more!</p>
 		</div>
 	</div>
