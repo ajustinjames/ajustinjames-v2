@@ -1,50 +1,42 @@
 ---
 import { Icon } from "astro-icon/components";
-
-const techIcons = [
-	"devicon-plain:dotnetcore",
-	"devicon-plain:csharp",
-	"devicon-plain:angular",
-	"devicon-plain:typescript",
-	"devicon-plain:kubernetes",
-	"devicon-plain:amazonwebservices-wordmark",
-];
 ---
 
-<section class="flex flex-col justify-center items-center text-center">
-	<div class="mb-6">
+<section
+	class="flex flex-col justify-center items-center text-center min-h-[85vh]"
+>
+	<div class="mb-8">
 		<img
 			src="/src/assets/ajlogo.svg"
 			alt="Logo"
-			class="w-48 h-48 mx-auto logo-animation"
+			class="w-48 h-48 mx-auto transition-transform hover:scale-105 duration-300"
 			loading="lazy"
 		/>
 	</div>
-	<div class="mb-6">
+	<div class="mb-8">
 		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
-		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-2">
+		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-3">
 			Software Engineer
 		</h2>
-		<p class="text-base md:text-lg mt-4">
+		<p
+			class="text-base md:text-lg mt-4 max-w-2xl mx-auto text-neutral-content"
+		>
 			Building quality solutions through software best practices
 		</p>
 	</div>
 	<div class="mb-6">
-		<div class="flex gap-2 mb-6 justify-center">
-			{
-				techIcons.map((icon) => (
-					<Icon name={icon} size="36px" aria-hidden="true" class="icon-hover" />
-				))
-			}
-		</div>
-
 		<div class="flex justify-center items-center gap-2">
-			<Icon
-				name="line-md:chevron-down-circle"
-				size="32px"
-				aria-hidden="true"
-				class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"
-			/>
+			<a
+				href="#skills"
+				class="text-neutral-content hover:text-primary transition-colors duration-300"
+				onclick="event.preventDefault(); document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })">
+				<Icon
+					name="line-md:chevron-down-circle"
+					size="32px"
+					aria-hidden="true"
+					class="hover:border-2 hover:border-gray-300 hover:rounded-full transition-all duration-100"
+				/>
+			</a>
 			<p class="text-xl">Scroll down to learn more!</p>
 		</div>
 	</div>
