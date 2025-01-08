@@ -1,0 +1,136 @@
+---
+const experience = [
+    {
+        company: "Healthcare Company",
+        startDate: "Mar 2023",
+        endDate: "Present",
+        location: "Remote",
+        roles: [
+            {
+                title: "Software Engineer III",
+                startDate: "Sept 2024",
+                endDate: "Present",
+                details: [
+                    "Developing and enhancing scalable web applications using Angular and .NET Core.",
+                    "Collaborating with cross-functional teams to deliver high-quality features.",
+                ],
+                technologies: ["Angular", ".NET Core", "Azure", "Kubernetes"],
+            },
+            {
+                title: "Software Engineer II",
+                startDate: "Mar 2023",
+                endDate: "Sept 2024",
+                details: [],
+                technologies: [],
+            },
+        ],
+    },
+    {
+        company: "Software Company B",
+        startDate: "Apr 2021",
+        endDate: "Jan 2023",
+        location: "Remote",
+        roles: [
+            {
+                title: "Software Engineer",
+                startDate: "Jul 2022",
+                endDate: "Jan 2023",
+                details: [
+                    "Designed and developed responsive, client-centric web applications.",
+                    "Modernized legacy systems to improve performance and compatibility.",
+                ],
+                technologies: ["C#", "Java", "Vue.js", "Flutter", "AWS"],
+            },
+            {
+                title: "Junior Software Developer",
+                startDate: "Apr 2021",
+                endDate: "Jul 2022",
+                details: [],
+                technologies: [],
+            },
+        ],
+    },
+    {
+        company: "Software Company A",
+        startDate: "Jul 2018",
+        endDate: "Jan 2021",
+        location: "Hybrid NJ",
+        roles: [
+            {
+                title: "Software Developer",
+                startDate: "Jul 2018",
+                endDate: "Jan 2021",
+                details: [
+                    "Delivered cross-platform data analytics tools across Web, iOS, Android, and Windows platforms.",
+                    "Specialized in front-end cross-platform development.",
+                ],
+                technologies: ["iOS", "Android", "WPF", "Javascript"],
+            },
+        ],
+    },
+];
+
+function duration(
+    companyStart: string | undefined,
+    companyEnd: string | undefined,
+): string {
+    if (!companyStart || !companyEnd) return "";
+
+    if (companyEnd === "Present") {
+        companyEnd = new Date().toISOString();
+    }
+    const start = new Date(companyStart);
+    const end = new Date(companyEnd);
+    const years = end.getFullYear() - start.getFullYear();
+    const months = end.getMonth() - start.getMonth() + years * 12;
+    return `(${Math.floor(months / 12)} years, ${months % 12} months)`;
+}
+---
+
+<section id="experience" class="mt-10">
+    <h2 class="text-3xl font-bold text-center mb-12">Work Experience</h2>
+    <div class="space-y-6">
+        {
+            experience.map((company) => (
+                <div class="p-4 border border-borderLight dark:border-borderDark rounded-lg shadow-sm bg-cardLightBg dark:bg-cardDarkBg">
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-xl font-semibold">{company.company}</h3>
+                        <span class="text-md text-lightTextSecondary dark:text-darkTextSecondary">
+                            {company.location}
+                        </span>
+                    </div>
+                    {company.roles.length > 1 && (
+                        <p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
+                            {company.startDate} - {company.endDate}{" "}
+                            {duration(company.startDate, company.endDate)}
+                        </p>
+                    )}
+                    <div class="space-y-4 mt-2">
+                        {company.roles.map((role) => (
+                            <div>
+                                <h4 class="text-lg font-medium">
+                                    {role.title}
+                                </h4>
+                                <p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
+                                    {role.startDate} - {role.endDate}{" "}
+                                    {duration(role.startDate, role.endDate)}
+                                </p>
+                                <ul class="list-disc ml-5 mt-2">
+                                    {role.details.map((detail) => (
+                                        <li>{detail}</li>
+                                    ))}
+                                </ul>
+                                {role.technologies.length > 0 && (
+                                    <p class="mt-2 text-sm">
+                                        <strong>Technologies:</strong>{" "}
+                                        {role.technologies.join(", ")}
+                                    </p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

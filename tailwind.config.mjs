@@ -9,6 +9,8 @@ export default {
 				primary: "#FF8C00",
 				lightBg: "#FFFAFA",
 				darkBg: "#111827",
+				cardLightBg: "#FFFFFF",
+				cardDarkBg: "#000000",
 
 				// Typography Colors
 				lightTextPrimary: "#1F2937",

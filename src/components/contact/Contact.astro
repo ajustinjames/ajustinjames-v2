@@ -1,0 +1,53 @@
+---
+
+---
+
+<section id="contact" class="mt-10 px-4 sm:px-8">
+    <h3 class="text-3xl font-bold text-center mb-12">Contact Me</h3>
+    <div
+        class="p-6 border dark:border-none rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg"
+    >
+        <form class="space-y-6">
+            <label class="block">
+                <span class="block text-sm font-medium">Name</span>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary"
+                />
+            </label>
+            <label class="block">
+                <span class="block text-sm font-medium">Email</span>
+                <input
+                    type="email"
+                    name="email"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary"
+                />
+            </label>
+            <label class="block">
+                <span class="block text-sm font-medium">Message</span>
+                <textarea
+                    name="message"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary"
+                ></textarea>
+            </label>
+            <div class="flex justify-between gap-4">
+                <button
+                    type="submit"
+                    class="py-2 px-4 bg-primary hover:bg-primaryHover text-white font-semibold rounded-md shadow-sm transition-colors"
+                >
+                    Submit
+                </button>
+                <button 
+                    type="reset"
+                    class="py-2 px-4 bg-surfaceLight dark:bg-surfaceDark hover:bg-surfaceLightHover dark:hover:bg-surfaceDarkHover text-lightTextPrimary dark:text-darkTextPrimary border border-borderLight dark:border-borderDark rounded-md shadow-sm transition-colors"
+                > 
+                    Clear 
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
