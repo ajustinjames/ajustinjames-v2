@@ -51,7 +51,7 @@
                 </div>
                 <div
                     class="cf-turnstile"
-                    data-sitekey="0x4AAAAAAA40mxtAMupqB9-z"
+                    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
                 >
                 </div>
             </div>
@@ -59,7 +59,7 @@
     </div>
 </section>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
 ></script>
 
 <script>
