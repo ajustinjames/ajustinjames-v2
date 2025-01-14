@@ -16,11 +16,12 @@ export async function POST({ request }: { request: Request }) {
         email = email.length > 100 ? email.substring(0, 100) : email;
         message = message.length > 500 ? message.substring(0, 500) : message;
 
-        const secretKey = import.meta.env.TURNSTILE_SECRET_KEY;
+        const secretKey = import.meta.env.TURNSTILE_SECRET_TOKEN;
         const turnstileValidationResponse = await fetch(
             'https://challenges.cloudflare.com/turnstile/v0/siteverify',
             {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({
                     secret: secretKey,
                     response: turnstileToken,
@@ -29,10 +30,9 @@ export async function POST({ request }: { request: Request }) {
         );
 
         const turnstileValidation = await turnstileValidationResponse.json();
-        console.log('turnstileValidationSuccess:', turnstileValidation.success);
         if (!turnstileValidation.success) {
             console.error('Turnstile validation failed:', turnstileValidation);
-            return new Response('Turnstile validation failed.', { status: 403 });
+            return new Response(`Turnstile validation failed: ${turnstileValidation['error-codes']}`, { status: 403 });
         }
 
         const webhookUrl = import.meta.env.DISCORD_WEBHOOK_URL;
