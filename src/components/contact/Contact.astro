@@ -1,5 +1,5 @@
 ---
-
+const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
 ---
 
 <section id="contact" class="mt-12 px-6 sm:px-10">
@@ -59,20 +59,23 @@
     </div>
 </section>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
-></script>
+<script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+    is:inline></script>
 
-<script>
-    const form = document.getElementById("contact-form") as HTMLFormElement;
+<script define:vars={{ contactFormUrl }} is:inline>
+    const form = document.getElementById("contact-form");
 
-    const handleSubmit = async (event: SubmitEvent) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
 
         const formData = new FormData(form);
 
         try {
-            const response = await fetch("/api/contact", {
+            const response = await fetch(contactFormUrl, {
                 method: "POST",
                 body: formData,
             });

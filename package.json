@@ -10,7 +10,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.2.0",
     "@astrojs/tailwind": "^5.1.4",
     "astro": "^5.1.6",
     "astro-icon": "^1.1.5",
