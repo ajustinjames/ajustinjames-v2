@@ -9,7 +9,7 @@ export async function POST({ request }: { request: Request }) {
         const turnstileToken = formData.get('cf-turnstile-response') as string;
         const ip = request.headers.get("CF-Connecting-IP") as string;
 
-        if (!name || !email || !message || !turnstileToken) {
+        if (!name || !email || !message) {
             return new Response('Missing required field(s).', { status: 400 });
         }
 
