@@ -7,7 +7,6 @@ export async function POST({ request }: { request: Request }) {
         let email = sanitizeEmail(formData.get('email') as string);
         let message = sanitizeString(formData.get('message') as string);
         const turnstileToken = formData.get('cf-turnstile-response') as string;
-        const ip = request.headers.get("CF-Connecting-IP") as string;
 
         if (!name || !email || !message) {
             return new Response('Missing required field(s).', { status: 400 });
@@ -22,18 +21,17 @@ export async function POST({ request }: { request: Request }) {
             'https://challenges.cloudflare.com/turnstile/v0/siteverify',
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({
                     secret: secretKey,
                     response: turnstileToken,
-                    remoteip: ip
                 }),
             }
         );
 
         const turnstileValidation = await turnstileValidationResponse.json();
+        console.log('turnstileValidationSuccess:', turnstileValidation.success);
         if (!turnstileValidation.success) {
-            console.error('Turnstile validation failed:', turnstileValidation['error-codes']);
+            console.error('Turnstile validation failed:', turnstileValidation);
             return new Response('Turnstile validation failed.', { status: 403 });
         }
 
