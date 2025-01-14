@@ -6,7 +6,7 @@ export async function POST({ request }: { request: Request }) {
         let name = sanitizeString(formData.get('name') as string);
         let email = sanitizeEmail(formData.get('email') as string);
         let message = sanitizeString(formData.get('message') as string);
-        const turnstileToken = formData.get('cf-turnstile-response') as string | null;
+        const turnstileToken = formData.get('cf-turnstile-response') as string;
 
         if (!name || !email || !message || !turnstileToken) {
             return new Response('Missing required field(s).', { status: 400 });
@@ -31,6 +31,7 @@ export async function POST({ request }: { request: Request }) {
 
         const turnstileValidation = await turnstileValidationResponse.json();
         if (!turnstileValidation.success) {
+            console.error('Turnstile validation failed:', turnstileValidation['error-codes']);
             return new Response('Turnstile validation failed.', { status: 403 });
         }
 
