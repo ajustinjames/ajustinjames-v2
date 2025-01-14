@@ -24,7 +24,7 @@
     "@iconify-json/line-md": "^1.2.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@types/react": "^19.0.2",
+    "@types/react": "^19.0.6",
     "jsdom": "^25.0.1",
     "vitest": "^2.1.8"
   }
