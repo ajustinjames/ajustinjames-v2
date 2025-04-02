@@ -1,11 +1,11 @@
 ---
 const { title, description, url, pubDate } = Astro.props;
-
-const formattedDate = new Date(pubDate).toLocaleDateString('en-us', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-});
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC'
+}).format(new Date(pubDate));
 ---
 
 <div class="group relative overflow-hidden rounded-lg border border-zinc-200 bg-white p-6 transition-all hover:border-zinc-300 hover:shadow-lg">
