@@ -1,0 +1,28 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+<Layout title={frontmatter.title} description={frontmatter.description}>
+  <article class="max-w-3xl mx-auto p-8 rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg border border-borderLight dark:border-borderDark">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
+      <div class="flex flex-wrap gap-4 items-center text-lightTextSecondary dark:text-darkTextSecondary">
+        <time datetime={frontmatter.pubDate.toString()}>
+          {frontmatter.pubDate.toString().slice(0,10)}
+        </time>
+        <p>Written by: {frontmatter.author}</p>
+      </div>
+      <p class="mt-4 text-lg italic">{frontmatter.description}</p>
+    </header>
+
+    <img 
+      src={frontmatter.image.url} 
+      alt={frontmatter.image.alt} 
+      class="w-full max-w-2xl mx-auto rounded-lg mb-8"
+    />
+    
+    <div class="prose prose-zinc dark:prose-invert max-w-none">
+      <slot />
+    </div>
+  </article>
+</Layout>

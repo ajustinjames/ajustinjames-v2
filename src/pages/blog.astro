@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogPostCard from '../components/blog/BlogPostCard.astro';
+const allPosts = Object.values(import.meta.glob('./posts/**/*.md', { eager: true }));
+const recentPosts = allPosts.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()).slice(0, 4);
+---
+
+<Layout title="Blog" description="Blog Homepage">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <header class="mb-12">
+            <h1 class="text-4xl font-bold text-zinc-900 mb-4">Recent Posts</h1>
+            <p class="text-lg text-zinc-600">Thoughts on software development, technology, gaming, and more!</p>
+        </header>
+
+        <ul class="grid gap-6 md:grid-cols-2">
+            {recentPosts.map((post: any) => (
+                <li>
+                    <BlogPostCard 
+                        url={post.url} 
+                        title={post.frontmatter.title} 
+                        description={post.frontmatter.description}
+                        pubDate={post.frontmatter.pubDate}
+                    />
+                </li>
+            ))}
+        </ul>
+    </div>
+</Layout>
