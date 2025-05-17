@@ -1,4 +1,6 @@
 name: Build Astro Project
+permissions:
+  contents: read
 
 on:
   pull_request:
