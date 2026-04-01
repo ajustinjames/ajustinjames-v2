@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import BlogPostCard from '../components/blog/BlogPostCard.astro';
 const allPosts = Object.values(import.meta.glob('./posts/**/*.md', { eager: true }));
-const recentPosts = allPosts.sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()).slice(0, 4);
+const recentPosts = allPosts
+    .filter((post: any) => post.url && !post.url.includes('_template'))
+    .sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+    .slice(0, 4);
 ---
 
 <Layout title="Blog" description="Blog Homepage">

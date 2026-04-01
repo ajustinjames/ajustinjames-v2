@@ -17,11 +17,11 @@ const years = (new Date().getFullYear() - 2019).toString();
 	</div>
 	<div class="mb-6">
 		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
-		<h2 class="text-xl md:text-2xl font-semibold text-secondary mt-3">
+		<h2 class="text-xl md:text-2xl font-semibold text-lightTextSecondary dark:text-darkTextSecondary mt-3">
 			Software Engineer
 		</h2>
 		<p
-			class="text-base md:text-lg mt-4 max-w-2xl mx-auto text-neutral-content"
+			class="text-base md:text-lg mt-4 max-w-2xl mx-auto text-lightTextPrimary dark:text-darkTextPrimary"
 		>
 			I've spent over {years} years building web and mobile apps. I love tackling
 			tough problems and finding smart solutions. Tech is always changing,
@@ -52,7 +52,7 @@ const years = (new Date().getFullYear() - 2019).toString();
 		</div>
 		<div class="flex justify-center items-center gap-2">
 			<button
-				class="text-neutral-content transition-colors duration-300"
+				class="text-lightTextPrimary dark:text-darkTextPrimary transition-colors duration-300"
 				onclick="document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })"
 				aria-label="Scroll down to skills section"
 			>
