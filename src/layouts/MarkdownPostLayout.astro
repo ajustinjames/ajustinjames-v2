@@ -2,7 +2,13 @@
 import Layout from './Layout.astro';
 const { frontmatter } = Astro.props;
 ---
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image?.url}
+  type="article"
+  publishedDate={frontmatter.pubDate?.toString()}
+>
   <article class="max-w-3xl mx-auto p-8 rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg border border-borderLight dark:border-borderDark">
     <header class="mb-8">
       <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
