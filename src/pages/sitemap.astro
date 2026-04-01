@@ -3,14 +3,14 @@ import Layout from "../layouts/Layout.astro";
 
 const links = [
 	{ href: "/", label: "Home" },
-	//   { href: "/apps", label: "Applications" },
 	{ href: "/blog", label: "Blog" },
+	{ href: "/projects", label: "Projects" },
 ];
 ---
 
 <Layout title="Sitemap" description="Navigation structure of the website">
-	<main class="max-w-2xl mx-auto px-4 py-8">
-		<h1 class="text-2xl font-semibold mb-6">Sitemap</h1>
+	<div class="max-w-2xl mx-auto px-4 py-8">
+		<h1 class="text-3xl font-bold mb-6">Sitemap</h1>
 
 		<ul class="space-y-3">
 			{
@@ -26,5 +26,5 @@ const links = [
 				))
 			}
 		</ul>
-	</main>
+	</div>
 </Layout>

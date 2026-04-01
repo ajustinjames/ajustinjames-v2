@@ -2,11 +2,17 @@
 const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
 ---
 
-<section id="contact" class="mt-12 px-6 sm:px-10">
+<section id="contact" class="py-16 px-4 max-w-6xl mx-auto">
     <h3 class="text-3xl font-bold text-center mb-8">Contact Me</h3>
     <div
-        class="p-8 border dark:border-none rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg"
+        class="p-8 border border-borderLight dark:border-borderDark rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg"
     >
+        <div
+            id="form-feedback"
+            class="hidden mb-6 px-4 py-3 rounded-md border text-sm font-medium"
+            role="alert"
+            aria-live="polite"
+        ></div>
         <form id="contact-form" method="POST" class="space-y-6">
             <label class="block space-y-2">
                 <span class="text-sm font-medium">Name</span>
@@ -67,6 +73,20 @@ const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
 
 <script define:vars={{ contactFormUrl }} is:inline>
     const form = document.getElementById("contact-form");
+    const feedback = document.getElementById("form-feedback");
+
+    function showFeedback(message, isSuccess) {
+        if (!feedback) return;
+        feedback.textContent = message;
+        feedback.className = isSuccess
+            ? "mb-6 px-4 py-3 rounded-md border text-sm font-medium bg-green-50 border-green-300 text-green-800 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300"
+            : "mb-6 px-4 py-3 rounded-md border text-sm font-medium bg-red-50 border-red-300 text-red-800 dark:bg-red-900/20 dark:border-red-700 dark:text-red-300";
+        if (isSuccess) {
+            setTimeout(() => {
+                feedback.className = "hidden mb-6 px-4 py-3 rounded-md border text-sm font-medium";
+            }, 5000);
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -81,16 +101,16 @@ const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
             });
 
             if (response.ok) {
-                alert("Message sent successfully!");
+                showFeedback("Message sent successfully!", true);
                 form.reset();
                 return false;
             } else {
                 const error = await response.text();
-                alert(`Error: ${error}`);
+                showFeedback(`Error: ${error}`, false);
             }
         } catch (error) {
             console.error("Error submitting form:", error);
-            alert("An error occurred while sending your message.");
+            showFeedback("An error occurred while sending your message.", false);
         }
         return false;
     };

@@ -1,4 +1,10 @@
 {
+  "name": "Aaron James",
+  "short_name": "ajustinjames",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#FF8C00",
+  "background_color": "#FFFAFA",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

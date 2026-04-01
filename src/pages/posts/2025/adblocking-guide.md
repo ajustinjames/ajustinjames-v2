@@ -34,7 +34,7 @@ Before we can discuss blocking ads on the internet we must briefly mention your 
 
 ### **[Firefox](https://www.mozilla.org/en-US/firefox/new/)**
 
-For now Firefox is my recommendation. Its not perfect<sup>[3](https://support.mozilla.org/en-US/kb/sponsor-privacy)</sup>, but is an open source browser with strong community extension support and the tools to strength the privacy and adblocking properties
+For now Firefox is my recommendation. It's not perfect<sup>[3](https://support.mozilla.org/en-US/kb/sponsor-privacy)</sup>, but is an open source browser with strong community extension support and the tools to strength the privacy and adblocking properties
 
 <details>
   <summary>Recommended settings</summary>
@@ -55,7 +55,7 @@ For now Firefox is my recommendation. Its not perfect<sup>[3](https://support.mo
 
 ### **[Brave](https://brave.com/)**
 
-If you absolutely must use a Chromium browser, I recommend not using Google Chrome or Microsoft Edge. It can be argued which is worse for privacy.<sup>[4](https://www.intrust-it.com/edge-vs-chrome-what-is-the-safest-browser/)</sup> I use Brave even through the controversies<sup>[5](https://en.wikipedia.org/wiki/Brave_(web_browser)#Controversies)</sup> as the product has options to disable unnecessary features and it works better than Firefox on Android.
+If you absolutely must use a Chromium browser, I recommend not using Google Chrome or Microsoft Edge. It can be argued which is worse for privacy.<sup>[4](https://www.intrust-it.com/edge-vs-chrome-what-is-the-safest-browser/)</sup> I use Brave even though the controversies<sup>[5](https://en.wikipedia.org/wiki/Brave_(web_browser)#Controversies)</sup> as the product has options to disable unnecessary features and it works better than Firefox on Android.
 
 # Extensions
 
@@ -113,7 +113,7 @@ While Twitter on desktop can be viewed ad-free with the use of uBlock Origin, th
 
 # Blocklists
 
-You should not ad as many blocklists as possible, as it will end up blocking non-ads through false positives. It can also be resource intensive causing slowdowns and increased battery usage. You should find a balance to pick the lists you need. I currently enable all of the default blocklists in uBlock Origin
+You should not add as many blocklists as possible, as it will end up blocking non-ads through false positives. It can also be resource intensive causing slowdowns and increased battery usage. You should find a balance to pick the lists you need. I currently enable all of the default blocklists in uBlock Origin
 
 ## Notable Blocklists
 

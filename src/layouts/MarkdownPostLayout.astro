@@ -1,26 +1,53 @@
 ---
 import Layout from './Layout.astro';
-const { frontmatter } = Astro.props;
+const { frontmatter, rawContent } = Astro.props;
+
+const wordCount = rawContent().split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(frontmatter.pubDate));
 ---
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image?.url}
+  type="article"
+  publishedDate={frontmatter.pubDate?.toString()}
+>
   <article class="max-w-3xl mx-auto p-8 rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg border border-borderLight dark:border-borderDark">
     <header class="mb-8">
       <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
       <div class="flex flex-wrap gap-4 items-center text-lightTextSecondary dark:text-darkTextSecondary">
         <time datetime={frontmatter.pubDate.toString()}>
-          {frontmatter.pubDate.toString().slice(0,10)}
+          {formattedDate}
         </time>
+        <span>{readingTime} min read</span>
         <p>Written by: {frontmatter.author}</p>
       </div>
+      {frontmatter.tags?.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-3">
+          {frontmatter.tags.map((tag: string) => (
+            <span class="text-xs px-2 py-1 rounded-full bg-surfaceLightHover dark:bg-surfaceDarkHover border border-borderLight dark:border-borderDark">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <p class="mt-4 text-lg italic">{frontmatter.description}</p>
     </header>
 
-    <img 
-      src={frontmatter.image.url} 
-      alt={frontmatter.image.alt} 
+    <img
+      src={frontmatter.image.url}
+      alt={frontmatter.image.alt}
+      loading="lazy"
       class="w-full max-w-2xl mx-auto rounded-lg mb-8"
     />
-    
+
     <div class="prose prose-zinc dark:prose-invert max-w-none">
       <slot />
     </div>

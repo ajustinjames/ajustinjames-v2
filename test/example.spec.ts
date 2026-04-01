@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-describe('example test', () => {
-  it('passes an example test', () => {
-    expect(1 + 1).toBe(2);
+describe('build sanity check', () => {
+  it('vitest is configured', () => {
+    expect(true).toBe(true);
   });
 });

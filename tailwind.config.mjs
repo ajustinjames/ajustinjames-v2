@@ -24,15 +24,8 @@ export default {
 				surfaceDark: "#1F2937",
 				surfaceDarkHover: "#374151",
 
-				// Feedback Colors
-				feedbackSuccess: "#10B981",
-				feedbackError: "#EF4444",
-				feedbackWarning: "#F59E0B",
-				feedbackInfo: "#3B82F6",
-
 				// Interactive States
 				primaryHover: "#F87B16",
-				primaryActive: "#E67200",
 				borderLight: "#E5E7EB",
 				borderDark: "#374151",
 			},

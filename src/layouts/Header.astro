@@ -17,14 +17,14 @@ const currentPath = Astro.url.pathname;
 			>
 			<div class="flex gap-6 items-center">
 				<ul class="flex gap-8 items-center">
-					<!-- <li class="flex items-center">
+						<li class="flex items-center">
 						<a
-							href="/apps"
+							href="/projects"
 							class="hover:text-primary text-lg transition-colors"
-							aria-current={currentPath === "/apps" ? "page" : undefined}
-							>Apps</a
+							aria-current={currentPath === "/projects" ? "page" : undefined}
+							>Projects</a
 						>
-					</li> -->
+					</li>
 					<li class="flex items-center">
 						<a
 							href="/blog"
@@ -36,7 +36,7 @@ const currentPath = Astro.url.pathname;
 				</ul>
 				<div class="flex items-center">
 					<button
-						class="--text-primary hover:text-primary text-lg flex items-center transition-colors"
+						class="hover:text-primary text-lg flex items-center transition-colors"
 						onclick="toggleTheme()"
 						aria-label="Toggle dark mode"
 						type="button"

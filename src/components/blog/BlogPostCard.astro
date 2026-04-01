@@ -1,5 +1,12 @@
 ---
-const { title, description, url, pubDate } = Astro.props;
+interface Props {
+    title: string;
+    description: string;
+    url: string;
+    pubDate: string;
+    tags?: string[];
+}
+const { title, description, url, pubDate, tags } = Astro.props;
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
@@ -22,6 +29,16 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
             {description}
         </p>
         
+        {tags && tags.length > 0 && (
+            <div class="mt-3 flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                    <span class="text-xs px-2 py-1 rounded-full bg-surfaceLightHover dark:bg-surfaceDarkHover border border-borderLight dark:border-borderDark">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+        )}
+
         <div class="mt-4 flex items-center text-sm text-lightTextSecondary dark:text-darkTextSecondary">
             <span class="group-hover:underline">Read more</span>
             <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">
