@@ -13,4 +13,10 @@ export const projects: Project[] = [
 		technologies: ["Go", "SQLite", "JavaScript"],
 		repoUrl: "https://github.com/ajustinjames/simple-wol",
 	},
+	{
+		name: "Selling Insert Generator",
+		description: "Client-side web app for generating thermal-printable 4×6 package insert PDFs for online seller storefronts. Fully configurable — runs entirely in the browser, no server required.",
+		technologies: ["Vite", "JavaScript", "pdf-lib", "CSS"],
+		repoUrl: "https://github.com/ajustinjames/selling-insert-generator",
+	},
 ];
