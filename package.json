@@ -32,6 +32,6 @@
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
     "typescript": "^5.9.3",
-    "vitest": "^3.0.5"
+    "vitest": "^4.1.3"
   }
 }
