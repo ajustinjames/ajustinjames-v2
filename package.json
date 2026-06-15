@@ -12,11 +12,18 @@
     "lint": "eslint src/"
   },
   "dependencies": {
+    "@ajustinjames/hardline-components": "0.0.5",
+    "@ajustinjames/hardline-tokens": "0.0.5",
+    "@astrojs/lit": "^4.3.0",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.3.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@webcomponents/template-shadowroot": "^0.2.1",
     "astro": "^5.7.10",
     "astro-icon": "^1.1.5",
+    "lit": "^3.3.3",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {

@@ -1,3 +1,11 @@
+@import "@ajustinjames/hardline-tokens/css";
+@import "@ajustinjames/hardline-tokens/css-dark";
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/600.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,30 +19,30 @@
 }
 
 @layer components {
-	/* Text scale effect */
-	.scale-hover {
-		transition: all 0.3s;
-	}
-	.scale-hover:hover {
-		transform: scale(1.1);
-		color: theme("colors.primary");
+	/* hl-card visual shell, applied via plain CSS instead of the <hl-card>
+	   custom element: @lit-labs/ssr crashes when <hl-card> wraps arbitrary
+	   slotted content during static rendering (Cannot read properties of
+	   undefined (reading 'length') in render-value.js). This reproduces the
+	   same elevation-2 surface using hardline tokens directly. */
+	.hl-card-shell {
+		background-color: var(--hl-alias-surface-bg);
+		border: var(--hl-alias-surface-border-width) solid var(--hl-alias-surface-border);
+		box-shadow: var(--hl-alias-shadow-2);
+		padding: var(--hl-alias-surface-padding);
 	}
 
-	/* Text underline effect */
-	.underline-hover {
-		position: relative;
+	/* Hardline-style hover-lift effect: nudges the element up-left and adds a
+	   heavier shadow on hover, matching the hardline shadow scale. */
+	.hover-lift {
+		box-shadow: var(--hl-alias-shadow-1);
 	}
-	.underline-hover::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		height: 2px;
-		width: 0;
-		background-color: theme("colors.primary");
-		transition: width 0.3s;
-	}
-	.underline-hover:hover::after {
-		width: 100%;
+	@media (prefers-reduced-motion: no-preference) {
+		.hover-lift {
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+		}
+		.hover-lift:hover {
+			transform: translate(-2px, -2px);
+			box-shadow: var(--hl-alias-shadow-2);
+		}
 	}
 }

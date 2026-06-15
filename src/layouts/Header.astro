@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
 		>
 			<a
 				href="/"
-				class="text-2xl font-medium flex items-center"
+				class="text-2xl font-medium flex items-center hover-lift"
 				id="home"
 				aria-label="ajustinjames - return to homepage">ajustinjames</a
 			>
@@ -36,9 +36,11 @@ const currentPath = Astro.url.pathname;
 				</ul>
 				<div class="flex items-center">
 					<button
+						id="theme-toggle"
 						class="hover:text-primary text-lg flex items-center transition-colors"
 						onclick="toggleTheme()"
 						aria-label="Toggle dark mode"
+						aria-pressed="false"
 						type="button"
 					>
 						<Icon
@@ -59,10 +61,3 @@ const currentPath = Astro.url.pathname;
 		</nav>
 	</div>
 </header>
-
-<script>
-	const home = document.getElementById("home");
-	const effects = ["scale-hover", "underline-hover"];
-	const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-	home?.classList.add(randomEffect);
-</script>

@@ -1,0 +1,10 @@
+---
+interface Props {
+    tags: string[];
+}
+const { tags } = Astro.props;
+
+const html = tags.map((tag) => `<hl-tag>${tag.toUpperCase()}</hl-tag>`).join('');
+---
+
+<div class="flex flex-wrap gap-2" set:html={html} />

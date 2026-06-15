@@ -1,5 +1,4 @@
 ---
-layout: ../../../layouts/MarkdownPostLayout.astro
 title: 'Adblocking Solutions'
 pubDate: 2025-04-30
 description: 'Tips and tricks I have learned for blocking advertisements and trackers on the internet.'

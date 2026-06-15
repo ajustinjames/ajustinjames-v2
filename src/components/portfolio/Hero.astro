@@ -6,19 +6,19 @@ const years = (new Date().getFullYear() - 2019).toString();
 ---
 
 <section
-	class="flex flex-col justify-center items-center text-center min-h-[85vh]"
+	class="flex flex-col justify-center items-center text-center py-16 md:py-24"
 >
 	<div class="mb-8">
 		<img
 			src="/ajlogo.svg"
 			alt="Logo"
-			class="w-48 h-48 mx-auto transition-transform hover:scale-105 duration-300"
+			class="w-48 h-48 mx-auto transition-transform duration-300 motion-safe:hover:scale-105"
 			loading="lazy"
 		/>
 	</div>
 	<div class="mb-6">
 		<h1 class="text-4xl md:text-6xl font-bold text-primary">Aaron James</h1>
-		<h2 class="text-xl md:text-2xl font-semibold text-lightTextSecondary dark:text-darkTextSecondary mt-3">
+		<h2 class="text-xl md:text-2xl font-mono font-semibold text-lightTextSecondary dark:text-darkTextSecondary mt-3">
 			Software Engineer
 		</h2>
 		<p
@@ -37,13 +37,13 @@ const years = (new Date().getFullYear() - 2019).toString();
 					target="_blank"
 					rel="noopener noreferrer"
 					aria-label={link.label}
-					class="p-2 rounded-full hover:text-primary transition-transform hover:scale-125 duration-150"
+					class="p-2 hover:text-primary transition-transform duration-150 motion-safe:hover:scale-125"
 				>
 					<Icon name={link.iconName} size="48px" />
 				</a>
 			))}
 		</div>
-		<div class="flex justify-center items-center gap-2">
+		<div class="flex justify-center items-center">
 			<button
 				class="text-lightTextPrimary dark:text-darkTextPrimary transition-colors duration-300"
 				onclick="document.querySelector('#skills').scrollIntoView({ behavior: 'smooth' })"
@@ -53,10 +53,9 @@ const years = (new Date().getFullYear() - 2019).toString();
 					name="line-md:chevron-down-circle"
 					size="32px"
 					aria-hidden="true"
-					class="hover:border-2 hover:border-borderLight dark:hover:border-borderDark hover:rounded-full transition-all duration-100"
+					class="transition-all duration-100 motion-safe:hover:border-2 motion-safe:hover:border-borderLight dark:motion-safe:hover:border-borderDark motion-safe:hover:rounded-full"
 				/>
 			</button>
-			<p class="text-xl text-lightTextPrimary dark:text-darkTextPrimary">Scroll down to learn more!</p>
 		</div>
 	</div>
 </section>
