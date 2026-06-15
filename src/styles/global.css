@@ -14,7 +14,7 @@
 	/* Base styles — @apply is intentionally used here since body styles cannot
 	   be applied via utility classes on the <body> element from a CSS file. */
 	body {
-		@apply bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary min-h-screen;
+		@apply bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary min-h-screen font-sans;
 	}
 }
 
@@ -29,6 +29,53 @@
 		border: var(--hl-alias-surface-border-width) solid var(--hl-alias-surface-border);
 		box-shadow: var(--hl-alias-shadow-2);
 		padding: var(--hl-alias-surface-padding);
+	}
+
+	/* <hl-input>'s :host rule sets border/background, but Tailwind's preflight
+	   (@layer base) resets border-width and background on every element via
+	   the `*` selector and loses the same "@layer base vs unlayered" fight
+	   described below for <hl-btn>. Reproduce the host border/background
+	   (including the :focus-within accent state) here in @layer components. */
+	hl-input {
+		border: var(--hl-alias-surface-border-width, 1px) solid var(--hl-input-border, var(--hl-alias-surface-border, #1a1a1a));
+		background: var(--hl-input-bg, var(--hl-alias-surface-bg-alt, #f0f0ec));
+	}
+	hl-input:focus-within {
+		border-color: var(--hl-global-color-accent, #ff4f00);
+		background: var(--hl-alias-surface-bg, #ffffff);
+	}
+	hl-input[state="error"] {
+		border-color: var(--hl-input-border-error, var(--hl-alias-status-error, #cc0000));
+	}
+	hl-input[state="success"] {
+		border-color: var(--hl-input-border-success, var(--hl-alias-status-success, #1a6b1a));
+	}
+
+	/* <hl-btn> styles its slotted <button>/<a> via ::slotted(*) in its shadow
+	   stylesheet, but Tailwind's preflight (@layer base) resets button border,
+	   padding, and background on the same light-DOM element. Cascade layers
+	   beat specificity, so the unlayered ::slotted rule loses to @layer base
+	   for those properties. Reproduce the slotted styles here in @layer
+	   components (which beats @layer base) using the --hl-btn-* custom
+	   properties set on <hl-btn>'s :host, which inherit through to slotted
+	   children. */
+	hl-btn > button,
+	hl-btn > a {
+		font-family: var(--hl-alias-font-technical, "JetBrains Mono", monospace);
+		font-size: var(--hl-btn-font-size, 12px);
+		font-weight: var(--hl-alias-font-weight-bold, 600);
+		text-transform: uppercase;
+		border-radius: 0;
+		border: 1px solid var(--hl-btn-border-color, #1a1a1a);
+		border-style: var(--hl-btn-border-style, solid);
+		background: var(--hl-btn-bg, #ffffff);
+		color: var(--hl-btn-color, #1a1a1a);
+		padding: var(--hl-btn-padding-y, 12px) var(--hl-btn-padding-x, 16px);
+		box-shadow: var(--hl-btn-shadow);
+		cursor: pointer;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
 	}
 
 	/* Hardline-style hover-lift effect: nudges the element up-left and adds a

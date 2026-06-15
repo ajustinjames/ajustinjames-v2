@@ -21,7 +21,7 @@ const turnstileSiteKey: string = import.meta.env.TURNSTILE_SITE_KEY;
                 </div>
                 {
                     turnstileSiteKey && (
-                        <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+                        <div class="cf-turnstile w-full sm:w-auto" data-sitekey={turnstileSiteKey} data-size="flexible"></div>
                     )
                 }
             </div>
