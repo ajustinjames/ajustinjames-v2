@@ -1,65 +1,29 @@
 ---
 const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
+const turnstileSiteKey: string = import.meta.env.TURNSTILE_SITE_KEY;
 ---
 
 <section id="contact" class="py-16 px-4 max-w-6xl mx-auto">
     <h3 class="text-3xl font-bold text-center mb-8">Contact Me</h3>
     <div
-        class="p-8 border border-borderLight dark:border-borderDark rounded-lg shadow-md bg-cardLightBg dark:bg-cardDarkBg"
+        class="hl-card-shell"
     >
-        <div
-            id="form-feedback"
-            class="hidden mb-6 px-4 py-3 rounded-md border text-sm font-medium"
-            role="alert"
-            aria-live="polite"
-        ></div>
+        <div id="form-feedback-container" class="mb-6"></div>
         <form id="contact-form" method="POST" class="space-y-6">
-            <label class="block space-y-2">
-                <span class="text-sm font-medium">Name</span>
-                <input
-                    type="text"
-                    name="name"
-                    required
-                    class="block w-full px-4 py-3 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary"
-                />
-            </label>
-            <label class="block space-y-2">
-                <span class="text-sm font-medium">Email</span>
-                <input
-                    type="email"
-                    name="email"
-                    required
-                    class="block w-full px-4 py-3 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary"
-                />
-            </label>
-            <label class="block space-y-2">
-                <span class="text-sm font-medium">Message</span>
-                <textarea
-                    name="message"
-                    required
-                    class="block w-full px-4 py-3 bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark text-lightTextPrimary dark:text-darkTextPrimary rounded-md shadow-sm focus:ring-1 focus:ring-primary resize-none"
-                    rows="5"></textarea>
-            </label>
+            <div set:html={`<hl-input label-for="contact-name"><label slot="label" for="contact-name">Name</label><input type="text" id="contact-name" name="name" required /></hl-input>`} />
+            <div set:html={`<hl-input label-for="contact-email"><label slot="label" for="contact-email">Email</label><input type="email" id="contact-email" name="email" required /></hl-input>`} />
+            <div set:html={`<hl-input label-for="contact-message"><label slot="label" for="contact-message">Message</label><textarea id="contact-message" name="message" required rows="5"></textarea></hl-input>`} />
             <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
                 <div class="flex items-center gap-4">
-                    <button
-                        type="submit"
-                        class="h-[48px] max-h-[48px] py-3 px-6 bg-primary hover:bg-primaryHover text-white font-semibold rounded-md shadow-md transition-all sm:w-auto"
-                    >
-                        Submit
-                    </button>
-                    <button
-                        type="reset"
-                        class="h-[48px] max-h-[48px] py-3 px-6 text-lightTextPrimary dark:text-darkTextPrimary bg-surfaceLight dark:bg-surfaceDark border border-borderLight dark:border-borderDark rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all font-semibold shadow-md sm:w-auto"
-                    >
-                        Clear
-                    </button>
+                    <span set:html={`<hl-btn variant="primary" size="md"><button type="submit" id="submit-btn">Send</button></hl-btn>`} />
+                    <span set:html={`<hl-btn variant="ghost" size="md"><button type="reset">Clear</button></hl-btn>`} />
+                    <hl-spinner id="submit-spinner" size="sm" label="Sending..." hidden></hl-spinner>
                 </div>
-                <div
-                    class="cf-turnstile"
-                    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
-                >
-                </div>
+                {
+                    turnstileSiteKey && (
+                        <div class="cf-turnstile w-full sm:w-auto" data-sitekey={turnstileSiteKey} data-size="flexible"></div>
+                    )
+                }
             </div>
         </form>
     </div>
@@ -73,18 +37,49 @@ const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
 
 <script define:vars={{ contactFormUrl }} is:inline>
     const form = document.getElementById("contact-form");
-    const feedback = document.getElementById("form-feedback");
+    const feedbackContainer = document.getElementById("form-feedback-container");
+    const submitWrapper = document.getElementById("submit-btn")?.closest("hl-btn");
+    const submitBtn = document.getElementById("submit-btn");
+    const spinner = document.getElementById("submit-spinner");
+
+    // <hl-alert> is created client-side to avoid an SSR crash in
+    // @ajustinjames/hardline-components' ds-alert (lit-ssr cannot parse its
+    // dynamic `style="--hl-alert-tone-color:${color}"` attribute binding).
+    let feedback = null;
 
     function showFeedback(message, isSuccess) {
-        if (!feedback) return;
+        if (!feedbackContainer) return;
+        if (!feedback) {
+            feedback = document.createElement("hl-alert");
+            feedback.id = "form-feedback";
+            feedback.setAttribute("aria-live", "polite");
+            feedbackContainer.appendChild(feedback);
+        }
         feedback.textContent = message;
-        feedback.className = isSuccess
-            ? "mb-6 px-4 py-3 rounded-md border text-sm font-medium bg-green-50 border-green-300 text-green-800 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300"
-            : "mb-6 px-4 py-3 rounded-md border text-sm font-medium bg-red-50 border-red-300 text-red-800 dark:bg-red-900/20 dark:border-red-700 dark:text-red-300";
+        feedback.setAttribute("tone", isSuccess ? "success" : "error");
+        feedback.removeAttribute("hidden");
         if (isSuccess) {
             setTimeout(() => {
-                feedback.className = "hidden mb-6 px-4 py-3 rounded-md border text-sm font-medium";
+                feedback.setAttribute("hidden", "");
             }, 5000);
+        }
+    }
+
+    function setLoading(isLoading) {
+        if (submitWrapper) {
+            if (isLoading) {
+                submitWrapper.setAttribute("disabled", "");
+            } else {
+                submitWrapper.removeAttribute("disabled");
+            }
+        }
+        if (submitBtn) submitBtn.disabled = isLoading;
+        if (spinner) {
+            if (isLoading) {
+                spinner.removeAttribute("hidden");
+            } else {
+                spinner.setAttribute("hidden", "");
+            }
         }
     }
 
@@ -94,6 +89,7 @@ const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
 
         const formData = new FormData(form);
 
+        setLoading(true);
         try {
             const response = await fetch(contactFormUrl, {
                 method: "POST",
@@ -111,6 +107,8 @@ const contactFormUrl: string = import.meta.env.CONTACT_FORM_URL;
         } catch (error) {
             console.error("Error submitting form:", error);
             showFeedback("An error occurred while sending your message.", false);
+        } finally {
+            setLoading(false);
         }
         return false;
     };

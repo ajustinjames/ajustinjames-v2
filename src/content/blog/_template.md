@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: ''
 pubDate: YYYY-MM-DD
 description: ''

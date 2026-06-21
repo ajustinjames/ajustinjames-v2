@@ -1,33 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-	darkMode: "class",
+	darkMode: ['selector', '[data-theme="dark"]'],
 	theme: {
 		extend: {
 			colors: {
-				// Core Brand Colors
-				primary: "#FF8C00",
-				lightBg: "#FFFAFA",
-				darkBg: "#111827",
-				cardLightBg: "#FFFFFF",
-				cardDarkBg: "#000000",
+				// Core Brand Colors — mapped to hardline design tokens so Tailwind
+				// utilities and hl-* components share one source of truth. These
+				// vars resolve differently depending on [data-theme] on <html>.
+				primary: "var(--hl-alias-action-bg-primary)",
+				lightBg: "var(--hl-alias-surface-bg-alt)",
+				darkBg: "var(--hl-alias-surface-bg-alt)",
+				cardLightBg: "var(--hl-alias-surface-bg)",
+				cardDarkBg: "var(--hl-alias-surface-bg)",
 
 				// Typography Colors
-				lightTextPrimary: "#1F2937",
-				lightTextSecondary: "#4B5563",
-				darkTextPrimary: "#FFFFFF",
-				darkTextSecondary: "#9CA3AF",
+				lightTextPrimary: "var(--hl-alias-text-main)",
+				lightTextSecondary: "var(--hl-alias-text-muted)",
+				darkTextPrimary: "var(--hl-alias-text-main)",
+				darkTextSecondary: "var(--hl-alias-text-muted)",
 
 				// Surface Colors
-				surfaceLight: "#FFFFFF",
-				surfaceLightHover: "#F3F4F6",
-				surfaceDark: "#1F2937",
-				surfaceDarkHover: "#374151",
+				surfaceLight: "var(--hl-alias-surface-bg)",
+				surfaceLightHover: "var(--hl-alias-surface-bg-alt)",
+				surfaceDark: "var(--hl-alias-surface-bg)",
+				surfaceDarkHover: "var(--hl-alias-surface-bg-alt)",
 
 				// Interactive States
-				primaryHover: "#F87B16",
-				borderLight: "#E5E7EB",
-				borderDark: "#374151",
+				// hardline has no separate hover-accent token; #FF4F00 is the
+				// hardline accent itself (--hl-alias-action-bg-primary), so use a
+				// manually-darkened shade for the hover state.
+				primaryHover: "#CC3F00",
+				borderLight: "var(--hl-alias-surface-border)",
+				borderDark: "var(--hl-alias-surface-border)",
+			},
+			fontFamily: {
+				sans: ["Inter", "system-ui", "sans-serif"],
+				mono: ['"JetBrains Mono"', "monospace"],
 			},
 		},
 	},

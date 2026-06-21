@@ -1,3 +1,11 @@
+@import "@ajustinjames/hardline-tokens/css";
+@import "@ajustinjames/hardline-tokens/css-dark";
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/600.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,35 +14,82 @@
 	/* Base styles — @apply is intentionally used here since body styles cannot
 	   be applied via utility classes on the <body> element from a CSS file. */
 	body {
-		@apply bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary min-h-screen;
+		@apply bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary min-h-screen font-sans;
 	}
 }
 
 @layer components {
-	/* Text scale effect */
-	.scale-hover {
-		transition: all 0.3s;
-	}
-	.scale-hover:hover {
-		transform: scale(1.1);
-		color: theme("colors.primary");
+	/* hl-card visual shell, applied via plain CSS instead of the <hl-card>
+	   custom element: @lit-labs/ssr crashes when <hl-card> wraps arbitrary
+	   slotted content during static rendering (Cannot read properties of
+	   undefined (reading 'length') in render-value.js). This reproduces the
+	   same elevation-2 surface using hardline tokens directly. */
+	.hl-card-shell {
+		background-color: var(--hl-alias-surface-bg);
+		border: var(--hl-alias-surface-border-width) solid var(--hl-alias-surface-border);
+		box-shadow: var(--hl-alias-shadow-2);
+		padding: var(--hl-alias-surface-padding);
 	}
 
-	/* Text underline effect */
-	.underline-hover {
-		position: relative;
+	/* <hl-input>'s :host rule sets border/background, but Tailwind's preflight
+	   (@layer base) resets border-width and background on every element via
+	   the `*` selector and loses the same "@layer base vs unlayered" fight
+	   described below for <hl-btn>. Reproduce the host border/background
+	   (including the :focus-within accent state) here in @layer components. */
+	hl-input {
+		border: var(--hl-alias-surface-border-width, 1px) solid var(--hl-input-border, var(--hl-alias-surface-border, #1a1a1a));
+		background: var(--hl-input-bg, var(--hl-alias-surface-bg-alt, #f0f0ec));
 	}
-	.underline-hover::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		height: 2px;
-		width: 0;
-		background-color: theme("colors.primary");
-		transition: width 0.3s;
+	hl-input:focus-within {
+		border-color: var(--hl-global-color-accent, #ff4f00);
+		background: var(--hl-alias-surface-bg, #ffffff);
 	}
-	.underline-hover:hover::after {
-		width: 100%;
+	hl-input[state="error"] {
+		border-color: var(--hl-input-border-error, var(--hl-alias-status-error, #cc0000));
+	}
+	hl-input[state="success"] {
+		border-color: var(--hl-input-border-success, var(--hl-alias-status-success, #1a6b1a));
+	}
+
+	/* <hl-btn> styles its slotted <button>/<a> via ::slotted(*) in its shadow
+	   stylesheet, but Tailwind's preflight (@layer base) resets button border,
+	   padding, and background on the same light-DOM element. Cascade layers
+	   beat specificity, so the unlayered ::slotted rule loses to @layer base
+	   for those properties. Reproduce the slotted styles here in @layer
+	   components (which beats @layer base) using the --hl-btn-* custom
+	   properties set on <hl-btn>'s :host, which inherit through to slotted
+	   children. */
+	hl-btn > button,
+	hl-btn > a {
+		font-family: var(--hl-alias-font-technical, "JetBrains Mono", monospace);
+		font-size: var(--hl-btn-font-size, 12px);
+		font-weight: var(--hl-alias-font-weight-bold, 600);
+		text-transform: uppercase;
+		border-radius: 0;
+		border: 1px solid var(--hl-btn-border-color, #1a1a1a);
+		border-style: var(--hl-btn-border-style, solid);
+		background: var(--hl-btn-bg, #ffffff);
+		color: var(--hl-btn-color, #1a1a1a);
+		padding: var(--hl-btn-padding-y, 12px) var(--hl-btn-padding-x, 16px);
+		box-shadow: var(--hl-btn-shadow);
+		cursor: pointer;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	/* Hardline-style hover-lift effect: nudges the element up-left and adds a
+	   heavier shadow on hover, matching the hardline shadow scale. */
+	.hover-lift {
+		box-shadow: var(--hl-alias-shadow-1);
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.hover-lift {
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+		}
+		.hover-lift:hover {
+			transform: translate(-2px, -2px);
+			box-shadow: var(--hl-alias-shadow-2);
+		}
 	}
 }
