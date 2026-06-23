@@ -1,10 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BlogPostCard from '../components/blog/BlogPostCard.astro';
-const allPosts = Object.values(import.meta.glob('./posts/**/*.md', { eager: true }));
-const recentPosts = allPosts
-    .filter((post: any) => post.url && !post.url.includes('_template'))
-    .sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true
+);
+const recentPosts = posts
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
     .slice(0, 4);
 ---
 
@@ -16,14 +19,14 @@ const recentPosts = allPosts
         </header>
 
         <ul class="grid gap-6 md:grid-cols-2">
-            {recentPosts.map((post: any) => (
+            {recentPosts.map((post) => (
                 <li>
                     <BlogPostCard
-                        url={post.url}
-                        title={post.frontmatter.title}
-                        description={post.frontmatter.description}
-                        pubDate={post.frontmatter.pubDate}
-                        tags={post.frontmatter.tags}
+                        url={`/posts/${post.id}`}
+                        title={post.data.title}
+                        description={post.data.description}
+                        pubDate={post.data.pubDate.toISOString()}
+                        tags={post.data.tags}
                     />
                 </li>
             ))}
