@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import { socialLinks } from "../data/social-links";
 
 interface Props {
 	title: string;
@@ -15,7 +16,18 @@ interface Props {
 const { title, description, image, type = "website", publishedDate } = Astro.props;
 const siteUrl = "https://ajustinjames.com";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const ogImage = image ? new URL(image, siteUrl).href : `${siteUrl}/ajlogo.svg`;
+const ogImage = image ? new URL(image, siteUrl).href : `${siteUrl}/og-default.png`;
+
+const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const personSchema = isHomePage
+	? {
+			"@context": "https://schema.org",
+			"@type": "Person",
+			name: "Aaron James",
+			url: siteUrl,
+			sameAs: socialLinks.map((link) => link.href),
+		}
+	: null;
 ---
 
 <script>
@@ -73,6 +85,8 @@ const ogImage = image ? new URL(image, siteUrl).href : `${siteUrl}/ajlogo.svg`;
 		<ClientRouter />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="author" content="Aaron James" />
+		<meta name="theme-color" content="#FF4F00" />
 		<!-- Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -87,6 +101,9 @@ const ogImage = image ? new URL(image, siteUrl).href : `${siteUrl}/ajlogo.svg`;
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+		{personSchema && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		)}
 	</head>
 	<body>
 		<a
