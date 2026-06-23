@@ -4,7 +4,7 @@ pubDate: 2025-04-30
 description: 'Tips and tricks I have learned for blocking advertisements and trackers on the internet.'
 author: 'Aaron James'
 image:
-    url: '/images/adblock.webp'
+    url: '/images/adblock.svg'
     alt: 'A shield icon representing ad blocking protection'
 tags: ["privacy", "adblock", "guide", "internet"]
 ---
