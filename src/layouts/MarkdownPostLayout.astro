@@ -1,17 +1,25 @@
 ---
 import Layout from './Layout.astro';
 import TagList from '../components/blog/TagList.astro';
+import { readingTime } from '../utils/reading-time';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+
+interface PostLink {
+  slug: string;
+  title: string;
+}
 
 interface Props {
   frontmatter: CollectionEntry<'blog'>['data'];
   rawContent: () => string;
+  prevPost?: PostLink | null;
+  nextPost?: PostLink | null;
 }
 
-const { frontmatter, rawContent } = Astro.props;
+const { frontmatter, rawContent, prevPost, nextPost } = Astro.props;
 
-const wordCount = rawContent().split(/\s+/).filter(Boolean).length;
-const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+const estimatedReadingTime = readingTime(rawContent());
 
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -23,12 +31,12 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
 <Layout
   title={frontmatter.title}
   description={frontmatter.description}
-  image={frontmatter.image?.url}
+  image={frontmatter.image?.src?.src}
   type="article"
   publishedDate={frontmatter.pubDate?.toString()}
 >
-  <div set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>${frontmatter.title}</span></hl-breadcrumb>`} />
   <div class="max-w-3xl mx-auto">
+    <div class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>${frontmatter.title}</span></hl-breadcrumb>`} />
     <div class="hl-card-shell">
       <article>
         <header class="mb-8">
@@ -37,7 +45,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
             <time datetime={frontmatter.pubDate.toString()}>
               {formattedDate}
             </time>
-            <span>{readingTime} min read</span>
+            <span>{estimatedReadingTime} min read</span>
             <p>Written by: {frontmatter.author}</p>
           </div>
           {frontmatter.tags?.length > 0 && (
@@ -49,10 +57,11 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
         </header>
 
         {frontmatter.image && (
-          <img
-            src={frontmatter.image.url}
+          <Image
+            src={frontmatter.image.src}
             alt={frontmatter.image.alt}
-            loading="lazy"
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
             class="w-full max-w-2xl mx-auto mb-8"
           />
         )}
@@ -62,5 +71,22 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
         </div>
       </article>
     </div>
+
+    {(prevPost || nextPost) && (
+      <nav aria-label="Post navigation" class="mt-8 grid grid-cols-2 gap-4">
+        {prevPost ? (
+          <a href={`/posts/${prevPost.slug}`} class="hl-card-shell p-4 group hover-lift flex flex-col items-start no-underline">
+            <span class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">&larr; Older</span>
+            <span class="mt-1 font-medium text-lightTextPrimary dark:text-darkTextPrimary group-hover:text-primary">{prevPost.title}</span>
+          </a>
+        ) : <div />}
+        {nextPost ? (
+          <a href={`/posts/${nextPost.slug}`} class="hl-card-shell p-4 group hover-lift flex flex-col items-end text-right no-underline">
+            <span class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">Newer &rarr;</span>
+            <span class="mt-1 font-medium text-lightTextPrimary dark:text-darkTextPrimary group-hover:text-primary">{nextPost.title}</span>
+          </a>
+        ) : <div />}
+      </nav>
+    )}
   </div>
 </Layout>

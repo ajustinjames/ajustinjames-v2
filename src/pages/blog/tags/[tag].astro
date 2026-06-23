@@ -1,0 +1,65 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BlogPostCard from '../../../components/blog/BlogPostCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const tagMap = new Map<string, { slug: string; displayTag: string; posts: typeof allPosts }>();
+
+  for (const post of allPosts) {
+    for (const tag of post.data.tags) {
+      const slug = tag.toLowerCase().replace(/\s+/g, '-');
+      if (!tagMap.has(slug)) {
+        tagMap.set(slug, { slug, displayTag: tag, posts: [] });
+      }
+      tagMap.get(slug)!.posts.push(post);
+    }
+  }
+
+  return Array.from(tagMap.values()).map(({ slug, displayTag, posts }) => ({
+    params: { tag: slug },
+    props: {
+      displayTag,
+      posts: posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+    },
+  }));
+}
+
+interface Props {
+  displayTag: string;
+  posts: Awaited<ReturnType<typeof getCollection<'blog'>>>;
+}
+
+const { displayTag, posts } = Astro.props;
+---
+
+<Layout title={`Posts tagged "${displayTag}"`} description={`All blog posts tagged with "${displayTag}".`}>
+  <div class="max-w-4xl mx-auto py-8">
+    <header class="mb-12">
+      <div class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>Tag: ${displayTag}</span></hl-breadcrumb>`} />
+      <h1 class="text-3xl font-bold">Posts tagged &ldquo;{displayTag}&rdquo;</h1>
+      <p class="text-lg text-lightTextSecondary dark:text-darkTextSecondary mt-2">
+        {posts.length} {posts.length === 1 ? 'post' : 'posts'} found.
+      </p>
+    </header>
+
+    <ul class="grid gap-6 md:grid-cols-2">
+      {posts.map((post) => (
+        <li>
+          <BlogPostCard
+            url={`/posts/${post.slug}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+          />
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-8">
+      <a href="/blog" class="text-primary hover:underline">&larr; Back to all posts</a>
+    </div>
+  </div>
+</Layout>

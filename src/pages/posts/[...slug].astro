@@ -4,16 +4,52 @@ import MarkdownPostLayout from '../../layouts/MarkdownPostLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const sorted = [...posts].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+  return sorted.map((post, i) => {
+    const newerPost = sorted[i - 1] ?? null;
+    const olderPost = sorted[i + 1] ?? null;
+    return {
+      params: { slug: post.slug },
+      props: {
+        post,
+        prevPost: olderPost ? { slug: olderPost.slug, title: olderPost.data.title } : null,
+        nextPost: newerPost ? { slug: newerPost.slug, title: newerPost.data.title } : null,
+      },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
+
+const siteUrl = "https://ajustinjames.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogDefaultImage = `${siteUrl}/og-default.png`;
+const postImage = post.data.image?.src?.src
+  ? new URL(post.data.image.src.src, siteUrl).href
+  : ogDefaultImage;
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: {
+    "@type": "Person",
+    name: post.data.author ?? "Aaron James",
+  },
+  image: postImage,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl,
+  },
+  url: canonicalUrl,
+};
 ---
 
-<MarkdownPostLayout frontmatter={post.data} rawContent={() => post.body ?? ''}>
+<MarkdownPostLayout frontmatter={post.data} rawContent={() => post.body ?? ''} prevPost={prevPost} nextPost={nextPost}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
   <Content />
 </MarkdownPostLayout>
