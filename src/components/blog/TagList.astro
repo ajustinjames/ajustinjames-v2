@@ -4,7 +4,15 @@ interface Props {
 }
 const { tags } = Astro.props;
 
-const html = tags.map((tag) => `<hl-tag>${tag.toUpperCase()}</hl-tag>`).join('');
+function tagSlug(tag: string) {
+  return tag.toLowerCase().replace(/\s+/g, '-');
+}
 ---
 
-<div class="flex flex-wrap gap-2" set:html={html} />
+<div class="flex flex-wrap gap-2">
+  {tags.map((tag) => (
+    <a href={`/blog/tags/${tagSlug(tag)}`} class="no-underline">
+      <hl-tag>{tag.toUpperCase()}</hl-tag>
+    </a>
+  ))}
+</div>

@@ -4,7 +4,7 @@ pubDate: 2025-04-01
 description: 'Describing why I built my new website using Astro.'
 author: 'Aaron James'
 image:
-    url: '/images/astro-rose.webp'
+    src: './astro-rose.webp'
     alt: 'The Astro logo on a dark background with a pink glow.'
 tags: ["dev", "website", "blog"]
 ---
