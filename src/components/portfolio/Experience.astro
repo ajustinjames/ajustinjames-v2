@@ -1,77 +1,105 @@
 ---
+import Section from "../Section.astro";
 import { experience, formatDate, duration } from "../../data/experience";
 
-function companyRange(roles: typeof experience[number]["roles"]) {
-    const starts = roles.map((r) => r.startYear * 12 + r.startMonth);
-    const minStart = Math.min(...starts);
-    const start = roles.find((r) => r.startYear * 12 + r.startMonth === minStart)!;
+function companyRange(roles: (typeof experience)[number]["roles"]) {
+	const starts = roles.map((r) => r.startYear * 12 + r.startMonth);
+	const minStart = Math.min(...starts);
+	const start = roles.find(
+		(r) => r.startYear * 12 + r.startMonth === minStart,
+	)!;
 
-    const hasOngoing = roles.some((r) => r.endYear === null);
-    if (hasOngoing) {
-        return {
-            start: { year: start.startYear, month: start.startMonth },
-            end: null,
-        };
-    }
+	const hasOngoing = roles.some((r) => r.endYear === null);
+	if (hasOngoing) {
+		return {
+			start: { year: start.startYear, month: start.startMonth },
+			end: null,
+		};
+	}
 
-    const ends = roles.map((r) => r.endYear! * 12 + r.endMonth!);
-    const maxEnd = Math.max(...ends);
-    const end = roles.find((r) => r.endYear! * 12 + r.endMonth! === maxEnd)!;
+	const ends = roles.map((r) => r.endYear! * 12 + r.endMonth!);
+	const maxEnd = Math.max(...ends);
+	const end = roles.find((r) => r.endYear! * 12 + r.endMonth! === maxEnd)!;
 
-    return {
-        start: { year: start.startYear, month: start.startMonth },
-        end: { year: end.endYear!, month: end.endMonth! },
-    };
+	return {
+		start: { year: start.startYear, month: start.startMonth },
+		end: { year: end.endYear!, month: end.endMonth! },
+	};
 }
 ---
 
-<section id="experience" class="py-16 px-4 max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-center mb-12">Work Experience</h2>
-    <div class="space-y-6">
-        {
-            experience.map((company) => {
-                const range = companyRange(company.roles);
-                return (
-                    <div class="hl-card-shell">
-                        <div class="flex items-center gap-2">
-                            <h3 class="text-xl font-semibold">{company.company}</h3>
-                            <span class="text-md text-lightTextSecondary dark:text-darkTextSecondary">
-                                {company.location}
-                            </span>
-                        </div>
-                        {company.roles.length > 1 && (
-                            <p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
-                                {formatDate(range.start.year, range.start.month)} - {range.end ? formatDate(range.end.year, range.end.month) : "Present"}{" "}
-                                {duration(range.start, range.end)}
-                            </p>
-                        )}
-                        <div class="space-y-4 mt-2">
-                            {company.roles.map((role) => (
-                                <div>
-                                    <h4 class="text-lg font-medium">
-                                        {role.title}
-                                    </h4>
-                                    <p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
-                                        {formatDate(role.startYear, role.startMonth)} - {role.endYear !== null ? formatDate(role.endYear, role.endMonth!) : "Present"}{" "}
-                                        {duration({ year: role.startYear, month: role.startMonth }, role.endYear !== null ? { year: role.endYear, month: role.endMonth! } : null)}
-                                    </p>
-                                    <ul class="list-disc ml-5 mt-2">
-                                        {role.details.map((detail) => (
-                                            <li>{detail}</li>
-                                        ))}
-                                    </ul>
-                                    {role.technologies.length > 0 && (
-                                        <p class="mt-2 text-sm">
-                                            <strong>Technologies:</strong>{" "}
-                                            {role.technologies.join(", ")}
-                                        </p>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            })
-        }
-    </div>
-</section>
+<Section id="experience" eyebrow="Experience" title="Work Experience">
+	<div class="space-y-6">
+		{
+			experience.map((company) => {
+				const range = companyRange(company.roles);
+				const multiRole = company.roles.length > 1;
+				return (
+					<article class="hl-card-shell">
+						<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+							<h3 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
+								{company.company}
+							</h3>
+							<p class="whitespace-nowrap font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary sm:text-right">
+								{formatDate(range.start.year, range.start.month)} –{" "}
+								{range.end
+									? formatDate(range.end.year, range.end.month)
+									: "Present"}
+							</p>
+						</div>
+						<p class="mt-1 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+							{company.location}
+						</p>
+						<div class="mt-4 divide-y divide-borderLight dark:divide-borderDark">
+							{company.roles.map((role) => {
+								const current = role.endYear === null;
+								return (
+									<div
+										class:list={[
+											"py-4 first:pt-0 last:pb-0",
+											current && "border-l-2 border-primary pl-4",
+										]}
+									>
+										<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+											<h4 class="font-medium text-lightTextPrimary dark:text-darkTextPrimary">
+												{role.title}
+											</h4>
+											{multiRole && (
+												<p class="whitespace-nowrap font-mono text-xs text-lightTextSecondary dark:text-darkTextSecondary sm:text-right">
+													{formatDate(role.startYear, role.startMonth)} –{" "}
+													{role.endYear !== null
+														? formatDate(role.endYear, role.endMonth!)
+														: "Present"}{" "}
+													{duration(
+														{ year: role.startYear, month: role.startMonth },
+														role.endYear !== null
+															? { year: role.endYear, month: role.endMonth! }
+															: null,
+													)}
+												</p>
+											)}
+										</div>
+										{role.details.length > 0 && (
+											<ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-lightTextSecondary dark:text-darkTextSecondary">
+												{role.details.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										)}
+										{role.technologies.length > 0 && (
+											<div class="mt-3 flex flex-wrap gap-2">
+												{role.technologies.map((tech) => (
+													<hl-tag>{tech.toUpperCase()}</hl-tag>
+												))}
+											</div>
+										)}
+									</div>
+								);
+							})}
+						</div>
+					</article>
+				);
+			})
+		}
+	</div>
+</Section>

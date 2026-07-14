@@ -114,10 +114,8 @@ const personSchema = isHomePage
 		</a>
 		<div class="min-h-screen flex flex-col">
 			<Header />
-			<main id="main-content" class="flex-1 w-full px-4 sm:px-6 lg:px-8 py-8">
-				<div class="mx-auto w-full max-w-7xl">
-					<slot />
-				</div>
+			<main id="main-content" class="flex-1 w-full px-4 sm:px-6 lg:px-8">
+				<slot />
 			</main>
 			<Footer />
 		</div>

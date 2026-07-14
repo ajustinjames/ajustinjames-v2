@@ -1,0 +1,53 @@
+---
+// Shared section wrapper carrying one content width, the site's vertical
+// rhythm, and the hardline eyebrow-heading pattern (mono uppercase eyebrow +
+// bold heading + hard accent rule). Used by home sections (h2) and page
+// headers (h1) so every section reads as one system.
+interface Props {
+	eyebrow: string;
+	title: string;
+	description?: string;
+	id?: string;
+	as?: "h1" | "h2";
+	width?: "wide" | "narrow";
+	class?: string;
+}
+
+const {
+	eyebrow,
+	title,
+	description,
+	id,
+	as = "h2",
+	width = "wide",
+	class: className,
+} = Astro.props;
+
+const Heading = as;
+const maxW = width === "narrow" ? "max-w-4xl" : "max-w-6xl";
+---
+
+<section id={id} class:list={[maxW, "mx-auto w-full py-12 md:py-16", className]}>
+	<slot name="top" />
+	<header class="mb-8 md:mb-10">
+		<p
+			class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary"
+		>
+			{eyebrow}
+		</p>
+		<Heading
+			class="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary"
+		>
+			{title}
+		</Heading>
+		<div class="mt-4 h-1 w-12 bg-primary" aria-hidden="true"></div>
+		{
+			description && (
+				<p class="mt-4 max-w-prose text-lightTextSecondary dark:text-darkTextSecondary">
+					{description}
+				</p>
+			)
+		}
+	</header>
+	<slot />
+</section>

@@ -35,7 +35,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   type="article"
   publishedDate={frontmatter.pubDate?.toString()}
 >
-  <div class="max-w-3xl mx-auto">
+  <div class="max-w-3xl mx-auto py-8">
     <div class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>${frontmatter.title}</span></hl-breadcrumb>`} />
     <div class="hl-card-shell">
       <article>
