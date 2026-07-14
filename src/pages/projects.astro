@@ -1,16 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
 import { projects } from "../data/projects";
 import TagList from "../components/blog/TagList.astro";
 ---
 
 <Layout title="Projects" description="A showcase of personal projects and side apps by Aaron James.">
-	<div class="max-w-4xl mx-auto py-8">
-		<header class="mb-12">
-			<h1 class="text-3xl font-bold">Projects</h1>
-			<p class="text-lg text-lightTextSecondary dark:text-darkTextSecondary mt-2">Things I've built</p>
-		</header>
-
+	<Section eyebrow="Projects" title="Projects" description="Things I've built" as="h1" width="narrow">
 		<ul class="grid gap-6 md:grid-cols-2">
 			{projects.map((project) => (
 				<li class="hl-card-shell hover-lift">
@@ -34,5 +30,5 @@ import TagList from "../components/blog/TagList.astro";
 				</li>
 			))}
 		</ul>
-	</div>
+	</Section>
 </Layout>

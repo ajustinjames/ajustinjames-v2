@@ -1,58 +1,32 @@
 ---
-import SkillCard from "./SkillCard.astro";
+import Section from "../Section.astro";
 
-const skills = {
-	languages: [
-		{ name: "C#", icon: "devicon:csharp" },
-		{ name: "TypeScript", icon: "devicon:typescript" },
-		{ name: "Java", icon: "devicon:java" },
-		{ name: "SQL", icon: "devicon:sqldeveloper" },
-	],
-	frameworks: [
-		{ name: ".NET Core", icon: "devicon:dotnetcore" },
-		{ name: "Angular", icon: "devicon:angular" },
-		{ name: "Flutter", icon: "devicon:flutter" },
-		{ name: "Playwright", icon: "devicon:playwright" },
-	],
-	devops: [
-		{ name: "Docker", icon: "devicon:docker" },
-		{ name: "Kubernetes", icon: "devicon:kubernetes" },
-		{ name: "Terraform", icon: "devicon:terraform" },
-		{ name: "Git", icon: "devicon:git" },
-	],
-	tools: [
-		{ name: "VS Code", icon: "devicon:vscode" },
-		{ name: "Swagger", icon: "devicon:swagger" },
-		{ name: "Android Studio", icon: "devicon:android" },
-		{ name: "MySQL", icon: "devicon:mysql" },
-	],
-};
+const skills: { label: string; items: string[] }[] = [
+	{ label: "Languages", items: ["C#", "TypeScript", "Java", "SQL"] },
+	{
+		label: "Frameworks",
+		items: [".NET Core", "Angular", "Flutter", "Playwright"],
+	},
+	{ label: "DevOps", items: ["Docker", "Kubernetes", "Terraform", "Git"] },
+	{ label: "Tools", items: ["VS Code", "Swagger", "Android Studio", "MySQL"] },
+];
 ---
 
-<section id="skills" class="py-16 px-4 max-w-6xl mx-auto">
-	<h2
-		class="text-3xl font-bold text-center mb-12"
-	>
-		Skills
-	</h2>
-
-	<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+<Section id="skills" eyebrow="Skills" title="Technical Skills">
+	<dl class="border-t border-borderLight dark:border-borderDark">
 		{
-			Object.entries(skills).map(([category, items]) => (
-				<div class="space-y-4">
-					<h3 class="text-xl font-semibold text-primary capitalize mb-4">
-						{category}
-					</h3>
-					<div class="grid gap-4">
-						{items.map((skill) => (
-							<SkillCard
-								name={skill.name}
-								iconName={skill.icon}
-							/>
+			skills.map((group) => (
+				<div class="grid grid-cols-1 gap-2 border-b border-borderLight dark:border-borderDark py-5 md:grid-cols-[10rem_1fr] md:gap-6">
+					<dt class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+						{group.label}
+					</dt>
+					<dd class="flex flex-wrap gap-2">
+						{group.items.map((item) => (
+							<hl-tag>{item.toUpperCase()}</hl-tag>
 						))}
-					</div>
+					</dd>
 				</div>
 			))
 		}
-	</div>
-</section>
+	</dl>
+</Section>

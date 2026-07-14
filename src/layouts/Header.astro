@@ -1,9 +1,12 @@
 ---
 import { Icon } from "astro-icon/components";
 const currentPath = Astro.url.pathname;
+
+const navLinkClass =
+	"font-mono text-sm tracking-wide uppercase hover:text-primary motion-safe:transition-colors aria-[current=page]:text-primary aria-[current=page]:underline aria-[current=page]:decoration-primary aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8";
 ---
 
-<header>
+<header class="border-b border-borderLight dark:border-borderDark">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<nav
 			class="flex h-16 items-center justify-between"
@@ -11,16 +14,19 @@ const currentPath = Astro.url.pathname;
 		>
 			<a
 				href="/"
-				class="text-2xl font-medium flex items-center hover:text-primary transition-colors"
+				class="flex items-center gap-2 text-xl font-semibold hover:text-primary transition-colors"
 				id="home"
-				aria-label="ajustinjames - return to homepage">ajustinjames</a
+				aria-label="ajustinjames - return to homepage"
 			>
+				<span class="inline-block h-4 w-4 bg-primary" aria-hidden="true"></span>
+				ajustinjames
+			</a>
 			<div class="flex gap-6 items-center">
 				<ul class="flex gap-8 items-center">
-						<li class="flex items-center">
+					<li class="flex items-center">
 						<a
 							href="/projects"
-							class="hover:text-primary text-lg transition-colors"
+							class={navLinkClass}
 							aria-current={currentPath === "/projects" ? "page" : undefined}
 							>Projects</a
 						>
@@ -28,7 +34,7 @@ const currentPath = Astro.url.pathname;
 					<li class="flex items-center">
 						<a
 							href="/blog"
-							class="hover:text-primary text-lg transition-colors"
+							class={navLinkClass}
 							aria-current={currentPath.startsWith("/blog") ? "page" : undefined}
 							>Blog</a
 						>

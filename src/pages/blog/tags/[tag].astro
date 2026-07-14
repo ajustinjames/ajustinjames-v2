@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Section from '../../../components/Section.astro';
 import BlogPostCard from '../../../components/blog/BlogPostCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -35,14 +36,14 @@ const { displayTag, posts } = Astro.props;
 ---
 
 <Layout title={`Posts tagged "${displayTag}"`} description={`All blog posts tagged with "${displayTag}".`}>
-  <div class="max-w-4xl mx-auto py-8">
-    <header class="mb-12">
-      <div class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>Tag: ${displayTag}</span></hl-breadcrumb>`} />
-      <h1 class="text-3xl font-bold">Posts tagged &ldquo;{displayTag}&rdquo;</h1>
-      <p class="text-lg text-lightTextSecondary dark:text-darkTextSecondary mt-2">
-        {posts.length} {posts.length === 1 ? 'post' : 'posts'} found.
-      </p>
-    </header>
+  <Section
+    eyebrow="Tag"
+    title={`Posts tagged “${displayTag}”`}
+    description={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'} found.`}
+    as="h1"
+    width="narrow"
+  >
+    <div slot="top" class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>Tag: ${displayTag}</span></hl-breadcrumb>`} />
 
     <ul class="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (
@@ -61,5 +62,5 @@ const { displayTag, posts } = Astro.props;
     <div class="mt-8">
       <a href="/blog" class="text-primary hover:underline">&larr; Back to all posts</a>
     </div>
-  </div>
+  </Section>
 </Layout>
