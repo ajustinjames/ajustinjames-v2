@@ -1,0 +1,109 @@
+---
+import Section from '../Section.astro';
+import { render } from 'astro:content';
+import { getFeed, type FeedType } from '../../utils/feed';
+
+// The unified stream: newest posts, notes, and links merged together so the
+// home page shows a pulse between monthly long-form posts.
+const entries = (await getFeed()).slice(0, 8);
+
+// Pre-render note Markdown bodies (render() must run in frontmatter, not JSX).
+const noteContents = await Promise.all(
+  entries.map((entry) =>
+    entry.type === 'note' && entry.noteEntry
+      ? render(entry.noteEntry).then((r) => r.Content)
+      : Promise.resolve(null),
+  ),
+);
+
+const chipLabels: Record<FeedType, string> = {
+  post: 'POST',
+  note: 'TIL',
+  link: 'LINK',
+};
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+---
+
+<Section
+  eyebrow="Latest"
+  title="Latest"
+  description="Posts, notes, and links — the newest first."
+  id="latest"
+>
+  <ul class="divide-y divide-borderLight dark:divide-borderDark border-t border-b border-borderLight dark:border-borderDark">
+    {
+      entries.map((entry, index) => {
+        const NoteBody = noteContents[index];
+        return (
+          <li class="py-6">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="inline-flex items-center border border-borderLight dark:border-borderDark px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                {chipLabels[entry.type]}
+              </span>
+              <time
+                datetime={entry.date.toISOString()}
+                class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary"
+              >
+                {formatDate(entry.date)}
+              </time>
+              {entry.type === 'link' && entry.domain && (
+                <span class="font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                  {entry.domain}
+                </span>
+              )}
+            </div>
+
+            {entry.type === 'note' && NoteBody && (
+              <div class="prose prose-zinc dark:prose-invert max-w-none mt-2">
+                <NoteBody />
+              </div>
+            )}
+
+            {entry.type === 'post' && (
+              <>
+                <h3 class="mt-2 text-lg font-semibold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary">
+                  <a href={entry.href} class="hover:text-primary">
+                    {entry.title}
+                  </a>
+                </h3>
+                {entry.description && (
+                  <p class="mt-1 text-lightTextSecondary dark:text-darkTextSecondary">
+                    {entry.description}
+                  </p>
+                )}
+              </>
+            )}
+
+            {entry.type === 'link' && (
+              <>
+                <h3 class="mt-2 text-lg font-semibold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary">
+                  <a
+                    href={entry.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-primary"
+                  >
+                    {entry.title}
+                  </a>
+                </h3>
+                {entry.description && (
+                  <p class="mt-1 text-lightTextSecondary dark:text-darkTextSecondary">
+                    {entry.description}
+                  </p>
+                )}
+              </>
+            )}
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
