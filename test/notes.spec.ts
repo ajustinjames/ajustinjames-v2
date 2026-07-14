@@ -45,27 +45,26 @@ function findMarkdownFiles(dir: string): string[] {
 describe('notes collection', () => {
   const notes = findMarkdownFiles(NOTES_DIR);
 
-  it('finds at least one note', () => {
-    expect(notes.length).toBeGreaterThan(0);
-  });
-
-  it.each(notes.map((p) => [path.relative(NOTES_DIR, p), p]))(
-    '%s has valid frontmatter and a body within the limit',
-    (_name, filePath) => {
-      const content = fs.readFileSync(filePath as string, 'utf-8');
+  // A single test that loops (rather than it.each) so the suite still passes
+  // when the collection is empty — notes are human-written (see AI Content
+  // Policy in CLAUDE.md), so none exist until one is authored.
+  it('every note has valid frontmatter and a body within the limit', () => {
+    for (const filePath of notes) {
+      const name = path.relative(NOTES_DIR, filePath);
+      const content = fs.readFileSync(filePath, 'utf-8');
       const { fm, body } = splitNote(content);
 
       // Required frontmatter: a parseable pubDate. No title allowed by design.
-      expect(fm.pubDate, 'missing pubDate').toBeTruthy();
-      expect(Number.isNaN(new Date(fm.pubDate).getTime())).toBe(false);
-      expect(fm.title, 'notes must not have a title').toBeUndefined();
+      expect(fm.pubDate, `${name}: missing pubDate`).toBeTruthy();
+      expect(Number.isNaN(new Date(fm.pubDate).getTime()), `${name}: bad pubDate`).toBe(false);
+      expect(fm.title, `${name}: notes must not have a title`).toBeUndefined();
 
       // Body must exist and stay within the 500-character limit.
-      expect(body.length, 'empty note body').toBeGreaterThan(0);
+      expect(body.length, `${name}: empty note body`).toBeGreaterThan(0);
       expect(
         body.length,
-        `note body is ${body.length} chars, over the ${MAX_BODY_CHARS} limit`,
+        `${name}: note body is ${body.length} chars, over the ${MAX_BODY_CHARS} limit`,
       ).toBeLessThanOrEqual(MAX_BODY_CHARS);
-    },
-  );
+    }
+  });
 });

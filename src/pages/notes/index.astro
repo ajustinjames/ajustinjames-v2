@@ -34,6 +34,13 @@ const rendered = await Promise.all(
     as="h1"
     width="narrow"
   >
+    {
+      rendered.length === 0 && (
+        <p class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+          No notes yet.
+        </p>
+      )
+    }
     <ul class="space-y-6">
       {
         rendered.map(({ note, anchor, Content, formattedDate }) => (
