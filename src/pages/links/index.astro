@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
+import { getCollection } from 'astro:content';
+import { linkDomain } from '../../utils/feed';
+
+const linksDescription =
+  'Curated links worth reading, with a line or two on why — from Aaron James.';
+
+const links = (await getCollection('links'))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((link) => ({
+    link,
+    domain: linkDomain(link.data.url),
+    formattedDate: new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }).format(link.data.pubDate),
+  }));
+---
+
+<Layout title="Links" description={linksDescription}>
+  <Section
+    eyebrow="Links"
+    title="Recent Links"
+    description={linksDescription}
+    as="h1"
+    width="narrow"
+  >
+    <ul class="divide-y divide-borderLight dark:divide-borderDark border-t border-b border-borderLight dark:border-borderDark">
+      {
+        links.map(({ link, domain, formattedDate }) => (
+          <li class="py-6">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 class="text-xl font-semibold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary">
+                <a
+                  href={link.data.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-primary"
+                >
+                  {link.data.title}
+                </a>
+              </h2>
+              <span class="font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                {domain}
+              </span>
+              <time
+                datetime={link.data.pubDate.toISOString()}
+                class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary"
+              >
+                {formattedDate}
+              </time>
+            </div>
+            {link.body && (
+              <p class="mt-2 text-lightTextSecondary dark:text-darkTextSecondary">
+                {link.body}
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+</Layout>
