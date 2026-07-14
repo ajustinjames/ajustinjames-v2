@@ -3,6 +3,7 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import BlogPostCard from '../../components/blog/BlogPostCard.astro';
 import { getCollection } from 'astro:content';
+import { blogDescription } from '../../data/site';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const allPosts = await getCollection('blog');
@@ -17,7 +18,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page } = Astro.props as Props;
 ---
 
-<Layout title="Blog" description="Blog Homepage">
+<Layout title="Blog" description={blogDescription}>
     <div class="max-w-4xl mx-auto py-8">
         <header class="mb-12">
             <h1 class="text-3xl font-bold">Recent Posts</h1>

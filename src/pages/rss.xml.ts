@@ -1,13 +1,14 @@
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import { getCollection } from "astro:content";
+import { blogDescription } from "../data/site";
 
 export async function GET(context: APIContext) {
 	const posts = await getCollection("blog");
 
 	return rss({
 		title: "Aaron James",
-		description: "Thoughts on software development, technology, gaming, and more.",
+		description: blogDescription,
 		site: context.site ?? "https://ajustinjames.com",
 		items: posts
 			.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())

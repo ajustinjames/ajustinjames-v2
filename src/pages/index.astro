@@ -4,9 +4,10 @@ import Hero from "../components/portfolio/Hero.astro";
 import Skills from "../components/portfolio/Skills.astro";
 import Experience from "../components/portfolio/Experience.astro";
 import Contact from "../components/contact/Contact.astro";
+import { homeDescription } from "../data/site";
 ---
 
-<Layout title="Aaron James" description="Homepage">
+<Layout title="Aaron James" description={homeDescription}>
     <Hero />
     <Skills />
     <Experience />
