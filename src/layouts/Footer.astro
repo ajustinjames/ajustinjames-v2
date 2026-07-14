@@ -1,6 +1,18 @@
 ---
 import { Icon } from "astro-icon/components";
 import { socialLinks } from "../data/social-links";
+
+interface FooterLink {
+	href: string;
+	label: string;
+}
+
+const footerNavLinks: FooterLink[] = [
+	{ href: "/projects", label: "Projects" },
+	{ href: "/blog", label: "Blog" },
+	{ href: "/notes", label: "Notes" },
+	{ href: "/links", label: "Links" },
+];
 ---
 
 <footer class="mt-auto w-full border-t border-borderLight dark:border-borderDark" aria-label="Page footer">
@@ -9,6 +21,20 @@ import { socialLinks } from "../data/social-links";
 			<p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
 				© {new Date().getFullYear()} Aaron James
 			</p>
+			<nav aria-label="Footer navigation">
+				<ul class="flex items-center gap-4">
+					{footerNavLinks.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="font-mono text-xs uppercase tracking-wide hover:text-primary motion-safe:transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
 			<div class="flex items-center space-x-2">
 				{socialLinks.map((link) => (
 					<a

@@ -2,8 +2,26 @@
 import { Icon } from "astro-icon/components";
 const currentPath = Astro.url.pathname;
 
+interface NavLink {
+	href: string;
+	label: string;
+}
+
+const navLinks: NavLink[] = [
+	{ href: "/projects", label: "Projects" },
+	{ href: "/blog", label: "Blog" },
+	{ href: "/notes", label: "Notes" },
+	{ href: "/links", label: "Links" },
+];
+
+const isCurrent = (href: string) =>
+	href === "/blog" ? currentPath.startsWith("/blog") : currentPath === href;
+
 const navLinkClass =
-	"font-mono text-sm tracking-wide uppercase hover:text-primary motion-safe:transition-colors aria-[current=page]:text-primary aria-[current=page]:underline aria-[current=page]:decoration-primary aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8";
+	"font-mono text-sm tracking-wide uppercase hover:text-primary motion-safe:transition-colors aria-[current=page]:text-primary aria-[current=page]:underline aria-[current=page]:decoration-primary aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4";
+
+const mobileNavLinkClass =
+	"block px-4 py-3 font-mono text-sm tracking-wide uppercase hover:text-primary motion-safe:transition-colors aria-[current=page]:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-2";
 ---
 
 <header class="border-b border-borderLight dark:border-borderDark">
@@ -22,23 +40,18 @@ const navLinkClass =
 				ajustinjames
 			</a>
 			<div class="flex gap-6 items-center">
-				<ul class="flex gap-8 items-center">
-					<li class="flex items-center">
-						<a
-							href="/projects"
-							class={navLinkClass}
-							aria-current={currentPath === "/projects" ? "page" : undefined}
-							>Projects</a
-						>
-					</li>
-					<li class="flex items-center">
-						<a
-							href="/blog"
-							class={navLinkClass}
-							aria-current={currentPath.startsWith("/blog") ? "page" : undefined}
-							>Blog</a
-						>
-					</li>
+				<ul class="hidden sm:flex gap-8 items-center">
+					{navLinks.map((link) => (
+						<li class="flex items-center">
+							<a
+								href={link.href}
+								class={navLinkClass}
+								aria-current={isCurrent(link.href) ? "page" : undefined}
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
 				</ul>
 				<div class="flex items-center">
 					<button
@@ -63,7 +76,41 @@ const navLinkClass =
 						/>
 					</button>
 				</div>
+				<details id="mobile-nav" class="relative sm:hidden">
+					<summary
+						class="flex h-8 w-8 items-center justify-center rounded-none border border-lightTextPrimary dark:border-darkTextPrimary font-mono text-xs uppercase tracking-wide cursor-pointer select-none list-none hover:text-primary hover:border-primary motion-safe:transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 [&::-webkit-details-marker]:hidden"
+						aria-label="Toggle navigation menu"
+					>
+						<span aria-hidden="true">MENU</span>
+					</summary>
+					<ul
+						class="hl-card-shell rounded-none absolute right-0 top-full mt-2 w-48 z-50 divide-y divide-borderLight dark:divide-borderDark"
+					>
+						{navLinks.map((link) => (
+							<li>
+								<a
+									href={link.href}
+									class={mobileNavLinkClass}
+									aria-current={isCurrent(link.href) ? "page" : undefined}
+								>
+									{link.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</details>
 			</div>
 		</nav>
 	</div>
 </header>
+
+<script>
+	// hardline disclosure menu: ClientRouter's default swap morphs the header
+	// across navigations, which can leave the mobile <details> stuck [open].
+	// Force it closed after every swap so the menu never persists.
+	document.addEventListener("astro:after-swap", () => {
+		document
+			.getElementById("mobile-nav")
+			?.removeAttribute("open");
+	});
+</script>
