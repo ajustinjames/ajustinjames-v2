@@ -30,51 +30,51 @@ const personSchema = isHomePage
 	: null;
 ---
 
-<script>
-	import "@ajustinjames/hardline-components";
-</script>
-
-<script is:inline>
-	const getThemePreference = () => {
-		if (
-			typeof localStorage !== "undefined" &&
-			localStorage.getItem("theme")
-		) {
-			return localStorage.getItem("theme");
-		}
-		return window.matchMedia("(prefers-color-scheme: dark)").matches
-			? "dark"
-			: "light";
-	};
-
-	const applyTheme = (theme) => {
-		document.documentElement.setAttribute("data-theme", theme);
-		const toggle = document.getElementById("theme-toggle");
-		if (toggle) {
-			toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-		}
-	};
-
-	applyTheme(getThemePreference());
-
-	window.toggleTheme = () => {
-		const current = document.documentElement.getAttribute("data-theme");
-		const next = current === "dark" ? "light" : "dark";
-		applyTheme(next);
-		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("theme", next);
-		}
-	};
-
-	document.addEventListener("astro:after-swap", () => {
-		applyTheme(getThemePreference());
-	});
-</script>
-
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Inline theme script stays first in <head>, before any paint, to avoid
+		     a dark-mode flash of unstyled content (FOUC). -->
+		<script is:inline>
+			const getThemePreference = () => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				return window.matchMedia("(prefers-color-scheme: dark)").matches
+					? "dark"
+					: "light";
+			};
+
+			const applyTheme = (theme) => {
+				document.documentElement.setAttribute("data-theme", theme);
+				const toggle = document.getElementById("theme-toggle");
+				if (toggle) {
+					toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+				}
+			};
+
+			applyTheme(getThemePreference());
+
+			window.toggleTheme = () => {
+				const current = document.documentElement.getAttribute("data-theme");
+				const next = current === "dark" ? "light" : "dark";
+				applyTheme(next);
+				if (typeof localStorage !== "undefined") {
+					localStorage.setItem("theme", next);
+				}
+			};
+
+			document.addEventListener("astro:after-swap", () => {
+				applyTheme(getThemePreference());
+			});
+		</script>
+		<script>
+			import "@ajustinjames/hardline-components";
+		</script>
 		<!-- `sizes="any"` is to fix Chrome bug -->
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="icon" href="/icon.svg" type="image/svg+xml" />
