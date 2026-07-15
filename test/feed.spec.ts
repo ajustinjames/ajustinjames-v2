@@ -72,7 +72,7 @@ describe('mergeFeed()', () => {
     expect(p.external).toBe(false);
     expect(p.title).toBe('Post One');
 
-    expect(n.href).toBe('/notes#2026-07-10-n');
+    expect(n.href).toBe('/blog#2026-07-10-n');
     expect(n.body).toBe('a note body');
     expect(n.title).toBeUndefined();
 

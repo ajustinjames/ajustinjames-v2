@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
     title: 'Aaron James',
     description: 'Posts, notes, and links from Aaron James — one combined stream.',
     site: context.site ?? 'https://ajustinjames.com',
-    // Note entries link to /notes#fragment; a normalized trailing slash would
+    // Note entries link to /blog#fragment; a normalized trailing slash would
     // land after the anchor (…#slug/) and break it.
     trailingSlash: false,
     items: feed.map((entry) => ({

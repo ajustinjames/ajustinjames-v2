@@ -1,38 +1,146 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import BlogPostCard from '../../components/blog/BlogPostCard.astro';
-import { getCollection } from 'astro:content';
 import { blogDescription } from '../../data/site';
+import { getFeed, type FeedType } from '../../utils/feed';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = await getCollection('blog');
-  const sortedPosts = allPosts.sort(
-    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
-  );
-  return paginate(sortedPosts, { pageSize: 6 });
+  return paginate(await getFeed(), { pageSize: 10 });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page } = Astro.props as Props;
+
+// Pre-render note Markdown bodies (render() must run in frontmatter, not JSX).
+const noteContents = await Promise.all(
+  page.data.map((entry) =>
+    entry.type === 'note' && entry.noteEntry
+      ? render(entry.noteEntry).then((r) => r.Content)
+      : Promise.resolve(null),
+  ),
+);
+
+const chipLabels: Record<FeedType, string> = {
+  post: 'POST',
+  note: 'TIL',
+  link: 'LINK',
+};
+
+const filters: { label: string; type: FeedType | 'all' }[] = [
+  { label: 'All', type: 'all' },
+  { label: 'Posts', type: 'post' },
+  { label: 'Notes', type: 'note' },
+  { label: 'Links', type: 'link' },
+];
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
 ---
 
 <Layout title="Blog" description={blogDescription}>
-    <Section eyebrow="Blog" title="Recent Posts" description="Thoughts on software development, technology, gaming, and more!" as="h1" width="narrow">
-        <ul class="grid gap-6 md:grid-cols-2">
-            {page.data.map((post) => (
-                <li>
-                    <BlogPostCard
-                        url={`/posts/${post.slug}`}
-                        title={post.data.title}
-                        description={post.data.description}
-                        pubDate={post.data.pubDate}
-                        tags={post.data.tags}
-                    />
-                </li>
+    <Section eyebrow="Blog" title="Latest" description="Posts, notes, and links — the newest first." as="h1" width="narrow">
+        <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filter the stream by type" id="stream-filters">
+            {filters.map(({ label, type }) => (
+                <button
+                    type="button"
+                    data-filter={type}
+                    aria-pressed={type === 'all' ? 'true' : 'false'}
+                    class="border border-borderLight dark:border-borderDark px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary aria-pressed:border-primary aria-pressed:text-primary motion-safe:transition-colors"
+                >
+                    {label}
+                </button>
             ))}
+        </div>
+
+        <ul class="space-y-6" id="stream">
+            {page.data.map((entry, index) => {
+                const NoteBody = noteContents[index];
+                return (
+                    <li data-type={entry.type} id={entry.anchor} class:list={[entry.type === 'note' && 'scroll-mt-24']}>
+                        {entry.type === 'post' && (
+                            <div class="relative">
+                                <span class="absolute right-4 top-4 z-10 inline-flex items-center border border-borderLight dark:border-borderDark bg-cardLightBg dark:bg-cardDarkBg px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                                    {chipLabels.post}
+                                </span>
+                                <BlogPostCard
+                                    url={entry.href}
+                                    title={entry.title ?? ''}
+                                    description={entry.description ?? ''}
+                                    pubDate={entry.date}
+                                    tags={entry.tags}
+                                />
+                            </div>
+                        )}
+
+                        {entry.type === 'note' && (
+                            <div class="hl-card-shell">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <span class="inline-flex items-center border border-borderLight dark:border-borderDark px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                                        {chipLabels.note}
+                                    </span>
+                                    <a
+                                        href={`#${entry.anchor}`}
+                                        class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary"
+                                    >
+                                        <time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>
+                                    </a>
+                                </div>
+                                {NoteBody && (
+                                    <div class="prose prose-zinc dark:prose-invert max-w-none mt-3">
+                                        <NoteBody />
+                                    </div>
+                                )}
+                                {entry.tags.length > 0 && (
+                                    <div class="mt-4 flex flex-wrap gap-2">
+                                        {entry.tags.map((tag) => (
+                                            <hl-tag>{tag.toUpperCase()}</hl-tag>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {entry.type === 'link' && (
+                            <div class="border-t border-b border-borderLight dark:border-borderDark py-5">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <span class="inline-flex items-center border border-borderLight dark:border-borderDark px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                                        {chipLabels.link}
+                                    </span>
+                                    <span class="font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
+                                        {entry.domain}
+                                    </span>
+                                    <time
+                                        datetime={entry.date.toISOString()}
+                                        class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary"
+                                    >
+                                        {formatDate(entry.date)}
+                                    </time>
+                                </div>
+                                <h2 class="mt-2 text-xl font-semibold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary">
+                                    <a href={entry.href} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+                                        {entry.title} &nearr;
+                                    </a>
+                                </h2>
+                                {entry.description && (
+                                    <p class="mt-2 text-lightTextSecondary dark:text-darkTextSecondary">
+                                        {entry.description}
+                                    </p>
+                                )}
+                            </div>
+                        )}
+                    </li>
+                );
+            })}
         </ul>
 
         {page.lastPage > 1 && (
@@ -62,3 +170,32 @@ const { page } = Astro.props as Props;
         )}
     </Section>
 </Layout>
+
+<script is:inline>
+    // Progressive enhancement: type filter for the blog stream. Without JS all
+    // entries stay visible. Re-initialized after ClientRouter swaps.
+    (function () {
+        function initStreamFilters() {
+            const group = document.getElementById("stream-filters");
+            const stream = document.getElementById("stream");
+            if (!group || !stream) return;
+
+            const buttons = group.querySelectorAll("button[data-filter]");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const filter = button.getAttribute("data-filter");
+                    buttons.forEach((b) =>
+                        b.setAttribute("aria-pressed", b === button ? "true" : "false"),
+                    );
+                    stream.querySelectorAll("li[data-type]").forEach((item) => {
+                        item.hidden =
+                            filter !== "all" && item.getAttribute("data-type") !== filter;
+                    });
+                });
+            });
+        }
+
+        initStreamFilters();
+        document.addEventListener("astro:after-swap", initStreamFilters);
+    })();
+</script>

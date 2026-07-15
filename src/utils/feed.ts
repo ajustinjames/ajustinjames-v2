@@ -24,7 +24,7 @@ export interface FeedEntry {
   href: string;
   /** True for links, which point off-site. */
   external: boolean;
-  /** Anchor id for a note within the /notes stream. */
+  /** Anchor id for a note within the /blog stream. */
   anchor?: string;
   /** Uppercase host label for a link, e.g. PAGEFIND.APP. */
   domain?: string;
@@ -67,7 +67,7 @@ export function mergeFeed(
         date: note.data.pubDate,
         body: note.body,
         anchor: noteAnchor(note.slug),
-        href: `/notes#${noteAnchor(note.slug)}`,
+        href: `/blog#${noteAnchor(note.slug)}`,
         external: false,
         tags: note.data.tags ?? [],
         noteEntry: note,
