@@ -30,6 +30,9 @@ function splitNote(content: string): { fm: Record<string, string>; body: string 
 }
 
 function findMarkdownFiles(dir: string): string[] {
+  // The directory may not exist yet — git doesn't track empty directories and
+  // the collection starts with no notes.
+  if (!fs.existsSync(dir)) return [];
   const results: string[] = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
