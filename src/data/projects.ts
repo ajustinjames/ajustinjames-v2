@@ -45,5 +45,6 @@ export const projects: Project[] = [
 		technologies: ["Vite", "JavaScript", "pdf-lib", "CSS"],
 		status: "stable",
 		repoUrl: "https://github.com/ajustinjames/selling-insert-generator",
+		siteUrl: "https://sig.ajustinjames.com",
 	},
 ];
