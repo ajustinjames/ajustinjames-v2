@@ -6,34 +6,7 @@ This file provides guidance to coding agents working in this repository.
 
 Personal website for ajustinjames.com built with Astro 5, Tailwind CSS, and TypeScript. Statically generated with a blog (Markdown) and portfolio sections.
 
-## Commands
-
-```bash
-npm run dev       # Start dev server
-npm run build     # Build to dist/
-npm run preview   # Preview production build
-npm run check     # Astro type check
-npm run lint      # ESLint
-npm test          # Run Vitest tests
-```
-
-Run a single test file:
-```bash
-npx vitest run test/example.spec.ts
-```
-
-## Architecture
-
-- **`src/pages/`** — File-based routing. Blog posts live under `src/pages/posts/YYYY/`.
-- **`src/components/`** — Organized by feature: `blog/`, `contact/`, `portfolio/`.
-- **`src/layouts/`** — `Layout.astro` (main shell), `MarkdownPostLayout.astro` (blog posts), `Header.astro`, `Footer.astro`.
-- **`src/data/`** — Shared data files: `social-links.ts` (single source of truth for social URLs), `projects.ts` (projects page data).
-- **`src/styles/global.css`** — Global styles imported in the main layout.
-- **`public/`** — Static assets served as-is. Blog images go in `public/images/`.
-- **`test/`** — Vitest unit tests.
-- **`astro.config.mjs`** — Integrations: `@astrojs/tailwind`, `astro-icon`, `@astrojs/sitemap`, `@astrojs/rss`. Site URL: `https://ajustinjames.com`.
-
-Blog posts use Markdown frontmatter; `MarkdownPostLayout.astro` handles rendering. New posts follow the template at `src/pages/posts/_template.md`.
+New blog posts follow the template at `src/pages/posts/_template.md`.
 
 ## Key Conventions
 
