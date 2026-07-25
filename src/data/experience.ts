@@ -20,11 +20,30 @@ export const experience: ExperienceCompany[] = [
         location: "Remote",
         roles: [
             {
+                title: "Staff Software Engineer",
+                startYear: 2026,
+                startMonth: 3,
+                endYear: null,
+                endMonth: null,
+                details: [
+                    "Leading cross-team initiatives and building internal tooling that improves developer productivity, code quality, and software delivery across the engineering organization.",
+                    "Advancing AI-assisted development, engineering automation, and delivery insights while supporting teams through technical guidance and regular office hours.",
+                ],
+                technologies: [
+                    "TypeScript",
+                    "Go",
+                    "Claude Code",
+                    "Codex",
+                    "LaunchDarkly",
+                    "SonarQube",
+                ],
+            },
+            {
                 title: "Software Engineer III",
                 startYear: 2024,
                 startMonth: 9,
-                endYear: null,
-                endMonth: null,
+                endYear: 2026,
+                endMonth: 3,
                 details: [
                     "Developing and enhancing scalable web applications using Angular and .NET Core.",
                     "Collaborating with cross-functional teams to deliver high-quality features.",
