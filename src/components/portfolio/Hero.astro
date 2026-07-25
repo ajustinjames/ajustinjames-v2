@@ -4,37 +4,48 @@ import { socialLinks } from "../../data/social-links";
 ---
 
 <section class="max-w-6xl mx-auto w-full py-16 md:py-24">
-	<p
-		class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary"
-	>
-		Software Engineer / Est. 2018
-	</p>
-	<h1
-		class="mt-4 font-bold tracking-tight leading-[0.95] text-lightTextPrimary dark:text-darkTextPrimary text-[clamp(3.5rem,12vw,7rem)]"
-	>
-		Aaron James
-	</h1>
-	<div class="mt-6 h-1.5 w-32 bg-primary" aria-hidden="true"></div>
-	<p
-		class="mt-8 max-w-prose text-base md:text-lg text-lightTextSecondary dark:text-darkTextSecondary"
-	>
-		I've spent years building web and mobile apps. I love tackling tough
-		problems and finding smart solutions. Tech is always changing, and I'm
-		always learning. That's what keeps this work exciting.
-	</p>
-	<div class="mt-8 flex items-center gap-5">
-		{
-			socialLinks.map((link) => (
-				<a
-					href={link.href}
-					target="_blank"
-					rel="noopener noreferrer"
-					aria-label={link.label}
-					class="text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary motion-safe:transition-colors"
-				>
-					<Icon name={link.iconName} size="28px" />
-				</a>
-			))
-		}
+	<div class="flex items-center justify-between gap-8 xl:gap-12">
+		<div class="min-w-0">
+			<p
+				class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary"
+			>
+				Software Engineer / Est. 2018
+			</p>
+			<h1
+				class="mt-4 font-bold tracking-tight leading-[0.95] text-lightTextPrimary dark:text-darkTextPrimary text-[clamp(3.5rem,12vw,7rem)]"
+			>
+				Aaron James
+			</h1>
+			<div class="mt-6 h-1.5 w-32 bg-primary" aria-hidden="true"></div>
+			<p
+				class="mt-8 max-w-prose text-base md:text-lg text-lightTextSecondary dark:text-darkTextSecondary"
+			>
+				I've spent years building web and mobile apps. I love tackling tough
+				problems and finding smart solutions. Tech is always changing, and I'm
+				always learning. That's what keeps this work exciting.
+			</p>
+			<div class="mt-8 flex items-center gap-5">
+				{
+					socialLinks.map((link) => (
+						<a
+							href={link.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={link.label}
+							class="text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary motion-safe:transition-colors"
+						>
+							<Icon name={link.iconName} size="28px" />
+						</a>
+					))
+				}
+			</div>
+		</div>
+		{/* Below lg the display type claims the full column, so the seal drops out. */}
+		<img
+			src="/ajlogo.svg"
+			alt=""
+			aria-hidden="true"
+			class="hidden lg:block shrink-0 w-48 xl:w-[17rem] dark:invert"
+		/>
 	</div>
 </section>
