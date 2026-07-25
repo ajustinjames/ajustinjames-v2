@@ -78,28 +78,6 @@
 		align-items: center;
 	}
 
-	/* <hl-breadcrumb>'s slotted <a>/<span> children fall to Tailwind's preflight
-	   (@layer base) resetting color and text-decoration on every anchor via the
-	   `a` selector — the same unlayered-vs-@layer-base cascade fight as
-	   <hl-btn>/<hl-input> above. Without this, breadcrumb links render as
-	   browser-default blue underlined text instead of the hardline look.
-	   Reproduce the intended technical styling here in @layer components. */
-	hl-breadcrumb a {
-		font-family: var(--hl-alias-font-technical, "JetBrains Mono", monospace);
-		font-size: 12px;
-		color: var(--hl-alias-text-main);
-		text-decoration: none;
-	}
-	hl-breadcrumb a:hover {
-		text-decoration: underline;
-		color: var(--hl-global-color-accent, #ff4f00);
-	}
-	hl-breadcrumb span {
-		font-family: var(--hl-alias-font-technical, "JetBrains Mono", monospace);
-		font-size: 12px;
-		color: var(--hl-alias-text-muted);
-	}
-
 	/* <hl-progress> styles its slotted <progress> through ::slotted(), which
 	   cannot reach the ::-webkit-progress-value / ::-moz-progress-bar
 	   pseudo-elements that actually paint the fill — and Tailwind's preflight

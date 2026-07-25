@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import TagList from '../components/blog/TagList.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import TableOfContents from '../components/blog/TableOfContents.astro';
 import ReadingProgress from '../components/blog/ReadingProgress.astro';
 import CopyCodeButtons from '../components/blog/CopyCodeButtons.astro';
@@ -42,7 +43,15 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
 >
   <ReadingProgress target="[data-post-article]" />
   <div class="max-w-3xl lg:max-w-6xl mx-auto py-8">
-    <div class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>${frontmatter.title}</span></hl-breadcrumb>`} />
+    <div class="mb-4">
+      <Breadcrumb
+        crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Blog', href: '/blog' },
+          { label: frontmatter.title },
+        ]}
+      />
+    </div>
     <!-- The aside comes first in source order so it stacks above the post on
          narrow screens; on lg+ it is placed into the second grid column. -->
     <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-8 lg:items-start">

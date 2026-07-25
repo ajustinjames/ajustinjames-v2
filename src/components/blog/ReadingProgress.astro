@@ -6,10 +6,10 @@ interface Props {
 
 const { target } = Astro.props;
 
-// <hl-progress> is emitted via set:html for the same reason as <hl-breadcrumb>
-// elsewhere: @lit-labs/ssr chokes on slot-wrapping hardline elements during
-// static rendering. Tracked in #102 — revert to plain markup once fixed
-// upstream.
+// <hl-progress> is emitted via set:html because @lit-labs/ssr chokes on
+// slot-wrapping hardline elements during static rendering — the same crash
+// that .hl-card-shell works around for <hl-card> in global.css. Tracked in
+// #102; revert to plain markup once fixed upstream.
 const progressMarkup = '<hl-progress value="0" max="100"><progress value="0" max="100" aria-hidden="true"></progress></hl-progress>';
 ---
 <div
