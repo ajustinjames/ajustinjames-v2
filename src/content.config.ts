@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -21,7 +23,7 @@ const blog = defineCollection({
 // Notes — tweet-style micro-posts. No title; the Markdown body is the note.
 // The 500-character body limit is enforced in CI (test/notes.spec.ts).
 const notes = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).default([]),
@@ -30,9 +32,9 @@ const notes = defineCollection({
 
 // Links — curated bookmarks. Body is a short (1-2 sentence) commentary.
 const links = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/links' }),
   schema: z.object({
-    url: z.string().url(),
+    url: z.url(),
     title: z.string(),
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).default([]),

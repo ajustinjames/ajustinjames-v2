@@ -8,16 +8,16 @@ import type { CollectionEntry } from 'astro:content';
  * build context. We build minimal mock entries and cast to the collection types.
  */
 
-function post(slug: string, date: string, title: string): CollectionEntry<'blog'> {
+function post(id: string, date: string, title: string): CollectionEntry<'blog'> {
   return {
-    slug,
+    id,
     data: { pubDate: new Date(date), title, description: `desc ${title}`, tags: ['t'] },
   } as unknown as CollectionEntry<'blog'>;
 }
 
-function note(slug: string, date: string, body: string): CollectionEntry<'notes'> {
+function note(id: string, date: string, body: string): CollectionEntry<'notes'> {
   return {
-    slug,
+    id,
     body,
     data: { pubDate: new Date(date), tags: [] },
   } as unknown as CollectionEntry<'notes'>;
