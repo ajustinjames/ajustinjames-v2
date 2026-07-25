@@ -3,7 +3,6 @@ import Layout from './Layout.astro';
 import TagList from '../components/blog/TagList.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import TableOfContents from '../components/blog/TableOfContents.astro';
-import ReadingProgress from '../components/blog/ReadingProgress.astro';
 import CopyCodeButtons from '../components/blog/CopyCodeButtons.astro';
 import { readingTime } from '../utils/reading-time';
 import { Image } from 'astro:assets';
@@ -41,7 +40,6 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   type="article"
   publishedDate={frontmatter.pubDate?.toString()}
 >
-  <ReadingProgress target="[data-post-article]" />
   <div class="max-w-3xl lg:max-w-6xl mx-auto py-8">
     <div class="mb-4">
       <Breadcrumb

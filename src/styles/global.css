@@ -77,42 +77,6 @@
 		align-items: center;
 	}
 
-	/* <hl-progress> styles its slotted <progress> through ::slotted(), which
-	   cannot reach the ::-webkit-progress-value / ::-moz-progress-bar
-	   pseudo-elements that actually paint the fill — and Tailwind's preflight
-	   (@layer base) beats the unlayered shadow rules for border/background, the
-	   same cascade fight described for <hl-btn> above. Reproduce the intended
-	   hardline bar here in @layer components. */
-	hl-progress > progress {
-		appearance: none;
-		-webkit-appearance: none;
-		display: block;
-		width: 100%;
-		height: 4px;
-		border: none;
-		background: transparent;
-	}
-	hl-progress > progress::-webkit-progress-bar {
-		background: transparent;
-	}
-	hl-progress > progress::-webkit-progress-value {
-		background: var(--hl-global-color-accent, #ff4f00);
-	}
-	hl-progress > progress::-moz-progress-bar {
-		background: var(--hl-global-color-accent, #ff4f00);
-	}
-	@media (prefers-reduced-motion: no-preference) {
-		hl-progress > progress::-webkit-progress-value {
-			transition: width 0.1s linear;
-		}
-	}
-
-	/* Keep headings clear of the fixed reading-progress bar when jumped to from
-	   the table of contents. */
-	.prose :is(h1, h2, h3, h4) {
-		scroll-margin-top: 2rem;
-	}
-
 	/* Hardline-style hover-lift effect: nudges the element up-left and adds a
 	   heavier shadow on hover, matching the hardline shadow scale. */
 	.hover-lift {
