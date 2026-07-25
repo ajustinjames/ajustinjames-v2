@@ -1,8 +1,14 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import { projects } from "../data/projects";
 import TagList from "../components/blog/TagList.astro";
+
+const statusLabels = {
+	active: "Active",
+	stable: "Stable",
+} as const;
 ---
 
 <Layout title="Projects" description="A showcase of personal projects and side apps by Aaron James.">
@@ -10,9 +16,23 @@ import TagList from "../components/blog/TagList.astro";
 		<ul class="grid gap-6 md:grid-cols-2">
 			{projects.map((project) => (
 				<li class="hl-card-shell hover-lift">
-					<h2 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
-						{project.name}
-					</h2>
+					{project.screenshot && (
+						<Image
+							src={project.screenshot}
+							alt={`Screenshot of ${project.name}`}
+							widths={[400, 800]}
+							sizes="(min-width: 768px) 400px, 100vw"
+							class="mb-4 w-full border border-borderLight dark:border-borderDark"
+						/>
+					)}
+					<div class="flex items-baseline justify-between gap-3">
+						<h2 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
+							{project.name}
+						</h2>
+						<span class="shrink-0 font-mono text-xs uppercase tracking-wide text-lightTextSecondary dark:text-darkTextSecondary">
+							{statusLabels[project.status]}
+						</span>
+					</div>
 					<p class="mt-3 text-lightTextSecondary dark:text-darkTextSecondary">
 						{project.description}
 					</p>
@@ -20,11 +40,11 @@ import TagList from "../components/blog/TagList.astro";
 						<TagList tags={project.technologies} />
 					</div>
 					<div class="mt-4 flex gap-4 text-sm font-mono uppercase tracking-wide">
-						{project.repoUrl && (
-							<a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">GitHub</a>
-						)}
 						{project.siteUrl && (
-							<a href={project.siteUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Live Site</a>
+							<a href={project.siteUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Live &#8599;</a>
+						)}
+						{project.repoUrl && (
+							<a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="text-lightTextSecondary hover:text-primary dark:text-darkTextSecondary">GitHub</a>
 						)}
 					</div>
 				</li>
