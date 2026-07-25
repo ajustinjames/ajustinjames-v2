@@ -1,0 +1,106 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { buildToc } from '../../utils/toc';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const entries = buildToc(headings);
+
+// Tailwind needs whole class names at build time, so the indent per level is
+// looked up rather than interpolated.
+const indentClass = ['pl-0', 'pl-4', 'pl-8'];
+---
+{entries.length > 0 && (
+  <nav aria-labelledby="toc-heading" class="hl-card-shell">
+    <h2
+      id="toc-heading"
+      class="font-mono text-xs font-semibold uppercase tracking-wider text-lightTextSecondary dark:text-darkTextSecondary"
+    >
+      On this page
+    </h2>
+    <ul class="mt-3 space-y-2 text-sm">
+      {entries.map((entry) => (
+        <li class={indentClass[entry.level] ?? 'pl-8'}>
+          <a
+            href={`#${entry.slug}`}
+            data-toc-link
+            class="block no-underline text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary aria-[current=true]:text-primary aria-[current=true]:font-semibold"
+          >
+            {entry.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<script>
+  // Highlights the table-of-contents entry for the heading currently in view.
+  // Runs on every page load so it survives ClientRouter navigations.
+  function initTocHighlight() {
+    const links = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'),
+    );
+    if (links.length === 0) return;
+
+    const byId = new Map(
+      links.map((link) => [decodeURIComponent(link.hash.slice(1)), link]),
+    );
+    const headings = Array.from(byId.keys())
+      .map((id) => document.getElementById(id))
+      .filter((heading): heading is HTMLElement => heading !== null);
+    if (headings.length === 0) return;
+
+    // Distance from the top of the viewport at which a heading counts as the
+    // one being read.
+    const ACTIVE_LINE_PX = 120;
+
+    let active: HTMLAnchorElement | null = null;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+
+      // The last heading that has crossed the active line, falling back to the
+      // first heading while still above it.
+      let current = headings[0];
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top > ACTIVE_LINE_PX) break;
+        current = heading;
+      }
+
+      const link = byId.get(current.id);
+      if (!link || link === active) return;
+      active?.removeAttribute('aria-current');
+      link.setAttribute('aria-current', 'true');
+      active = link;
+    };
+
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        if (frame) cancelAnimationFrame(frame);
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+      },
+      { once: true },
+    );
+  }
+
+  // `astro:page-load` fires on the initial load too, so this covers both the
+  // first render and every ClientRouter navigation.
+  document.addEventListener('astro:page-load', initTocHighlight);
+</script>

@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Section from '../../../components/Section.astro';
 import BlogPostCard from '../../../components/blog/BlogPostCard.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -43,7 +44,15 @@ const { displayTag, posts } = Astro.props;
     as="h1"
     width="narrow"
   >
-    <div slot="top" class="mb-4" set:html={`<hl-breadcrumb><a href="/">Home</a><a href="/blog">Blog</a><span>Tag: ${displayTag}</span></hl-breadcrumb>`} />
+    <div slot="top" class="mb-4">
+      <Breadcrumb
+        crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Blog', href: '/blog' },
+          { label: `Tag: ${displayTag}` },
+        ]}
+      />
+    </div>
 
     <ul class="grid gap-6 md:grid-cols-2">
       {posts.map((post) => (

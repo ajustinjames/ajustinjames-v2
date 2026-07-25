@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const siteUrl = "https://ajustinjames.com";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
@@ -49,7 +49,7 @@ const blogPostingSchema = {
 };
 ---
 
-<MarkdownPostLayout frontmatter={post.data} rawContent={() => post.body ?? ''} prevPost={prevPost} nextPost={nextPost}>
+<MarkdownPostLayout frontmatter={post.data} rawContent={() => post.body ?? ''} headings={headings} prevPost={prevPost} nextPost={nextPost}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
   <Content />
 </MarkdownPostLayout>

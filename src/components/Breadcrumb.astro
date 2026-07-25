@@ -1,0 +1,44 @@
+---
+export interface Crumb {
+  label: string;
+  /** Omit on the final crumb — it renders as the current page, not a link. */
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+---
+<!--
+  Plain markup rather than <hl-breadcrumb>: that component hides its slot and
+  re-renders the crumbs into its shadow DOM, lifting the <a>/<span> children
+  straight into the <ol> without wrapping them in <li>. Its own shadow styles
+  only target `li:not(.sep) a`, so the visible links never match and fall back
+  to browser-default blue underline — and <a> as a direct child of <ol> is
+  invalid markup besides. Same approach as .hl-card-shell in global.css.
+-->
+<nav aria-label="Breadcrumb">
+  <ol class="flex flex-wrap items-center gap-2 font-mono text-xs">
+    {crumbs.map((crumb, index) => (
+      <li class="flex items-center gap-2">
+        {index > 0 && (
+          <span aria-hidden="true" class="text-lightTextSecondary dark:text-darkTextSecondary">/</span>
+        )}
+        {crumb.href ? (
+          <a
+            href={crumb.href}
+            class="no-underline text-lightTextPrimary dark:text-darkTextPrimary hover:text-primary hover:underline"
+          >
+            {crumb.label}
+          </a>
+        ) : (
+          <span aria-current="page" class="text-lightTextSecondary dark:text-darkTextSecondary">
+            {crumb.label}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
