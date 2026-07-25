@@ -90,11 +90,10 @@
 		width: 100%;
 		height: 4px;
 		border: none;
-		background: var(--hl-alias-surface-bg-alt, #f0f0ec);
-		border-left: 4px solid var(--hl-alias-surface-border, #1a1a1a);
+		background: transparent;
 	}
 	hl-progress > progress::-webkit-progress-bar {
-		background: var(--hl-alias-surface-bg-alt, #f0f0ec);
+		background: transparent;
 	}
 	hl-progress > progress::-webkit-progress-value {
 		background: var(--hl-global-color-accent, #ff4f00);
