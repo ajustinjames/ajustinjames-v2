@@ -1,0 +1,92 @@
+---
+interface Props {
+  /** Selector for the container whose `<pre>` blocks get a copy button. */
+  target: string;
+}
+
+const { target } = Astro.props;
+---
+<div hidden data-copy-code data-copy-code-target={target}></div>
+
+<script>
+  const IDLE_LABEL = 'Copy';
+  const DONE_LABEL = 'Copied';
+  const FAILED_LABEL = 'Failed';
+  const RESET_DELAY_MS = 2000;
+
+  async function copyText(text: string): Promise<boolean> {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function addCopyButton(pre: HTMLPreElement, index: number) {
+    if (pre.dataset.copyReady) return;
+    pre.dataset.copyReady = 'true';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'relative';
+    pre.replaceWith(wrapper);
+    wrapper.append(pre);
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.id = `copy-code-${index}`;
+    button.textContent = IDLE_LABEL;
+    // The visible label doubles as the state readout, so announce changes.
+    button.setAttribute('aria-live', 'polite');
+
+    const host = document.createElement('hl-btn');
+    host.setAttribute('size', 'sm');
+    // Code blocks render on a dark surface in both themes, so use the accent
+    // variant — its colours are theme-stable and stay legible on that surface.
+    host.setAttribute('variant', 'primary');
+    // Kept visible rather than hover-only so the button is discoverable on
+    // touch devices, dimmed so it stays out of the way while reading.
+    host.className = 'absolute right-2 top-2 opacity-70 hover:opacity-100 focus-within:opacity-100';
+    host.append(button);
+
+    const tooltip = document.createElement('hl-tooltip');
+    tooltip.setAttribute('for', button.id);
+    tooltip.setAttribute('placement', 'left');
+    tooltip.textContent = 'Copy to clipboard';
+
+    wrapper.append(host, tooltip);
+
+    let resetTimer = 0;
+
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const text = (code ?? pre).textContent ?? '';
+      const copied = await copyText(text);
+
+      button.textContent = copied ? DONE_LABEL : FAILED_LABEL;
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        button.textContent = IDLE_LABEL;
+      }, RESET_DELAY_MS);
+    });
+  }
+
+  function initCopyCode() {
+    const config = document.querySelector<HTMLElement>('[data-copy-code]');
+    const selector = config?.dataset.copyCodeTarget;
+    if (!selector) return;
+
+    // The Clipboard API needs a secure context; without it the button would
+    // always fail, so leave the code blocks untouched.
+    if (!navigator.clipboard) return;
+
+    const container = document.querySelector(selector);
+    if (!container) return;
+
+    container
+      .querySelectorAll<HTMLPreElement>('pre')
+      .forEach((pre, index) => addCopyButton(pre, index));
+  }
+
+  document.addEventListener('astro:page-load', initCopyCode);
+</script>
