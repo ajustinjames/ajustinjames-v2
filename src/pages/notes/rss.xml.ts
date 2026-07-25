@@ -18,7 +18,7 @@ export async function GET(context: APIContext) {
       .map((note) => ({
         pubDate: note.data.pubDate,
         description: note.body,
-        link: `/blog#${noteAnchor(note.slug)}`,
+        link: `/blog#${noteAnchor(note.id)}`,
       })),
   });
 }

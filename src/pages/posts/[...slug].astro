@@ -10,11 +10,11 @@ export async function getStaticPaths() {
     const newerPost = sorted[i - 1] ?? null;
     const olderPost = sorted[i + 1] ?? null;
     return {
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: {
         post,
-        prevPost: olderPost ? { slug: olderPost.slug, title: olderPost.data.title } : null,
-        nextPost: newerPost ? { slug: newerPost.slug, title: newerPost.data.title } : null,
+        prevPost: olderPost ? { slug: olderPost.id, title: olderPost.data.title } : null,
+        nextPost: newerPost ? { slug: newerPost.id, title: newerPost.data.title } : null,
       },
     };
   });
