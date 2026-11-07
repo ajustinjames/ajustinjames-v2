@@ -1,12 +1,11 @@
 /**
  * Small single-page apps served at /apps/<slug>/.
  *
- * Each app has its code in `src/apps/<slug>/` and its page in
- * `src/pages/apps/<slug>.astro`. Scaffold a new one with `npm run new-app`.
+ * Apps are found automatically: every `src/apps/<slug>/app.json` is one app, and its
+ * folder name is its slug. Its page is `src/pages/apps/<slug>.astro`. Scaffold a new
+ * one with `npm run new-app`.
  */
-export interface App {
-	/** Lowercase kebab-case. Equals the directory and page name, and the URL path. */
-	slug: string;
+export interface AppMeta {
 	name: string;
 	/** One public sentence, used for the meta description and the /apps index. */
 	description: string;
@@ -21,31 +20,24 @@ export interface App {
 	lightOnly?: boolean;
 }
 
-export const apps: App[] = [
-	{
-		slug: "giving-to-scale",
-		name: "Giving to Scale",
-		description:
-			"Type a gift, a fortune, and your net worth to see the same share in your money and the fortune drawn to scale.",
-		added: "2026-10-22",
-		listed: true,
-		lightOnly: true,
-	},
-	{
-		slug: "killed-by-ea",
-		name: "Killed by EA",
-		description:
-			"A dated, sourced archive of what Electronic Arts killed: games cancelled in development, studios closed or merged, and projects it ended.",
-		added: "2026-10-22",
-		listed: false,
-	},
-	// new-app: entries are inserted above this line
-];
+export interface App extends AppMeta {
+	/** Lowercase kebab-case. Equals the folder and page name, and the URL path. */
+	slug: string;
+}
+
+const metaFiles = import.meta.glob<AppMeta>("../apps/*/app.json", {
+	eager: true,
+	import: "default",
+});
+
+export const apps: App[] = Object.entries(metaFiles)
+	.map(([path, meta]) => ({ slug: path.split("/").at(-2) as string, ...meta }))
+	.sort((a, b) => b.added.localeCompare(a.added) || a.name.localeCompare(b.name));
 
 export function getApp(slug: string): App {
 	const app = apps.find((entry) => entry.slug === slug);
 	if (!app) {
-		throw new Error(`No app "${slug}" in src/data/apps.ts`);
+		throw new Error(`No app "${slug}": add src/apps/${slug}/app.json`);
 	}
 	return app;
 }

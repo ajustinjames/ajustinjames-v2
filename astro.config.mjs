@@ -3,11 +3,13 @@ import tailwindcss from '@tailwindcss/vite'
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 import lit from '@astrojs/lit';
-import { apps } from './src/data/apps.ts';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 
-const unlistedAppPaths = apps
-  .filter((app) => !app.listed)
-  .map((app) => `/apps/${app.slug}/`);
+// Apps marked `listed: false` in src/apps/<slug>/app.json stay out of the sitemap.
+const unlistedAppPaths = readdirSync('./src/apps')
+  .filter((slug) => existsSync(`./src/apps/${slug}/app.json`))
+  .filter((slug) => !JSON.parse(readFileSync(`./src/apps/${slug}/app.json`, 'utf8')).listed)
+  .map((slug) => `/apps/${slug}/`);
 
 export default defineConfig({
   site: 'https://ajustinjames.com',

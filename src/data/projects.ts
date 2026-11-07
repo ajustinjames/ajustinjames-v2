@@ -47,13 +47,4 @@ export const projects: Project[] = [
 		repoUrl: "https://github.com/ajustinjames/selling-insert-generator",
 		siteUrl: "https://sig.ajustinjames.com",
 	},
-	{
-		name: "Apps",
-		description:
-			"Small single-page tools I build when an idea doesn't need its own repo, like Giving to Scale, which draws a gift and a fortune to scale. Each one lives on a single page of this site and runs entirely in the browser, with no accounts and no server.",
-		technologies: ["Astro", "TypeScript", "Lit"],
-		status: "active",
-		repoUrl: "https://github.com/ajustinjames/ajustinjames-v2/tree/main/src/apps",
-		siteUrl: "https://ajustinjames.com/apps/",
-	},
 ];
