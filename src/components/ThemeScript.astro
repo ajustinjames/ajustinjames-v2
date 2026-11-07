@@ -1,0 +1,53 @@
+---
+// Sets data-theme on <html> before first paint and defines window.toggleTheme
+// for the header button. Keep it first in <head> to avoid a dark-mode flash.
+// `forcedTheme` pins the page to one theme (for apps that only support light).
+interface Props {
+	forcedTheme?: "light" | "dark";
+}
+
+const { forcedTheme = null } = Astro.props;
+---
+
+<script is:inline define:vars={{ forcedTheme }}>
+	const getThemePreference = () => {
+		if (forcedTheme) {
+			return forcedTheme;
+		}
+		if (
+			typeof localStorage !== "undefined" &&
+			localStorage.getItem("theme")
+		) {
+			return localStorage.getItem("theme");
+		}
+		return window.matchMedia("(prefers-color-scheme: dark)").matches
+			? "dark"
+			: "light";
+	};
+
+	const applyTheme = (theme) => {
+		document.documentElement.setAttribute("data-theme", theme);
+		const toggle = document.getElementById("theme-toggle");
+		if (toggle) {
+			toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+		}
+	};
+
+	applyTheme(getThemePreference());
+
+	window.toggleTheme = () => {
+		if (forcedTheme) {
+			return;
+		}
+		const current = document.documentElement.getAttribute("data-theme");
+		const next = current === "dark" ? "light" : "dark";
+		applyTheme(next);
+		if (typeof localStorage !== "undefined") {
+			localStorage.setItem("theme", next);
+		}
+	};
+
+	document.addEventListener("astro:after-swap", () => {
+		applyTheme(getThemePreference());
+	});
+</script>

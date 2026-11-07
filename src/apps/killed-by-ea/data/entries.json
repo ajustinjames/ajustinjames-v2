@@ -1,0 +1,1266 @@
+{
+  "schemaVersion": 2,
+  "cutoff": "2026-10-22",
+  "entries": [
+    {
+      "id": "ultima-worlds-online-origin",
+      "name": "Ultima Worlds Online: Origin",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2001",
+        "precision": "year"
+      },
+      "dateBasis": "report",
+      "studio": "Origin Systems",
+      "series": "Ultima",
+      "summary": "EA cancelled Ultima Worlds Online: Origin, a planned sequel to Ultima Online.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-reduces-staff/1100-2700190/",
+          "archive": "https://web.archive.org/web/20250817115625/https://www.gamespot.com/articles/ea-reduces-staff/1100-2700190/",
+          "title": "EA reduces staff",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 22 Mar 2001: EA said “the only game cancellation the company would confirm” was Ultima Worlds Online: Origin.",
+      "note": "The timeline uses GameSpot’s 2001 report year. Its 22 March report quotes EA’s confirmation but does not say when the game was cancelled."
+    },
+    {
+      "id": "ea-com-san-diego-studio",
+      "name": "EA.com San Diego studio",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2001-10",
+        "precision": "month"
+      },
+      "dateBasis": "announcement",
+      "summary": "EA announced the closure of its EA.com San Diego studio in a restructuring.",
+      "sources": [
+        {
+          "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/e/NASDAQ_ERTS_2005.pdf",
+          "archive": "https://web.archive.org/web/20240612082012/https://www.annualreports.com/HostedData/AnnualReportArchive/e/NASDAQ_ERTS_2005.pdf",
+          "title": "Electronic Arts Inc. 2005 Form 10-K",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA’s 2005 Form 10-K: “In October 2001, we announced restructuring initiatives involving EA.com and the closure of EA.com’s San Diego studio”",
+      "note": "EA’s 2005 Form 10-K dates its announcement to October 2001; it does not say when the closure took effect.",
+      "announced": true
+    },
+    {
+      "id": "ea-seattle-studio",
+      "name": "EA Seattle studio",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "precision": "year",
+        "value": "2002"
+      },
+      "dateBasis": "event",
+      "summary": "EA closed its Seattle studio while consolidating local development efforts in Redwood City and Vancouver.",
+      "sources": [
+        {
+          "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/e/NASDAQ_ERTS_2005.pdf",
+          "archive": "https://web.archive.org/web/20240612082012/https://www.annualreports.com/HostedData/AnnualReportArchive/e/NASDAQ_ERTS_2005.pdf",
+          "title": "Electronic Arts Inc. 2005 Form 10-K",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA’s 2005 Form 10-K: in fiscal Q3 2003 it “closed ... our studio located in Seattle, Washington” while consolidating local development efforts in Redwood City and Vancouver.",
+      "note": "The filing dates the closure to fiscal Q3 2003, which ended in December 2002; it gives no month or day."
+    },
+    {
+      "id": "bellevue-studio",
+      "name": "EA Bellevue studio (Manley & Associates lineage)",
+      "kind": "studio",
+      "status": "closed",
+      "announced": true,
+      "start": {
+        "value": "1997",
+        "precision": "year"
+      },
+      "end": {
+        "value": "2002-10",
+        "precision": "month"
+      },
+      "dateBasis": "announcement",
+      "summary": "EA announced the closure of its Bellevue studio, moving about half its staff to Vancouver and laying off the rest.",
+      "sources": [
+        {
+          "url": "https://www.seattlepi.com/business/article/electronic-arts-closing-bellevue-game-studio-1098967.php",
+          "archive": "https://web.archive.org/web/20141129031710/https://www.seattlepi.com/business/article/electronic-arts-closing-bellevue-game-studio-1098967.php",
+          "title": "Electronic Arts closing Bellevue game studio",
+          "publisher": "Seattle Post-Intelligencer"
+        }
+      ],
+      "check": "Seattle Post-Intelligencer, 21 Oct 2002: the Bellevue office “opened in 1997 after Electronic Arts acquired Issaquah-based Manley & Associates”",
+      "note": "The Seattle Post-Intelligencer’s 21 October 2002 report says staff were told the previous week; October is the announcement month, not the closure date."
+    },
+    {
+      "id": "ea-pacific",
+      "name": "EA Pacific",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "EA Los Angeles studio",
+      "end": {
+        "value": "2003",
+        "precision": "year"
+      },
+      "dateBasis": "announcement",
+      "series": "Command & Conquer",
+      "summary": "EA announced that virtually the entire EA Pacific team would continue at its new Los Angeles studio during the Westwood consolidation.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-consolidates-studios-closes-westwood/1100-2909852/",
+          "archive": "https://web.archive.org/web/20260217161225/https://www.gamespot.com/articles/ea-consolidates-studios-closes-westwood/1100-2909852/",
+          "title": "EA consolidates studios, closes Westwood",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 30 Jan 2003: EA said virtually the entire EA Pacific team would continue at its new Los Angeles campus.",
+      "note": "GameSpot’s 30 January 2003 article reports EA’s announcement that the team would continue at EA Los Angeles; it does not establish when the transfer happened.",
+      "announced": true
+    },
+    {
+      "id": "studio-33",
+      "name": "Studio 33",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "EA Northwest",
+      "end": {
+        "value": "2003",
+        "precision": "year"
+      },
+      "dateBasis": "announcement",
+      "summary": "EA acquired Studio 33 and said its Liverpool team would join the existing EA Northwest team.",
+      "sources": [
+        {
+          "url": "https://nintendoworldreport.com/news/9061/electronic-arts-acquires-studio-33",
+          "archive": "https://web.archive.org/web/20190505123950/https://nintendoworldreport.com/news/9061/electronic-arts-acquires-studio-33",
+          "title": "Electronic Arts Acquires Studio 33",
+          "publisher": "Nintendo World Report"
+        }
+      ],
+      "check": "Nintendo World Report reproduces EA’s 16 Oct 2003 release: “the team of roughly 30 Liverpool-based employees will join the existing team at EA Northwest”.",
+      "note": "Nintendo World Report’s 16 October 2003 reproduction of EA’s release records the announced transfer, not when the team moved to EA Northwest.",
+      "announced": true
+    },
+    {
+      "id": "westwood-studios",
+      "name": "Westwood Studios",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "precision": "day",
+        "value": "2003-01-30"
+      },
+      "dateBasis": "announcement",
+      "series": "Command & Conquer",
+      "summary": "EA announced plans to close Westwood’s Las Vegas studio after significant layoffs, with transition staff staying until the planned March 31 closure.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-consolidates-studios-closes-westwood/1100-2909852/",
+          "archive": "https://web.archive.org/web/20260217161225/https://www.gamespot.com/articles/ea-consolidates-studios-closes-westwood/1100-2909852/",
+          "title": "EA consolidates studios, closes Westwood",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 30 Jan 2003: EA announced plans for the “studio’s final closure on March 31” after significant layoffs at its Las Vegas studio.",
+      "note": "The date is GameSpot’s 30 January 2003 report of EA’s announcement; the planned 31 March closure is not confirmed as completed.",
+      "announced": true
+    },
+    {
+      "id": "bullfrog-productions",
+      "name": "Bullfrog Productions",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "EA UK",
+      "end": {
+        "value": "2004",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "summary": "Bullfrog’s remaining studio work was absorbed into EA UK.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/business/we-see-farther---a-history-of-electronic-arts",
+          "archive": "https://web.archive.org/web/20210827110918/https://www.gamedeveloper.com/business/we-see-farther---a-history-of-electronic-arts",
+          "title": "We See Farther - A History of Electronic Arts",
+          "publisher": "Game Developer"
+        }
+      ],
+      "check": "Game Developer says Bullfrog was “eventually absorbed into EA UK in 2004.”"
+    },
+    {
+      "id": "origin-systems",
+      "name": "Origin Systems",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2004",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "series": "Ultima",
+      "summary": "EA closed Origin Systems’ Austin studio and moved staff who stayed with the company to Redwood Shores.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/origin-obit-confirmed/1100-6090094/",
+          "archive": "https://web.archive.org/web/20211025100335/https://www.gamespot.com/articles/origin-obit-confirmed/1100-6090094/",
+          "title": "Origin obit confirmed",
+          "publisher": "GameSpot"
+        },
+        {
+          "url": "https://www.gamespot.com/articles/electronic-arts-workforce-reduction-to-axe-117-jobs/1100-6100143/",
+          "archive": "https://web.archive.org/web/20190720203237/https://www.gamespot.com/articles/electronic-arts-workforce-reduction-to-axe-117-jobs/1100-6100143/",
+          "title": "Electronic Arts’ “workforce reduction” to axe 117 jobs",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 26 Feb 2004: EA planned to shutter Austin operations by the end of April; a June report confirmed the “closure of its Origin studio in Austin.”",
+      "note": "A later report confirmed the studio closure but did not give the final day, so only the year is recorded."
+    },
+    {
+      "id": "ultima-x-odyssey",
+      "name": "Ultima X: Odyssey",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2004-07-01",
+        "precision": "day"
+      },
+      "dateBasis": "event",
+      "series": "Ultima",
+      "summary": "EA ended development on Ultima X: Odyssey and moved its remaining team to other Ultima projects.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/electronic-arts-kills-ultima-x-odyssey/1100-6101727/",
+          "archive": "https://web.archive.org/web/20190219202229/https://www.gamespot.com/articles/electronic-arts-kills-ultima-x-odyssey/1100-6101727/",
+          "title": "Electronic Arts kills Ultima X: Odyssey",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 1 Jul 2004: “As of today, development on Ultima X: Odyssey has ended”"
+    },
+    {
+      "id": "hypnotix",
+      "name": "Hypnotix",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "EA Tiburon",
+      "end": {
+        "value": "2005-07",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "summary": "EA moved Hypnotix’s 35-person development team to its Tiburon studio to work on action-oriented games.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/game-platforms/hypnotix-team-joins-ea-tiburon",
+          "archive": "https://web.archive.org/web/20240622023713/https://www.gamedeveloper.com/game-platforms/hypnotix-team-joins-ea-tiburon",
+          "title": "Hypnotix Team Joins EA Tiburon",
+          "publisher": "Game Developer"
+        }
+      ],
+      "check": "Game Developer, 27 Jul 2005: Hypnotix’s “35 person-strong development team” “has joined EA's Tiburon” studio.",
+      "note": "Dated by the month of Game Developer’s report that the team had joined EA Tiburon; the report doesn’t give the day of the move."
+    },
+    {
+      "id": "jamdat-mobile",
+      "name": "JAMDAT Mobile",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "EA Mobile",
+      "end": {
+        "value": "2006",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "summary": "EA merged its existing mobile game development and publishing business with JAMDAT after acquiring the company to form EA Mobile.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/business/gdc-mobile-the-future-of-mobile-gaming-and-its-enemies",
+          "archive": "https://web.archive.org/web/20210827093721/https://www.gamedeveloper.com/business/gdc-mobile-the-future-of-mobile-gaming-and-its-enemies",
+          "title": "GDC Mobile: The Future of Mobile Gaming and its Enemies",
+          "publisher": "Game Developer"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/712515/000095013406011401/f21019e10vk.htm",
+          "archive": "https://web.archive.org/web/20221004061842/https://www.sec.gov/Archives/edgar/data/712515/000095013406011401/f21019e10vk.htm",
+          "title": "Electronic Arts Inc. 2006 Form 10-K",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA’s 2006 Form 10-K: after acquiring JAMDAT in February, EA “merged our existing mobile business with JAMDAT to establish our EA Mobile business”; Game Developer places the merger about two months before 31 March.",
+      "note": "EA acquired JAMDAT on 15 February 2006 and says the merger came afterwards. Game Developer puts it about two months before 31 March 2006. Neither gives a month, so only the year is given."
+    },
+    {
+      "id": "dice-canada",
+      "name": "DICE Canada",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2006-10-06",
+        "precision": "day"
+      },
+      "dateBasis": "report",
+      "series": "Battlefield",
+      "summary": "EA announced it was closing its London, Ontario DICE branch and moving its in-development projects to the Stockholm studio.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-shuts-down-dice-canada/1100-6159448/",
+          "archive": "https://web.archive.org/web/20140329183429/https://www.gamespot.com/articles/ea-shuts-down-dice-canada/1100-6159448/",
+          "title": "EA shuts down DICE Canada",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot’s 6 Oct 2006 report says EA confirmed the London, Ontario studio was “being closed,” with projects moved to Stockholm.",
+      "announced": true,
+      "note": "The date is GameSpot’s 6 October 2006 report of EA’s closure announcement; the article does not date EA’s communication or give an effective date."
+    },
+    {
+      "id": "ea-warrington",
+      "name": "EA Warrington studio",
+      "kind": "studio",
+      "status": "closed",
+      "announced": true,
+      "end": {
+        "precision": "day",
+        "value": "2006-10-17"
+      },
+      "dateBasis": "report",
+      "summary": "EA announced it was closing its Warrington studio and offering affected staff roles at other UK studios.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/game-platforms/electronic-arts-to-close-uk-studio",
+          "archive": "https://web.archive.org/web/20250207213024/https://www.gamedeveloper.com/game-platforms/electronic-arts-to-close-uk-studio",
+          "title": "Electronic Arts to close UK studio",
+          "publisher": "Game Developer"
+        }
+      ],
+      "check": "Game Developer’s 17 Oct 2006 report says EA confirmed it was “closing its Warrington studio” and offering affected staff roles at other UK studios.",
+      "note": "The date is Game Developer’s 17 October 2006 report of EA’s closure announcement; the article does not date EA’s communication or give an effective date."
+    },
+    {
+      "id": "white-council",
+      "name": "The Lord of the Rings: The White Council",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "value": "2007",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "studio": "EA Redwood Shores",
+      "series": "The Lord of the Rings",
+      "summary": "EA cancelled The White Council in 2007, having described it publicly as on indefinite hiatus; a former executive producer later said the project was dead.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/why-ea-canceled-the-lord-of-the-rings-the-white-council/1100-6485310/",
+          "archive": "https://web.archive.org/web/20201209235427/https://www.gamespot.com/articles/why-ea-canceled-the-lord-of-the-rings-the-white-council/1100-6485310/",
+          "title": "Why EA Canceled The Lord Of The Rings: The White Council",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 9 Dec 2020: “When The White Council was canceled in 2007”; former executive producer Steve Gray called it “dead as a doornail.”",
+      "note": "GameSpot says it was “canceled in 2007”. It also says EA never officially cancelled it, and called it an indefinite hiatus."
+    },
+    {
+      "id": "ea-japan-studio",
+      "name": "EA Japan studio",
+      "kind": "studio",
+      "status": "closed",
+      "announced": true,
+      "start": {
+        "value": "2004",
+        "precision": "year"
+      },
+      "end": {
+        "value": "2007-02-08",
+        "precision": "day"
+      },
+      "dateBasis": "report",
+      "summary": "EA announced that its Japanese internal studio would close and move under EA Partners to work with external developers.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-closes-japan-studio/1100-6165592/",
+          "archive": "https://web.archive.org/web/20191207065545/https://www.gamespot.com/articles/ea-closes-japan-studio/1100-6165592/",
+          "title": "EA closes Japan studio",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot’s 8 Feb 2007 report says the studio “will soon be closing its doors after three years” and “originally opened three years ago”.",
+      "note": "The date is GameSpot’s 8 February 2007 report quoting a planned closure; it does not date EA’s communication or establish when or whether the closure took effect."
+    },
+    {
+      "id": "ea-chicago",
+      "name": "EA Chicago",
+      "kind": "studio",
+      "status": "closed",
+      "announced": true,
+      "end": {
+        "value": "2007-11-06",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "series": "Fight Night",
+      "summary": "EA announced it was closing its Chicago studio, which had worked on the Def Jam and Fight Night series.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-chicago-closing/1100-6182347/",
+          "archive": "https://web.archive.org/web/20131109101308/https://www.gamespot.com/articles/ea-chicago-closing/1100-6182347/",
+          "title": "EA Chicago closing",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 6 Nov 2007: an internal memo said “EA Chicago is also being closed.”",
+      "note": "GameSpot’s 6 November 2007 article reports an internal memo announcing the closure; it gives no effective date."
+    },
+    {
+      "id": "tiberium",
+      "name": "Tiberium",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2008-09-30",
+        "precision": "day"
+      },
+      "dateBasis": "event",
+      "studio": "EA Los Angeles",
+      "series": "Command & Conquer",
+      "summary": "EA cancelled Tiberium, a Command & Conquer first-person shooter that was in development at its Los Angeles studio.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/tiberium-terminated/1100-6198367/",
+          "archive": "https://web.archive.org/web/20140131121555/https://www.gamespot.com/articles/tiberium-terminated/1100-6198367/",
+          "title": "Tiberium terminated",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 30 Sep 2008: EA confirmed the game “has been canceled outright” and suspended work “effective immediately”"
+    },
+    {
+      "id": "pandemic-studios",
+      "name": "Pandemic Studios",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2009-11",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "series": "Mercenaries",
+      "summary": "A November 2009 report described EA’s shutdown of Pandemic Studios as under way, with about 200 laid off and the rest moved to EA Los Angeles.",
+      "sources": [
+        {
+          "url": "https://www.socaltech.com/ea_shutters_pandemic_studios/s-0025322.html",
+          "archive": "https://web.archive.org/web/20140831134811/https://www.socaltech.com/ea_shutters_pandemic_studios/s-0025322.html",
+          "title": "EA Shutters Pandemic Studios",
+          "publisher": "SoCalTech"
+        }
+      ],
+      "check": "SoCalTech, 18 Nov 2009: “Electronics Arts is shutting down Los Angeles-based Pandemic Studios”; around 200 were laid off and the rest transferred.",
+      "note": "The date is SoCalTech’s November 2009 report of the shutdown under way; it does not establish when the studio finished closing.",
+      "announced": true
+    },
+    {
+      "id": "nba-elite-11",
+      "name": "NBA Elite 11",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2010-11-02",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "series": "NBA Live",
+      "summary": "EA cancelled NBA Elite 11 after delaying the basketball game for the 2010–2011 season.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/nba-elite-11-canceled/1100-6283446/",
+          "archive": "https://web.archive.org/web/20131126024104/https://www.gamespot.com/articles/nba-elite-11-canceled/1100-6283446/",
+          "title": "NBA Elite 11 canceled",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 2 Nov 2010: EA announced it had “canceled NBA Elite 11 outright.”",
+      "note": "GameSpot reports EA’s 2 November 2010 cancellation announcement; it does not separately date when development ended."
+    },
+    {
+      "id": "ea-bright-light",
+      "name": "EA Bright Light",
+      "kind": "studio",
+      "status": "closed",
+      "start": {
+        "value": "1995",
+        "precision": "year"
+      },
+      "end": {
+        "value": "2011",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "series": "Harry Potter",
+      "summary": "EA closed its Guildford studio, which had opened as EA UK and later became Bright Light.",
+      "sources": [
+        {
+          "url": "https://mcvuk.com/business-news/publishing/ea-switches-off-bright-light-studio/",
+          "archive": "https://web.archive.org/web/20200522012719/https://mcvuk.com/business-news/publishing/ea-switches-off-bright-light-studio/",
+          "title": "EA switches off Bright Light studio",
+          "publisher": "MCV/DEVELOP"
+        },
+        {
+          "url": "https://www.gamespot.com/articles/ea-bright-light-shuttered-report/1100-6348279/",
+          "archive": "https://web.archive.org/web/20140323232010/https://www.gamespot.com/articles/ea-bright-light-shuttered-report/1100-6348279/",
+          "title": "EA Bright Light shuttered – Report",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "MCV, 5 Jan 2012: two people confirmed the studio “closed late last year.” GameSpot says EA opened the Guildford studio in 1995 as EA UK.",
+      "note": "MCV placed the closure in late 2011, likely mid-November; only the year is recorded."
+    },
+    {
+      "id": "popcap-dublin",
+      "name": "PopCap Dublin studio",
+      "kind": "studio",
+      "status": "closed",
+      "start": {
+        "value": "2006",
+        "precision": "year"
+      },
+      "end": {
+        "precision": "day",
+        "value": "2012-09-24"
+      },
+      "dateBasis": "event",
+      "summary": "PopCap closed its Dublin operations, eliminating 96 jobs at its European headquarters.",
+      "sources": [
+        {
+          "url": "https://www.thejournal.ie/popcap-closes-dublin-office-608735-Sep2012/",
+          "archive": "https://web.archive.org/web/20210118104552/https://www.thejournal.ie/popcap-closes-dublin-office-608735-Sep2012/",
+          "title": "PopCap closes Dublin office",
+          "publisher": "TheJournal.ie"
+        },
+        {
+          "url": "https://www.gamespot.com/articles/popcap-shuts-down-dublin-studio/1100-6397091/",
+          "archive": "https://web.archive.org/web/20181213141945/https://www.gamespot.com/articles/popcap-shuts-down-dublin-studio/1100-6397091/",
+          "title": "PopCap shuts down Dublin studio",
+          "publisher": "GameSpot"
+        },
+        {
+          "url": "https://www.mcvuk.com/development-news/ea-closes-popcap-dublin/",
+          "archive": "https://web.archive.org/web/20210711001106/https://www.mcvuk.com/development-news/ea-closes-popcap-dublin/",
+          "title": "EA closes PopCap Dublin",
+          "publisher": "MCV/Develop"
+        }
+      ],
+      "check": "TheJournal.ie, 24 Sep 2012: “PopCap Games has closed its Dublin operations today,” affecting 96 jobs. MCV says it opened the Dublin studio in 2006 as its European HQ."
+    },
+    {
+      "id": "nba-live-13",
+      "name": "NBA Live 13",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2012-09-27",
+        "precision": "day"
+      },
+      "dateBasis": "event",
+      "series": "NBA Live",
+      "summary": "EA Sports cancelled NBA Live 13 and said it would sit out the full basketball season.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/ea-sports-cancels-nba-live-13-5947066",
+          "archive": "https://web.archive.org/web/20190421055812/https://kotaku.com/ea-sports-cancels-nba-live-13-5947066",
+          "title": "EA Sports Cancels NBA Live 13",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 27 Sep 2012: “EA Sports today canceled its troubled NBA Live 13 project.”"
+    },
+    {
+      "id": "danger-close-games",
+      "name": "Danger Close Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2013",
+        "precision": "year"
+      },
+      "dateBasis": "report",
+      "series": "Medal of Honor",
+      "summary": "EA disbanded Danger Close, the Medal of Honor studio; its staff left or moved to DICE and other EA teams.",
+      "sources": [
+        {
+          "url": "https://mcvuk.com/business-news/publishing/ea-confirms-danger-close-team-disbanded/",
+          "archive": "https://web.archive.org/web/20261024020710/https://mcvuk.com/business-news/publishing/ea-confirms-danger-close-team-disbanded/",
+          "title": "EA confirms Danger Close team disbanded",
+          "publisher": "MCV/Develop"
+        }
+      ],
+      "check": "MCV’s 14 Jun 2013 report quotes Patrick Söderlund saying: “Danger Close as it was doesn’t exist anymore,”",
+      "note": "The date is MCV’s 2013 report of Söderlund’s statement; it does not establish when the Danger Close team ceased to exist."
+    },
+    {
+      "id": "ea-phenomic",
+      "name": "EA Phenomic",
+      "kind": "studio",
+      "status": "closed",
+      "start": {
+        "value": "1997",
+        "precision": "year"
+      },
+      "end": {
+        "precision": "year",
+        "value": "2013"
+      },
+      "dateBasis": "event",
+      "series": "SpellForce",
+      "summary": "EA Phenomic closed and laid off 60 employees, according to reports citing sources close to the studio.",
+      "sources": [
+        {
+          "url": "https://gameinformer.com/b/news/archive/2013/07/12/report-electronic-arts-closes-phenomic-studio.aspx",
+          "archive": "https://web.archive.org/web/20130715212404/https://gameinformer.com/b/news/archive/2013/07/12/report-electronic-arts-closes-phenomic-studio.aspx",
+          "title": "Report: Electronic Arts Closes Phenomic Studio",
+          "publisher": "Game Informer"
+        }
+      ],
+      "check": "Game Informer, 12 Jul 2013: GamesIndustry reported EA had “shuttered EA Phenomic,” and the article says the studio was founded in 1997.",
+      "note": "Game Informer reported that the studio had been shuttered and described it as part of EA studio closings conducted in 2013; it gave no more precise event date."
+    },
+    {
+      "id": "bioware-san-francisco",
+      "name": "BioWare San Francisco",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2013-03",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "series": "Dragon Age",
+      "summary": "A source inside BioWare San Francisco told GameSpot the studio had closed and laid off 25 to 30 employees.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/bioware-san-francisco-closed-report/1100-6404824/",
+          "archive": "https://web.archive.org/web/20201011044154/https://www.gamespot.com/articles/bioware-san-francisco-closed-report/1100-6404824/",
+          "title": "BioWare San Francisco closed – Report",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 5 Mar 2013: a source inside the studio said BioWare San Francisco “has been closed” and that 25 to 30 employees were laid off.",
+      "note": "Dated by the month of GameSpot’s report of 5 March 2013, from a source inside the studio; it doesn’t give the day of the closure."
+    },
+    {
+      "id": "popcap-vancouver",
+      "name": "PopCap Vancouver office",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2013-04",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "summary": "PopCap closed its Vancouver development office, according to employee reports.",
+      "sources": [
+        {
+          "url": "https://www.bcbusiness.ca/industries/general/ea-layoffs-hit-vancouver-popcap-and-quicklime-to-close/",
+          "archive": "https://web.archive.org/web/20240724062341/https://www.bcbusiness.ca/industries/general/ea-layoffs-hit-vancouver-popcap-and-quicklime-to-close/",
+          "title": "EA Layoffs Hit Vancouver: PopCap and Quicklime To Close",
+          "publisher": "BCBusiness"
+        },
+        {
+          "url": "https://www.geekwire.com/2013/ea-shuts-popcap-vancouver-word-seattle-offices/",
+          "archive": "https://web.archive.org/web/20201112011959/https://www.geekwire.com/2013/ea-shuts-popcap-vancouver-word-seattle-offices/",
+          "title": "EA shuts PopCap Vancouver, word Seattle offices",
+          "publisher": "GeekWire"
+        }
+      ],
+      "check": "GeekWire, 26 Apr 2013: PopCap employees said the office was “closed”; BCBusiness reported former EA employees said “the two studios had been shut down.”",
+      "note": "The timeline uses the April 2013 report month from GeekWire and BCBusiness; employee accounts do not give a closure day, and EA did not name the affected locations."
+    },
+    {
+      "id": "quicklime-games",
+      "name": "Quicklime Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2013-04",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "series": "Need for Speed",
+      "summary": "EA closed Quicklime Games, its Vancouver development studio.",
+      "sources": [
+        {
+          "url": "https://www.bcbusiness.ca/industries/general/ea-layoffs-hit-vancouver-popcap-and-quicklime-to-close/",
+          "archive": "https://web.archive.org/web/20240724062341/https://www.bcbusiness.ca/industries/general/ea-layoffs-hit-vancouver-popcap-and-quicklime-to-close/",
+          "title": "EA Layoffs Hit Vancouver: PopCap and Quicklime To Close",
+          "publisher": "BCBusiness"
+        }
+      ],
+      "check": "BCBusiness, 26 Apr 2013: former EA employees reported that “the two studios had been shut down”; the article identifies Quicklime as responsible for Need for Speed: World.",
+      "note": "Dated by the month of BCBusiness’s report, from former EA employees; it doesn’t give the day of the closure."
+    },
+    {
+      "id": "ea-mobile-brazil",
+      "name": "EA Mobile Brazil",
+      "kind": "studio",
+      "status": "closed",
+      "start": {
+        "value": "2008",
+        "precision": "year"
+      },
+      "end": {
+        "value": "2013-04-11",
+        "precision": "day"
+      },
+      "dateBasis": "event",
+      "summary": "EA confirmed it had closed its São Paulo mobile game development studio in Brazil.",
+      "sources": [
+        {
+          "url": "https://www.uol.com.br/start/ultimas-noticias/2013/04/11/ea-demite-funcionarios-e-fecha-estudio-no-brasil.htm",
+          "archive": "https://web.archive.org/web/20191214232408/https://www.uol.com.br/start/ultimas-noticias/2013/04/11/ea-demite-funcionarios-e-fecha-estudio-no-brasil.htm",
+          "title": "EA demite funcionários e fecha estúdio no Brasil",
+          "publisher": "UOL Start"
+        },
+        {
+          "url": "https://teletime.com.br/21/07/2008/ea-monta-estudio-de-games-para-celular-no-brasil/",
+          "archive": "https://web.archive.org/web/20210921074343/https://teletime.com.br/21/07/2008/ea-monta-estudio-de-games-para-celular-no-brasil/",
+          "title": "EA monta estúdio de games para celular no Brasil",
+          "publisher": "Teletime"
+        }
+      ],
+      "check": "UOL, 11 Apr 2013: EA’s press office “confirmou o encerramento do estúdio de desenvolvimento do Brasil.” Teletime reported EA opened its São Paulo mobile studio in 2008."
+    },
+    {
+      "id": "victory-games",
+      "name": "Victory Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2013-10",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "series": "Command & Conquer",
+      "summary": "Victory Games closed after EA cancelled its Command & Conquer game, according to employees cited by Kotaku.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/ea-cancels-command-conquer-1454179860",
+          "archive": "https://web.archive.org/web/20131031150308/https://kotaku.com/ea-cancels-command-conquer-1454179860",
+          "title": "EA Cancels Command & Conquer",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 29 Oct 2013: employees of Victory Games were “tweeting that EA has shut the studio down.”",
+      "note": "Dated by the month of Kotaku’s report of 29 October 2013, from employees’ posts; it doesn’t give the day of the closure."
+    },
+    {
+      "id": "command-conquer-2013",
+      "name": "Command & Conquer (2013 game)",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2013-10-29",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "studio": "Victory Games",
+      "series": "Command & Conquer",
+      "summary": "EA cancelled the free-to-play Command & Conquer game after its closed alpha.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/ea-cancels-command-conquer-1454179860",
+          "archive": "https://web.archive.org/web/20131031150308/https://kotaku.com/ea-cancels-command-conquer-1454179860",
+          "title": "EA Cancels Command & Conquer",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 29 Oct 2013: Victory Games’ blog said EA had decided to “cease production of this version of the game.”",
+      "note": "The date is the Victory Games announcement reported by Kotaku on 29 October 2013; it does not establish when development stopped."
+    },
+    {
+      "id": "mythic-entertainment",
+      "name": "Mythic Entertainment",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2014-05-29",
+        "precision": "day"
+      },
+      "dateBasis": "report",
+      "summary": "Game Informer reported EA’s announcement that it was closing Mythic Entertainment’s Fairfax location.",
+      "sources": [
+        {
+          "url": "https://www.gameinformer.com/b/news/archive/2014/05/29/ea-shutters-warhammer-online-developer-mythic.aspx",
+          "archive": "https://web.archive.org/web/20260114160037/https://www.gameinformer.com/b/news/archive/2014/05/29/ea-shutters-warhammer-online-developer-mythic.aspx",
+          "title": "EA Shutters Warhammer Online Developer Mythic",
+          "publisher": "Game Informer"
+        }
+      ],
+      "check": "Game Informer, 29 May 2014, quotes EA: “We are closing the EA Mythic location in Fairfax, Virginia,” and says the studio was founded in 1995.",
+      "start": {
+        "value": "1995",
+        "precision": "year"
+      },
+      "announced": true,
+      "note": "The date is Game Informer’s 29 May 2014 report quoting EA’s closure announcement; it does not date EA’s communication or give an effective date."
+    },
+    {
+      "id": "maxis-emeryville",
+      "name": "Maxis Emeryville",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2015-03-04",
+        "precision": "day"
+      },
+      "dateBasis": "event",
+      "series": "SimCity",
+      "summary": "EA closed Maxis's Emeryville studio and moved Maxis development to its other studios.",
+      "sources": [
+        {
+          "url": "https://thenextweb.com/news/ea-is-shutting-down-maxis-emeryville-the-studio-that-brought-you-simcity-and-the-sims",
+          "archive": "https://web.archive.org/web/20240206014027/https://thenextweb.com/news/ea-is-shutting-down-maxis-emeryville-the-studio-that-brought-you-simcity-and-the-sims",
+          "title": "EA is shutting down Maxis Emeryville, the studio that brought you SimCity and The Sims",
+          "publisher": "The Next Web"
+        }
+      ],
+      "check": "The Next Web, 4 Mar 2015: “EA today suddenly closed Maxis’ Emeryville office”"
+    },
+    {
+      "id": "star-wars-ragtag",
+      "name": "Star Wars: Ragtag",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "value": "2017-10",
+        "precision": "month"
+      },
+      "dateBasis": "event",
+      "studio": "Visceral Games",
+      "series": "Star Wars",
+      "summary": "EA reportedly cancelled Ragtag, Visceral’s Star Wars heist game, when it closed the studio in October 2017.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "archive": "https://web.archive.org/web/20200222083800/https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "title": "Sources: EA Canceled A Star Wars: Battlefront Spinoff Last Year",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 21 Feb 2020: “In October 2017, EA shut down Visceral and canceled Ragtag”",
+      "note": "EA’s 2017 statement described a pivot; a later Kotaku report explicitly said Ragtag was cancelled in October 2017."
+    },
+    {
+      "id": "visceral-games",
+      "name": "Visceral Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2017-10",
+        "precision": "month"
+      },
+      "dateBasis": "event",
+      "summary": "Kotaku reported that EA shut down Visceral Games, the Dead Space studio, in October 2017.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "archive": "https://web.archive.org/web/20200222083800/https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "title": "Sources: EA Canceled A Star Wars: Battlefront Spinoff Last Year",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 21 Feb 2020: “In October 2017, EA shut down Visceral and canceled Ragtag”.",
+      "note": "Kotaku’s later report dates EA’s shutdown of Visceral to October 2017; it does not give a day."
+    },
+    {
+      "id": "star-wars-viking",
+      "name": "Star Wars: Viking",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "value": "2019",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "studio": "EA Vancouver",
+      "series": "Star Wars",
+      "summary": "EA reportedly cancelled Viking, a planned Battlefront spin-off, in 2019 after deciding its release schedule was unrealistic.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "archive": "https://web.archive.org/web/20200222083800/https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "title": "Sources: EA Canceled A Star Wars: Battlefront Spinoff Last Year",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 21 Feb 2020: based on six people familiar with EA, “Viking was no more” after executives rejected its timeline.",
+      "note": "The report places the cancellation in spring 2019 but does not give a day."
+    },
+    {
+      "id": "codemasters-cheshire",
+      "name": "Codemasters Cheshire",
+      "kind": "studio",
+      "status": "merged",
+      "mergedInto": "Criterion Games",
+      "end": {
+        "value": "2022-05",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "summary": "EA merged Codemasters Cheshire, its DiRT team, into Criterion Games to work on Need for Speed.",
+      "sources": [
+        {
+          "url": "https://www.videogameschronicle.com/news/dirt-team-codemasters-cheshire-merged-with-need-for-speed-studio-criterion/",
+          "archive": "https://web.archive.org/web/20260211160041/https://www.videogameschronicle.com/news/dirt-team-codemasters-cheshire-merged-with-need-for-speed-studio-criterion/",
+          "title": "Dirt team Codemasters Cheshire merged with Need for Speed studio Criterion",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "VGC, 12 May 2022: the Cheshire team \"has been integrated into\" Criterion Games; \"No redundancies have been made as a result of the move\"",
+      "note": "Dated by the month of VGC’s report of 12 May 2022; it doesn’t give the day of the integration."
+    },
+    {
+      "id": "titanfall-legends",
+      "name": "Titanfall Legends",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "value": "2023",
+        "precision": "year"
+      },
+      "dateBasis": "report",
+      "studio": "Respawn Entertainment",
+      "series": "Titanfall",
+      "summary": "EA and Respawn reportedly cancelled Titanfall Legends, a single-player game set in the Apex Legends and Titanfall universe.",
+      "sources": [
+        {
+          "url": "https://mp1st.com/news/report-ea-cancels-unannounced-single-player-titanfall-game-titled-titanfall-legends",
+          "archive": "https://web.archive.org/web/20230331055820/https://mp1st.com/news/report-ea-cancels-unannounced-single-player-titanfall-game-titled-titanfall-legends",
+          "title": "Report: EA Cancels Unannounced Single-Player Titanfall Game Titled \"Titanfall Legends\"",
+          "publisher": "MP1st"
+        }
+      ],
+      "check": "MP1st, 1 Feb 2023, citing Jason Schreier (Bloomberg) and three people familiar with the matter; EA did not announce it.",
+      "note": "MP1st published its report on 1 February 2023. The timeline records its report year; the source does not establish when the cancellation occurred."
+    },
+    {
+      "id": "battlefield-mobile",
+      "name": "Battlefield Mobile",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "precision": "month",
+        "value": "2023-01"
+      },
+      "dateBasis": "event",
+      "studio": "Industrial Toys",
+      "series": "Battlefield",
+      "summary": "EA halted development on Battlefield Mobile before release, after testing it in a regional soft launch.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/business/ea-scraps-apex-legends-mobile-and-battlefield-mobile",
+          "archive": "https://web.archive.org/web/20230201125006/https://www.gamedeveloper.com/business/ea-scraps-apex-legends-mobile-and-battlefield-mobile",
+          "title": "EA scraps Apex Legends Mobile and Battlefield Mobile",
+          "publisher": "Game Developer"
+        },
+        {
+          "url": "https://www.videogameschronicle.com/news/battlefield-mobile-lead-says-2042s-failure-contributed-to-mobiles-cancellation-and-his-studios-closure/",
+          "archive": "https://web.archive.org/web/20230516145758/https://www.videogameschronicle.com/news/battlefield-mobile-lead-says-2042s-failure-contributed-to-mobiles-cancellation-and-his-studios-closure/",
+          "title": "Battlefield Mobile lead says 2042’s failure contributed to Mobile’s cancellation and his studio’s closure",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "Game Developer, 1 Feb 2023: Battlefield Mobile was “being axed before it ever saw the light of day”; VGC later dated its cancellation to January 2023."
+    },
+    {
+      "id": "industrial-toys",
+      "name": "Industrial Toys",
+      "kind": "studio",
+      "status": "closed",
+      "start": {
+        "value": "2012",
+        "precision": "year"
+      },
+      "end": {
+        "value": "2023-01",
+        "precision": "month"
+      },
+      "dateBasis": "event",
+      "series": "Battlefield",
+      "summary": "EA closed Industrial Toys after cancelling Battlefield Mobile, the studio’s first-person shooter for phones.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/business/ea-scraps-apex-legends-mobile-and-battlefield-mobile",
+          "archive": "https://web.archive.org/web/20230201125006/https://www.gamedeveloper.com/business/ea-scraps-apex-legends-mobile-and-battlefield-mobile",
+          "title": "EA scraps Apex Legends Mobile and Battlefield Mobile",
+          "publisher": "Game Developer"
+        },
+        {
+          "url": "https://www.videogameschronicle.com/news/battlefield-mobile-lead-says-2042s-failure-contributed-to-mobiles-cancellation-and-his-studios-closure/",
+          "archive": "https://web.archive.org/web/20230516145758/https://www.videogameschronicle.com/news/battlefield-mobile-lead-says-2042s-failure-contributed-to-mobiles-cancellation-and-his-studios-closure/",
+          "title": "Battlefield Mobile lead says 2042’s failure contributed to Mobile’s cancellation and his studio’s closure",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "VGC, 16 May 2023: Seropian co-founded Industrial Toys in 2012, and the “120-strong studio Industrial Toys was also closed down.”"
+    },
+    {
+      "id": "respawn-star-wars-fps",
+      "name": "Star Wars FPS (Respawn)",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2024-02-28",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "studio": "Respawn Entertainment",
+      "series": "Star Wars",
+      "summary": "EA stopped early development of Respawn's Star Wars first-person action game.",
+      "sources": [
+        {
+          "url": "https://www.ea.com/amp/news/a-note-from-laura-miele",
+          "archive": "https://web.archive.org/web/20250714214611/https://www.ea.com/amp/news/a-note-from-laura-miele",
+          "title": "A note from Laura Miele",
+          "publisher": "Electronic Arts"
+        },
+        {
+          "url": "https://www.videogameschronicle.com/news/ea-has-cancelled-respawns-star-wars-first-person-shooter/",
+          "archive": "https://web.archive.org/web/20240228234233/https://www.videogameschronicle.com/news/ea-has-cancelled-respawns-star-wars-first-person-shooter/",
+          "title": "EA has cancelled Respawn’s Star Wars first-person shooter",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "VGC, 28 Feb 2024: “Electronic Arts has cancelled an in-development Star Wars first-person shooter at Respawn”",
+      "note": "VGC’s 28 February 2024 report dates EA’s cancellation announcement; it does not establish when the cancellation took effect."
+    },
+    {
+      "id": "ridgeline-games",
+      "name": "Ridgeline Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2024-02-28",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "series": "Battlefield",
+      "summary": "EA announced Ridgeline’s wind-down, and its Battlefield campaign work continued under Criterion for Battlefield 6.",
+      "sources": [
+        {
+          "url": "https://www.ea.com/amp/news/a-note-from-laura-miele",
+          "archive": "https://web.archive.org/web/20250714214611/https://www.ea.com/amp/news/a-note-from-laura-miele",
+          "title": "A note from Laura Miele",
+          "publisher": "Electronic Arts"
+        },
+        {
+          "url": "https://www.gamedeveloper.com/business/ea-shutters-battlefield-dev-ridgeline-games-torches-respawn-s-unannounced-star-wars-shooter",
+          "archive": "https://web.archive.org/web/20240229140048/https://www.gamedeveloper.com/business/ea-shutters-battlefield-dev-ridgeline-games-torches-respawn-s-unannounced-star-wars-shooter",
+          "title": "EA shutters Battlefield dev Ridgeline Games, torches Respawn's unannounced Star Wars shooter",
+          "publisher": "Game Developer"
+        },
+        {
+          "url": "https://www.gamesradar.com/games/battlefield/former-battlefield-6-campaign-lead-is-disappointed-he-and-other-devs-were-not-properly-credited-in-the-new-fps-after-working-tirelessly-for-1-to-2-5-years-building-the-foundation/",
+          "archive": "https://web.archive.org/web/20251021105230/https://www.gamesradar.com/games/battlefield/former-battlefield-6-campaign-lead-is-disappointed-he-and-other-devs-were-not-properly-credited-in-the-new-fps-after-working-tirelessly-for-1-to-2-5-years-building-the-foundation/",
+          "title": "Former Battlefield 6 campaign lead is disappointed he and other devs were not properly credited in the new FPS after working tirelessly for 1 to 2.5 years, building the foundation",
+          "publisher": "GamesRadar+"
+        },
+        {
+          "url": "https://www.ea.com/news/battlefield-studios-all-in",
+          "archive": "https://web.archive.org/web/20251010204943/https://www.ea.com/news/battlefield-studios-all-in",
+          "title": "Battlefield Studios: Four teams, one groundbreaking game",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA, 28 Feb 2024: “we’ll be winding down Ridgeline as a standalone studio in Seattle”; Game Developer, 29 Feb 2024: campaign work “is set to continue under the guidance of Criterion”; GamesRadar, 21 Oct 2025: it “was finished out by Criterion”; EA, 10 Oct 2025: “Battlefield 6 is out now”.",
+      "note": "EA dated the wind-down announcement, not its completion; Game Developer said the single-player work would continue under Criterion, and GamesRadar later reported Criterion finished the campaign for Battlefield 6.",
+      "announced": true
+    },
+    {
+      "id": "origin-client",
+      "name": "Origin",
+      "kind": "project",
+      "status": "ended",
+      "end": {
+        "value": "2025",
+        "precision": "year"
+      },
+      "dateBasis": "event",
+      "summary": "EA shut down its Origin PC client and store, which the EA app replaced.",
+      "sources": [
+        {
+          "url": "https://www.gamedeveloper.com/pc/ea-will-shut-down-origin-later-this-year",
+          "archive": "https://web.archive.org/web/20250810024908/https://www.gamedeveloper.com/pc/ea-will-shut-down-origin-later-this-year",
+          "title": "EA will shut down Origin later this year",
+          "publisher": "Game Developer"
+        },
+        {
+          "url": "https://help.ea.com/en/help/ea/ea-app/update-operating-system-for-ea-app/",
+          "archive": "https://web.archive.org/web/20250501063628/https://help.ea.com/en/help/ea/ea-app/update-operating-system-for-ea-app/",
+          "title": "Update your operating system for the EA app",
+          "publisher": "EA Help"
+        }
+      ],
+      "check": "Game Developer, 21 Jan 2025, reported EA’s scheduled 17 April shutdown; EA Help later confirmed “Origin has shut down” by 1 May 2025.",
+      "note": "The timeline records the supported event year, 2025. EA scheduled 17 April, and EA Help confirmed shutdown by 1 May; those sources do not establish the exact completion day."
+    },
+    {
+      "id": "black-panther",
+      "name": "Black Panther",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2025-05",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "studio": "Cliffhanger Games",
+      "summary": "EA cancelled Black Panther, the game Cliffhanger Games was developing.",
+      "sources": [
+        {
+          "url": "https://www.videogameschronicle.com/news/ea-has-cancelled-its-black-panther-game-and-closed-its-studio-cliffhanger-games/",
+          "archive": "https://web.archive.org/web/20251209103828/https://www.videogameschronicle.com/news/ea-has-cancelled-its-black-panther-game-and-closed-its-studio-cliffhanger-games/",
+          "title": "EA has cancelled its Black Panther game and closed its studio Cliffhanger Games",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "VGC, 28 May 2025: \"Electronic Arts has cancelled its Black Panther game and closed down the studio that was working on it.\"",
+      "note": "Dated by the month of VGC’s report of 28 May 2025, citing an internal EA email; it doesn’t give the day of the decision."
+    },
+    {
+      "id": "cliffhanger-games",
+      "name": "Cliffhanger Games",
+      "kind": "studio",
+      "status": "closed",
+      "end": {
+        "value": "2025-05",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "summary": "EA closed Cliffhanger Games, the studio making its Black Panther game.",
+      "sources": [
+        {
+          "url": "https://www.videogameschronicle.com/news/ea-has-cancelled-its-black-panther-game-and-closed-its-studio-cliffhanger-games/",
+          "archive": "https://web.archive.org/web/20251209103828/https://www.videogameschronicle.com/news/ea-has-cancelled-its-black-panther-game-and-closed-its-studio-cliffhanger-games/",
+          "title": "EA has cancelled its Black Panther game and closed its studio Cliffhanger Games",
+          "publisher": "Video Games Chronicle"
+        }
+      ],
+      "check": "VGC, 28 May 2025: EA \"has shut down Cliffhanger Games\", per IGN and an internal email from Laura Miele seen by VGC. VGC says Cliffhanger Games was formed in 2021.",
+      "start": {
+        "value": "2021",
+        "precision": "year"
+      },
+      "note": "Dated by the month of VGC’s report of 28 May 2025, citing IGN and an internal EA email; it doesn’t give the day of the closure."
+    },
+    {
+      "id": "bioware",
+      "name": "BioWare",
+      "kind": "studio",
+      "status": "closed",
+      "announced": true,
+      "end": {
+        "value": "2026-10-21",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "summary": "EA announced it was closing BioWare and its Edmonton workspace after deciding not to continue early development of a new Mass Effect.",
+      "sources": [
+        {
+          "url": "https://www.ea.com/news/building-eas-next-chapter",
+          "archive": "https://web.archive.org/web/20261024020517/https://www.ea.com/news/building-eas-next-chapter",
+          "title": "Building EA's Next Chapter",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA, 21 Oct 2026: \"We've made the decision not to move forward with this development, which means we're closing the studio and our Edmonton workspace.\"",
+      "note": "The date is EA’s 21 October 2026 closure announcement; EA does not give the day the closure took effect."
+    },
+    {
+      "id": "mass-effect-bioware-early-development",
+      "name": "Mass Effect (early development at BioWare)",
+      "kind": "game",
+      "status": "cancelled",
+      "end": {
+        "value": "2026-10-21",
+        "precision": "day"
+      },
+      "dateBasis": "announcement",
+      "studio": "BioWare",
+      "series": "Mass Effect",
+      "summary": "EA announced it would not move forward with a small BioWare team’s early development of a new Mass Effect.",
+      "sources": [
+        {
+          "url": "https://www.ea.com/news/building-eas-next-chapter",
+          "archive": "https://web.archive.org/web/20261024020517/https://www.ea.com/news/building-eas-next-chapter",
+          "title": "Building EA's Next Chapter",
+          "publisher": "Electronic Arts"
+        }
+      ],
+      "check": "EA, 21 Oct 2026: a small team at BioWare was \"working on early-development for Mass Effect\"; EA decided \"not to move forward with this development\".",
+      "note": "The date is EA’s 21 October 2026 announcement of its decision; it does not identify when development stopped."
+    },
+    {
+      "id": "harry-potter-mmo",
+      "name": "Harry Potter MMO",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "precision": "unknown"
+      },
+      "dateBasis": "event",
+      "summary": "A former EA product marketing director said EA cancelled a Harry Potter MMO after it reached beta.",
+      "sources": [
+        {
+          "url": "https://www.gamespot.com/articles/ea-canceled-a-harry-potter-mmo-apparently/1100-6499248/",
+          "archive": "https://web.archive.org/web/20211227161923/https://www.gamespot.com/articles/ea-canceled-a-harry-potter-mmo-apparently/1100-6499248/",
+          "title": "EA Canceled A Harry Potter MMO, Apparently",
+          "publisher": "GameSpot"
+        }
+      ],
+      "check": "GameSpot, 27 Dec 2021: Kim Salzer said the game reached beta and “EA eventually pulled the plug.”",
+      "note": "The account came from a former EA product marketing director; it does not date the cancellation."
+    },
+    {
+      "id": "star-wars-orca",
+      "name": "Star Wars open-world game (Orca)",
+      "kind": "game",
+      "status": "cancelled",
+      "reported": true,
+      "end": {
+        "value": "2019-01",
+        "precision": "month"
+      },
+      "dateBasis": "report",
+      "studio": "EA Vancouver",
+      "series": "Star Wars",
+      "summary": "EA reportedly cancelled Orca, EA Vancouver’s open-world Star Wars project, after rebooting it from the Visceral game Ragtag.",
+      "sources": [
+        {
+          "url": "https://kotaku.com/ea-cancels-open-world-star-wars-game-1831786371",
+          "archive": "https://web.archive.org/web/20190116004745/https://kotaku.com/ea-cancels-open-world-star-wars-game-1831786371",
+          "title": "EA Cancels Open-World Star Wars Game",
+          "publisher": "Kotaku"
+        },
+        {
+          "url": "https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "archive": "https://web.archive.org/web/20200222083800/https://kotaku.com/sources-ea-canceled-a-star-wars-battlefront-spinoff-l-1841840704",
+          "title": "Sources: EA Canceled A Star Wars: Battlefront Spinoff Last Year",
+          "publisher": "Kotaku"
+        }
+      ],
+      "check": "Kotaku, 15 Jan 2019: “Now, that project is canceled, too”; its 21 Feb 2020 follow-up says Orca was “in development all throughout 2018” until cancellation and that it broke the news “last year.”",
+      "note": "Kotaku says Orca was in development throughout 2018 and reported its cancellation on 15 January 2019. Neither report dates EA’s decision, which may fall in either year."
+    }
+  ]
+}

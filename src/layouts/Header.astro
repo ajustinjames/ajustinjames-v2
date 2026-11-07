@@ -24,16 +24,24 @@ const navLinkClass =
 					class="h-8 w-8 dark:invert"
 					aria-hidden="true"
 				/>
-				ajustinjames
+				<span class="hidden min-[430px]:inline">ajustinjames</span>
 			</a>
-			<div class="flex gap-6 items-center">
-				<ul class="flex gap-8 items-center">
+			<div class="flex gap-4 sm:gap-6 items-center">
+				<ul class="flex gap-4 sm:gap-8 items-center">
 					<li class="flex items-center">
 						<a
 							href="/projects"
 							class={navLinkClass}
 							aria-current={currentPath === "/projects" ? "page" : undefined}
 							>Projects</a
+						>
+					</li>
+					<li class="flex items-center">
+						<a
+							href="/apps"
+							class={navLinkClass}
+							aria-current={currentPath.startsWith("/apps") ? "page" : undefined}
+							>Apps</a
 						>
 					</li>
 					<li class="flex items-center">
