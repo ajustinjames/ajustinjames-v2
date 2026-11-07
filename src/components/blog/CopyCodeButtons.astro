@@ -85,7 +85,9 @@ const { target } = Astro.props;
 
     container
       .querySelectorAll<HTMLPreElement>('pre')
-      .forEach((pre, index) => addCopyButton(pre, index));
+      .forEach((pre, index) => {
+        addCopyButton(pre, index);
+      });
   }
 
   document.addEventListener('astro:page-load', initCopyCode);

@@ -1,11 +1,11 @@
 ---
-import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import { render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Section from '../../components/Section.astro';
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import BlogPostCard from '../../components/blog/BlogPostCard.astro';
+import Section from '../../components/Section.astro';
 import { blogDescription } from '../../data/site';
-import { getFeed, type FeedType } from '../../utils/feed';
+import Layout from '../../layouts/Layout.astro';
+import { type FeedType, getFeed } from '../../utils/feed';
 
 export const getStaticPaths = (async ({ paginate }) => {
   return paginate(await getFeed(), { pageSize: 10 });
@@ -49,6 +49,7 @@ function formatDate(date: Date): string {
 
 <Layout title="Blog" description={blogDescription}>
     <Section eyebrow="Blog" title="Latest" description="Posts, notes, and links — the newest first." as="h1" width="narrow">
+        <!-- biome-ignore lint/a11y/useSemanticElements: a fieldset would add default border/legend styling to this button row -->
         <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filter the stream by type" id="stream-filters">
             {filters.map(({ label, type }) => (
                 <button
@@ -174,7 +175,7 @@ function formatDate(date: Date): string {
 <script is:inline>
     // Progressive enhancement: type filter for the blog stream. Without JS all
     // entries stay visible. Re-initialized after ClientRouter swaps.
-    (function () {
+    (() => {
         function initStreamFilters() {
             const group = document.getElementById("stream-filters");
             const stream = document.getElementById("stream");
@@ -184,9 +185,9 @@ function formatDate(date: Date): string {
             buttons.forEach((button) => {
                 button.addEventListener("click", () => {
                     const filter = button.getAttribute("data-filter");
-                    buttons.forEach((b) =>
-                        b.setAttribute("aria-pressed", b === button ? "true" : "false"),
-                    );
+                    buttons.forEach((b) => {
+                        b.setAttribute("aria-pressed", b === button ? "true" : "false");
+                    });
                     stream.querySelectorAll("li[data-type]").forEach((item) => {
                         item.hidden =
                             filter !== "all" && item.getAttribute("data-type") !== filter;

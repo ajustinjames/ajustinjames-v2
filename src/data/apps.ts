@@ -32,7 +32,9 @@ const metaFiles = import.meta.glob<AppMeta>("../apps/*/app.json", {
 
 export const apps: App[] = Object.entries(metaFiles)
 	.map(([path, meta]) => ({ slug: path.split("/").at(-2) as string, ...meta }))
-	.sort((a, b) => b.added.localeCompare(a.added) || a.name.localeCompare(b.name));
+	.sort(
+		(a, b) => b.added.localeCompare(a.added) || a.name.localeCompare(b.name),
+	);
 
 export function getApp(slug: string): App {
 	const app = apps.find((entry) => entry.slug === slug);

@@ -5,6 +5,7 @@
 //
 // Creates src/apps/<slug>/{app.json,main.ts,style.css} and src/pages/apps/<slug>.astro.
 // The app starts unlisted. See "Apps" in AGENTS.md.
+import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,16 +15,20 @@ const [slug, name, description] = process.argv.slice(2);
 
 function fail(message) {
 	console.error(message);
-	console.error('Usage: npm run new-app -- <slug> "<Name>" "<One-sentence description>"');
+	console.error(
+		'Usage: npm run new-app -- <slug> "<Name>" "<One-sentence description>"',
+	);
 	process.exit(1);
 }
 
 if (!slug || !name || !description) fail("Missing arguments.");
-if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) fail(`Slug "${slug}" must be lowercase kebab-case.`);
+if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug))
+	fail(`Slug "${slug}" must be lowercase kebab-case.`);
 
 const appDir = join(root, "src/apps", slug);
 const pagePath = join(root, "src/pages/apps", `${slug}.astro`);
-if (existsSync(appDir) || existsSync(pagePath)) fail(`An app called "${slug}" already exists.`);
+if (existsSync(appDir) || existsSync(pagePath))
+	fail(`An app called "${slug}" already exists.`);
 
 const quote = (text) => JSON.stringify(text);
 const meta = {
@@ -133,6 +138,12 @@ writeFileSync(join(appDir, "app.json"), `${JSON.stringify(meta, null, 2)}\n`);
 writeFileSync(join(appDir, "main.ts"), main);
 writeFileSync(join(appDir, "style.css"), style);
 writeFileSync(pagePath, page);
+
+// Match the repo's Biome formatting and import order.
+execFileSync("npx", ["biome", "check", "--write", appDir, pagePath], {
+	cwd: root,
+	stdio: "inherit",
+});
 
 console.log(`Created /apps/${slug}/ (unlisted):
   src/apps/${slug}/app.json
