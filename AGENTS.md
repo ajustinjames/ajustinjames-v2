@@ -17,6 +17,7 @@ New blog posts follow the template at `src/pages/posts/_template.md`.
 - Use `client:*` directives sparingly — favor static generation. Prefer `client:visible` for below-the-fold interactive components.
 - Icons use `astro-icon` with Iconify JSON icon sets (devicon, fa6-brands, fa6-solid, line-md).
 - TypeScript strict mode (`astro/tsconfigs/strict`). All components must define a `Props` interface.
+- **Lint and format with Biome** (`biome.json`). `npm run lint` checks; `npm run format` applies fixes. Blog content (`src/content/`, post templates) is excluded so prose is never reformatted; other Markdown is formatted. Biome doesn't format `.astro` templates yet, so match the surrounding indentation by hand.
 
 ## Apps
 

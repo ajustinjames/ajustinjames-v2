@@ -1,13 +1,13 @@
 ---
-import Layout from './Layout.astro';
-import TagList from '../components/blog/TagList.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import TableOfContents from '../components/blog/TableOfContents.astro';
-import CopyCodeButtons from '../components/blog/CopyCodeButtons.astro';
-import { readingTime } from '../utils/reading-time';
 import { Image } from 'astro:assets';
-import type { MarkdownHeading } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CopyCodeButtons from '../components/blog/CopyCodeButtons.astro';
+import TableOfContents from '../components/blog/TableOfContents.astro';
+import TagList from '../components/blog/TagList.astro';
+import { readingTime } from '../utils/reading-time';
+import Layout from './Layout.astro';
 
 interface PostLink {
   slug: string;

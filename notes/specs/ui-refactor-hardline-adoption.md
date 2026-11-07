@@ -23,10 +23,10 @@ Source of truth: `/Users/ajames/workspace/ajustinjames/ajj-design` (README.md + 
 
 ### Packages (published to npm, currently `v0.0.5`, lockstep versioned)
 
-| Package | Import | Purpose |
-|---|---|---|
-| `@ajustinjames/hardline-tokens` | `@ajustinjames/hardline-tokens/css`, `/css-dark`, `/theme` | Style-Dictionary-compiled CSS custom properties |
-| `@ajustinjames/hardline-components` | `@ajustinjames/hardline-components` | Lit Web Components (`<hl-*>`), side-effect registration |
+| Package                             | Import                                                     | Purpose                                                 |
+| ----------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------- |
+| `@ajustinjames/hardline-tokens`     | `@ajustinjames/hardline-tokens/css`, `/css-dark`, `/theme` | Style-Dictionary-compiled CSS custom properties         |
+| `@ajustinjames/hardline-components` | `@ajustinjames/hardline-components`                        | Lit Web Components (`<hl-*>`), side-effect registration |
 
 ### Components available (`hl-*`, all `LitElement`, slot-based visual shells)
 
@@ -35,6 +35,7 @@ Source of truth: `/Users/ajames/workspace/ajustinjames/ajj-design` (README.md + 
 `hl-divider`, `hl-progress`, `hl-spinner`, `hl-tooltip`, `hl-code`, `hl-helper-text`, `hl-error-message`.
 
 Key APIs (verify against `ajj-design/README.md` before use):
+
 - `<hl-btn variant="default|primary|ghost" size="sm|md">` — **wraps** a native `<button>`/`<a>`; slots `prefix`/default/`suffix`.
 - `<hl-card elevation="1|2|3">` — slots `header`/default.
 - `<hl-input label-for="id" state="default|error|success" density="default|compact">` — slots `label`/default(input)/`unit`.
@@ -67,7 +68,7 @@ The components are client-defined custom elements with **shadow DOM + slots**. T
 - **(A) Add `@astrojs/lit`** integration → enables SSR/declarative shadow DOM, avoids unstyled-slot flash. Heavier; pulls in `lit` + `@webcomponents/template-shadowroot`.
 - **(B) Client-only registration** — import `@ajustinjames/hardline-components` from a `<script>` in `Layout.astro`; elements upgrade on load. Simpler, but slotted content can flash unstyled pre-hydration.
 
-**Decided: (A) `@astrojs/lit` in SSG mode** (see §7.1) — declarative shadow DOM rendered at *build* time keeps output static for Cloudflare Pages and removes FOUC. Keep `output: 'static'`; no SSR adapter.
+**Decided: (A) `@astrojs/lit` in SSG mode** (see §7.1) — declarative shadow DOM rendered at _build_ time keeps output static for Cloudflare Pages and removes FOUC. Keep `output: 'static'`; no SSR adapter.
 
 ### 3.3 Fonts not loaded
 
@@ -79,13 +80,14 @@ Current `primary: #FF8C00` everywhere → hardline accent `#FF4F00`. Don't keep 
 
 ### 3.5 Two token systems
 
-Tailwind config (`tailwind.config.mjs`) defines its own palette; hardline ships CSS vars. **Don't run two parallel palettes.** Refactor Tailwind `theme.extend.colors` to *reference the hardline CSS vars* (e.g. `primary: 'var(--hl-alias-action-bg-primary)'`, `surface: 'var(--hl-alias-surface-bg)'`), so utility classes and `hl-*` components stay in sync from one source.
+Tailwind config (`tailwind.config.mjs`) defines its own palette; hardline ships CSS vars. **Don't run two parallel palettes.** Refactor Tailwind `theme.extend.colors` to _reference the hardline CSS vars_ (e.g. `primary: 'var(--hl-alias-action-bg-primary)'`, `surface: 'var(--hl-alias-surface-bg)'`), so utility classes and `hl-*` components stay in sync from one source.
 
 ---
 
 ## 4. Migration plan (phased)
 
 ### Phase 0 — Wiring (no visual change yet)
+
 1. `npm i @ajustinjames/hardline-tokens @ajustinjames/hardline-components` (+ `lit`, `@astrojs/lit` if option A).
 2. Import `@ajustinjames/hardline-tokens/css` and `/css-dark` in `src/styles/global.css` (above Tailwind layers, or in `Layout.astro`).
 3. Add Inter + JetBrains Mono (§3.3).
@@ -94,26 +96,29 @@ Tailwind config (`tailwind.config.mjs`) defines its own palette; hardline ships 
 6. Verify build (`npm run build`, `npm run check`).
 
 ### Phase 1 — Tokens & Tailwind reconciliation (§3.4, §3.5)
+
 - Rewrite `tailwind.config.mjs` colors to reference hardline alias vars.
 - Replace the bespoke `.scale-hover` / `.underline-hover` effects in `global.css` with hardline-consistent interactions (offset-shadow hover lift, not scale). Respect `prefers-reduced-motion` (§5.13).
 
 ### Phase 2 — Component swaps (per file)
+
 Map current markup → hardline. Each swap also fixes the duplication noted in §5.
 
-| Current | Replace with |
-|---|---|
-| `<button class="bg-primary…">` (Contact submit/reset, 404 CTA) | `<hl-btn variant="primary"><button>…</button></hl-btn>` / `variant="default"` |
-| Contact `<input>`/`<textarea>` + hand-rolled label | `<hl-input label-for>` + `<hl-label>` |
-| Contact `#form-feedback` div | `<hl-alert>` (success/error states) |
-| Tag pills (projects.astro, BlogPostCard, MarkdownPostLayout — **3 copies**) | `<hl-tag>` via one shared `TagList.astro` wrapper |
-| Project / blog / experience card `<div class="border rounded-lg shadow…">` | `<hl-card elevation>` |
-| Skill card | `<hl-card>` (compact) |
-| Header/Footer nav links, "Read more", project links | `<hl-link>` |
-| Breadcrumb on blog posts (new) | `<hl-breadcrumb>` |
+| Current                                                                     | Replace with                                                                  |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `<button class="bg-primary…">` (Contact submit/reset, 404 CTA)              | `<hl-btn variant="primary"><button>…</button></hl-btn>` / `variant="default"` |
+| Contact `<input>`/`<textarea>` + hand-rolled label                          | `<hl-input label-for>` + `<hl-label>`                                         |
+| Contact `#form-feedback` div                                                | `<hl-alert>` (success/error states)                                           |
+| Tag pills (projects.astro, BlogPostCard, MarkdownPostLayout — **3 copies**) | `<hl-tag>` via one shared `TagList.astro` wrapper                             |
+| Project / blog / experience card `<div class="border rounded-lg shadow…">`  | `<hl-card elevation>`                                                         |
+| Skill card                                                                  | `<hl-card>` (compact)                                                         |
+| Header/Footer nav links, "Read more", project links                         | `<hl-link>`                                                                   |
+| Breadcrumb on blog posts (new)                                              | `<hl-breadcrumb>`                                                             |
 
 Rounded corners, blurred shadows, and pill tags all disappear — that is intended.
 
 ### Phase 3 — Polish & verify
+
 - Visual QA light + dark on every route.
 - Lighthouse / axe a11y pass.
 - Confirm no `.dark`-only leftovers, no `#FF8C00` leftovers, no double padding.
@@ -132,7 +137,7 @@ Ordered roughly by impact.
 
 4. **Manual `sitemap.astro` is redundant & stale.** It hand-lists 3 links and omits all blog posts/projects, while `@astrojs/sitemap` already generates `sitemap-index.xml`. → Either delete the page or generate its links from the collection so it can't drift.
 
-5. **Double / inconsistent page padding.** `Layout.astro` already wraps `<main>` in `max-w-7xl px-4… py-8`. Then `blog.astro`, `projects.astro`, `sitemap.astro` each add their *own* `max-w-4xl/2xl mx-auto px-4 py-12`. Nested max-widths + stacked padding. → Standardize a page-container pattern (one wrapper, one max-width per page-type).
+5. **Double / inconsistent page padding.** `Layout.astro` already wraps `<main>` in `max-w-7xl px-4… py-8`. Then `blog.astro`, `projects.astro`, `sitemap.astro` each add their _own_ `max-w-4xl/2xl mx-auto px-4 py-12`. Nested max-widths + stacked padding. → Standardize a page-container pattern (one wrapper, one max-width per page-type).
 
 6. **Tag-pill markup duplicated 3×** (projects, BlogPostCard, MarkdownPostLayout). → One shared component (becomes `<hl-tag>` wrapper in Phase 2, #Phase-2).
 
@@ -185,6 +190,7 @@ These build on the Content Collections + hardline foundation from §4. Scope the
 ### 8.1 Blog archive + tag pages + search
 
 The single biggest content gap (§5.1). Once posts are a typed Content Collection:
+
 - `/blog` → full post list (paginate at ~10 with Astro `paginate()` once count warrants).
 - `/blog/tags/[tag]` → dynamic route per tag; link from every `<hl-tag>`.
 - **Search:** add [`pagefind`](https://pagefind.app) — builds a static index at `astro build`, zero backend. Drop a search box (`<hl-input>`) on `/blog`.
@@ -193,6 +199,7 @@ The single biggest content gap (§5.1). Once posts are a typed Content Collectio
 ### 8.2 Per-post reading experience
 
 Turn posts from bare markdown into a real reading surface, all via existing components:
+
 - **Table of contents** — auto-generate from `getHeadings()`, sticky aside on `lg+`.
 - **Reading progress bar** — `<hl-progress>` driven by scroll, fixed top.
 - **Prev / next post** + **breadcrumb** (`<hl-breadcrumb>`) at post foot/head.
@@ -202,6 +209,7 @@ Turn posts from bare markdown into a real reading surface, all via existing comp
 ### 8.3 Dynamic OG images
 
 Build-time per-post OG image from an industrial hardline template (offset shadow, JetBrains Mono title, accent rule). Also closes the SVG-OG SEO gap in §5.15.
+
 - Use Astro endpoint + `satori` (+ `@resvg/resvg-js`) to emit PNG per post; reference from `MarkdownPostLayout` `og:image`/`twitter:image`.
 - **Effort:** M. **Files:** new `src/pages/og/[...slug].png.ts`, `Layout.astro`/`MarkdownPostLayout.astro` meta. **Hardline:** visual template only (mirror tokens; satori can't run web components — replicate the look with inline styles/fonts).
 

@@ -1,6 +1,7 @@
 # Website Structure Documentation
 
 ## Route Structure
+
 ```
 📁 src/pages/
 ├── index.astro        # Homepage/Portfolio (/)
@@ -23,6 +24,7 @@
 ```
 
 ## Component Hierarchy
+
 ```
 📁 src/components/
 ├── layout/
@@ -106,6 +108,7 @@
 ```
 
 ## Dynamic Routes
+
 - `[slug].astro`: Creates dynamic routes for blog posts
   - Example: `/blog/my-first-post`
   - Parameter available as `Astro.params.slug`
@@ -115,6 +118,7 @@
   - Parameter available as `Astro.params.tag`
 
 ## Development Notes
+
 - All React components (.tsx) will be client-side islands
 - Keep components modular for easy maintenance
 - Follow mobile-first approach in styling

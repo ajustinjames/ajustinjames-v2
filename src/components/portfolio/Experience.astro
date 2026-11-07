@@ -1,6 +1,6 @@
 ---
+import { duration, experience, formatDate } from "../../data/experience";
 import Section from "../Section.astro";
-import { experience, formatDate, duration } from "../../data/experience";
 
 function companyRange(roles: (typeof experience)[number]["roles"]) {
 	const starts = roles.map((r) => r.startYear * 12 + r.startMonth);
