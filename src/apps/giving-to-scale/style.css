@@ -1,0 +1,653 @@
+@import "@ajustinjames/hardline-tokens/css";
+
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/inter/files/inter-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* Gift orange: 3.45:1 on the paper and 4.42:1 against the fortune dots (see README). */
+  --hl-global-color-accent: #e84700;
+  --gift-dot: var(--hl-global-color-accent);
+  --fortune-dot: var(--hl-global-color-ink, #1a1a1a);
+  --paper: var(--hl-global-color-bg, #f0f0ec);
+  --ink: var(--hl-alias-text-main, #1a1a1a);
+  --muted: var(--hl-alias-text-muted, #666666);
+  --field-rule: #c8c8c1;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter Variable", Inter, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.page-shell {
+  width: min(100% - 2.5rem, 75rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 7vw, 5.5rem) 0 4rem;
+}
+
+.technical-copy,
+.eyebrow,
+.answer-label,
+.field-sticky,
+.gift-block-title {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.015em;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  margin: 0 0 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.page-header {
+  max-width: 54rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4.75rem);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2.7rem, 8vw, 5rem);
+  font-weight: 740;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.page-deck {
+  max-width: 32rem;
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+}
+
+.amount-form {
+  max-width: 68rem;
+  padding: 1.35rem 0 1.15rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--field-rule);
+}
+
+.amount-sentence {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.4vw, 2.15rem);
+  font-weight: 470;
+  letter-spacing: -0.035em;
+  line-height: 1.8;
+}
+
+.sentence-fragment {
+  display: inline;
+}
+
+.amount-part {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  max-width: 100%;
+  margin: 0.15em 0.28em 0.15em 0;
+  vertical-align: baseline;
+}
+
+/* The space sits on the label, not as a column gap, so the error row adds no width. */
+.amount-part label {
+  margin-right: 0.38em;
+  cursor: text;
+}
+
+/* Inputs widen to fit what's typed (fitInputWidth), up to the line. */
+.amount-part input {
+  width: 6.5ch;
+  min-width: 6.5ch;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 0.25rem 0.45rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--ink);
+  font-size: 0.82em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 680;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.amount-part input#fortune {
+  width: 7.5ch;
+  min-width: 7.5ch;
+}
+
+.amount-part input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+/* Its own row under the label and input. contain: inline-size stops the message
+   widening the sentence part; it wraps to the part's width instead. */
+.field-error {
+  flex-basis: 100%;
+  contain: inline-size;
+  min-height: 0;
+  max-width: 22rem;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+/* The negative margin cancels the bar's padding and border, which would still add width. */
+.field-error:not(:empty) {
+  margin-top: 0.55rem;
+  margin-right: calc(-0.6rem - 2px);
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--ink);
+}
+
+.form-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+.currency-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.currency-control hl-select {
+  min-height: 44px;
+}
+
+.currency-control select {
+  min-height: 42px;
+}
+
+.text-button {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.text-button:hover {
+  text-decoration-thickness: 2px;
+}
+
+.answer-section {
+  max-width: 64rem;
+  margin: clamp(3rem, 8vw, 6rem) 0 2.8rem;
+}
+
+.answer-label {
+  margin: 0 0 0.15rem;
+  color: var(--muted);
+}
+
+.answer-amount {
+  margin: 0;
+  font-size: clamp(4.25rem, 16vw, 10.5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 770;
+  letter-spacing: -0.085em;
+  line-height: 0.98;
+  overflow-wrap: anywhere;
+}
+
+.answer-summary {
+  max-width: 50rem;
+  margin: 1.1rem 0 0;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  letter-spacing: -0.025em;
+}
+
+.answer-message {
+  max-width: 46rem;
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  line-height: 1.4;
+}
+
+.answer-switch {
+  margin-top: 0.75rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.field-section {
+  max-width: 75rem;
+  margin: 3.5rem auto 0;
+}
+
+.field-key {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--field-rule);
+}
+
+.field-key-dots {
+  display: inline-flex;
+  flex: 0 0 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: 2rem;
+}
+
+.field-key-dot {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  background: var(--fortune-dot);
+}
+
+.field-key-dot-magnified {
+  transform: scale(6);
+}
+
+.field-key-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.field-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 1.5rem;
+  margin: 1.8rem 0 0.25rem;
+}
+
+.field-title {
+  margin: 0;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.field-closing-line:focus {
+  outline: none;
+}
+
+.field-closing-line:focus-visible {
+  outline: 2px solid var(--ink);
+}
+
+.gift-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 0.4rem 0 1.2rem;
+  padding: 0.8rem 0 0.8rem 1rem;
+  border-left: 3px solid var(--hl-global-color-accent);
+}
+
+.gift-block-dots {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.gift-block-copy p {
+  margin: 0;
+}
+
+.gift-block-title {
+  color: var(--muted);
+}
+
+.gift-block-amount {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 690;
+  letter-spacing: -0.045em;
+}
+
+.gift-block-detail {
+  margin-top: 0.15rem;
+  color: var(--muted);
+}
+
+.field-sticky {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  align-items: center;
+  min-height: 2.6rem;
+  padding: 0.45rem 0.65rem;
+  border-top: 1px solid var(--field-rule);
+  border-bottom: 1px solid var(--field-rule);
+  background: var(--paper);
+  color: var(--muted);
+}
+
+.dot-field {
+  position: relative;
+  width: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/*
+ * Dots are painted with a repeating pattern: a 2 px square in each 3 px cell (conic-gradient's
+ * top-left quarter around the point 2px, 2px). Whole rows are one element; see planDotBands.
+ */
+.dots {
+  display: block;
+  flex: none;
+  background: conic-gradient(at 2px 2px, transparent 270deg, var(--dot-color) 270deg) 0 0 / 3px 3px;
+  forced-color-adjust: none;
+  print-color-adjust: exact;
+}
+
+.dots-gift {
+  --dot-color: var(--gift-dot);
+}
+
+.dots-fortune {
+  --dot-color: var(--fortune-dot);
+}
+
+.dot-row {
+  display: flex;
+  height: 3px;
+}
+
+.dot-cell {
+  display: flex;
+  flex: none;
+  width: 3px;
+  height: 2px;
+}
+
+.dot-part {
+  flex: none;
+  height: 2px;
+  forced-color-adjust: none;
+  print-color-adjust: exact;
+}
+
+.dot-part-gift {
+  background: var(--gift-dot);
+}
+
+.dot-part-fortune {
+  background: var(--fortune-dot);
+}
+
+.dot-field:focus-visible {
+  outline-offset: 3px;
+}
+
+/* Landmarks: rules across the field at round amounts, so it visibly moves as it scrolls. */
+.dot-field-landmarks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.field-landmark {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-top: -1px;
+  border-top: 1px solid var(--ink);
+}
+
+.field-landmark-label {
+  position: absolute;
+  top: 0;
+  left: 0.5rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.field-closing-line {
+  margin: 1.2rem 0 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--field-rule);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.7;
+}
+
+.small-fortune-note {
+  max-width: 48rem;
+  margin: 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--field-rule);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.reverse-section {
+  max-width: 68rem;
+  margin: clamp(3.5rem, 8vw, 6rem) 0 0;
+  padding-top: 1.35rem;
+  border-top: 2px solid var(--ink);
+}
+
+.reverse-sentence {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.4vw, 2.15rem);
+  font-weight: 470;
+  letter-spacing: -0.035em;
+  line-height: 1.8;
+}
+
+.reverse-amount {
+  font-variant-numeric: tabular-nums;
+  font-weight: 740;
+}
+
+.share-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 1.75rem 0 0;
+}
+
+.share-section button {
+  min-height: 44px;
+}
+
+.share-note,
+.share-status {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.share-status:empty {
+  display: none;
+}
+
+.notes {
+  max-width: 52rem;
+  margin: clamp(3.5rem, 8vw, 6rem) 0 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--field-rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.notes p {
+  margin: 0.55rem 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+[hidden] {
+  display: none;
+}
+
+/*
+ * Forced colours (Windows contrast themes): only the user's two main colours are safe to rely on,
+ * so the gift is drawn inverted: background-coloured dots on a text-coloured band, against the
+ * fortune's text-coloured dots on the background. That holds the brief's 3:1 in every palette.
+ */
+@media (forced-colors: active) {
+  :root {
+    --gift-dot: Canvas;
+    --fortune-dot: CanvasText;
+  }
+
+  .dots-gift {
+    background-color: CanvasText;
+  }
+
+  /* A partial gift dot: its share is a background-coloured sliver on a text-coloured cell. */
+  .dot-cell-gift {
+    height: 3px;
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  .dot-part-gift {
+    background: Canvas;
+  }
+
+  .field-key-dot {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .gift-block {
+    border-left-color: CanvasText;
+  }
+}
+
+/* Print the field's facts instead of its drawing, which can run to dozens of pages. */
+@media print {
+  .dot-field,
+  .field-sticky,
+  .walk-button,
+  .form-controls,
+  .answer-switch,
+  .share-section {
+    display: none;
+  }
+
+  .field-screen-reader-summary {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-shell {
+    width: min(100% - 2rem, 75rem);
+    padding-top: 2.25rem;
+  }
+
+  .page-header {
+    margin-bottom: 2.4rem;
+  }
+
+  .amount-sentence,
+  .reverse-sentence {
+    font-size: clamp(1.25rem, 6vw, 1.55rem);
+    line-height: 1.85;
+  }
+
+  .amount-part {
+    margin-right: 0.4em;
+  }
+
+  .amount-part label {
+    margin-right: 0.3em;
+  }
+
+  .amount-part input {
+    min-height: 46px;
+    padding-right: 0.3rem;
+    padding-left: 0.35rem;
+  }
+
+  .answer-amount {
+    font-size: clamp(4rem, 17vw, 6rem);
+    letter-spacing: -0.08em;
+  }
+
+  .field-section {
+    margin-top: 2.5rem;
+  }
+
+  .gift-block {
+    align-items: flex-start;
+  }
+
+}

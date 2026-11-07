@@ -1,0 +1,71 @@
+---
+// Layout for the single-page apps at /apps/<slug>/. It keeps the site header and
+// footer but leaves the page body to the app: no Tailwind preflight, no client
+// router, and no wrapping <main>. The app's page supplies its own
+// <main id="main-content">.
+import "../styles/apps.css";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import ThemeScript from "../components/ThemeScript.astro";
+import type { App } from "../data/apps";
+
+interface Props {
+	app: App;
+}
+
+const { app } = Astro.props;
+const siteUrl = "https://ajustinjames.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = `${siteUrl}/og-default.png`;
+const title = `${app.name} · ajustinjames`;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<ThemeScript forcedTheme={app.lightOnly ? "light" : undefined} />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="canonical" href={canonicalUrl} />
+		<title>{title}</title>
+		<meta name="description" content={app.description} />
+		<meta name="author" content="Aaron James" />
+		<meta name="theme-color" content="#FF4F00" />
+		{!app.listed && <meta name="robots" content="noindex" />}
+		<meta property="og:title" content={app.name} />
+		<meta property="og:description" content={app.description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={app.name} />
+		<meta name="twitter:description" content={app.description} />
+		<meta name="twitter:image" content={ogImage} />
+	</head>
+	<body>
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white"
+		>
+			Skip to content
+		</a>
+		<div class="site-chrome bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary">
+			<Header />
+		</div>
+		<slot />
+		<div class="site-chrome bg-lightBg dark:bg-darkBg text-lightTextPrimary dark:text-darkTextPrimary">
+			<Footer />
+		</div>
+		{import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN && (
+			<script
+				defer
+				src="https://static.cloudflareinsights.com/beacon.min.js"
+				data-cf-beacon={`{"token": "${import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN}"}`}
+				is:inline
+			></script>
+		)}
+	</body>
+</html>

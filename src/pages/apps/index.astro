@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/Section.astro";
+import { listedApps } from "../../data/apps";
+
+const sorted = [...listedApps].sort((a, b) => b.added.localeCompare(a.added));
+---
+
+<Layout title="Apps" description="Small single-page apps by Aaron James.">
+	<Section eyebrow="Apps" title="Apps" description="Small tools, each on one page" as="h1" width="narrow">
+		<ul class="grid gap-6 md:grid-cols-2">
+			{sorted.map((app) => (
+				<li class="hl-card-shell hover-lift">
+					<h2 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
+						<a href={`/apps/${app.slug}/`} class="hover:text-primary" data-astro-reload>
+							{app.name}
+						</a>
+					</h2>
+					<p class="mt-3 text-lightTextSecondary dark:text-darkTextSecondary">
+						{app.description}
+					</p>
+				</li>
+			))}
+		</ul>
+	</Section>
+</Layout>

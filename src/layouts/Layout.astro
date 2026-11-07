@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import ThemeScript from "../components/ThemeScript.astro";
 import { socialLinks } from "../data/social-links";
 
 interface Props {
@@ -36,42 +37,7 @@ const personSchema = isHomePage
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!-- Inline theme script stays first in <head>, before any paint, to avoid
 		     a dark-mode flash of unstyled content (FOUC). -->
-		<script is:inline>
-			const getThemePreference = () => {
-				if (
-					typeof localStorage !== "undefined" &&
-					localStorage.getItem("theme")
-				) {
-					return localStorage.getItem("theme");
-				}
-				return window.matchMedia("(prefers-color-scheme: dark)").matches
-					? "dark"
-					: "light";
-			};
-
-			const applyTheme = (theme) => {
-				document.documentElement.setAttribute("data-theme", theme);
-				const toggle = document.getElementById("theme-toggle");
-				if (toggle) {
-					toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-				}
-			};
-
-			applyTheme(getThemePreference());
-
-			window.toggleTheme = () => {
-				const current = document.documentElement.getAttribute("data-theme");
-				const next = current === "dark" ? "light" : "dark";
-				applyTheme(next);
-				if (typeof localStorage !== "undefined") {
-					localStorage.setItem("theme", next);
-				}
-			};
-
-			document.addEventListener("astro:after-swap", () => {
-				applyTheme(getThemePreference());
-			});
-		</script>
+		<ThemeScript />
 		<script>
 			import "@ajustinjames/hardline-components";
 		</script>

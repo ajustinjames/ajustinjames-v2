@@ -1,0 +1,101 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import { getApp } from "../../data/apps";
+
+const app = getApp("killed-by-ea");
+---
+
+<AppLayout app={app}>
+	<main id="main-content" class="page-shell">
+	  <header class="page-header">
+	    <p class="eyebrow">A sourced archive</p>
+	    <h1>Killed by EA</h1>
+	    <p class="page-deck">A sourced timeline of EA games, studios, and projects that ended, with announcement and report dates clearly labeled, through 22 October 2026.</p>
+	    <p class="header-links">
+	      <a href="#how-entries-are-chosen">How entries are chosen</a>{" "}
+	      <span aria-hidden="true">·</span>{" "}
+	      <a href="#counts">Counts</a>{" "}
+	      <span aria-hidden="true">·</span>{" "}
+	      <span
+	        >Looking for server shutdowns? See EA's lists:{" "}
+	        <a href="https://www.ea.com/legal/service-updates/a-h">A–H</a>,{" "}
+	        <a href="https://www.ea.com/legal/service-updates/i-q">I–Q</a>,{" "}
+	        <a href="https://www.ea.com/legal/service-updates/r-z">R–Z</a>.</span
+	      >
+	    </p>
+	  </header>
+
+	  <section class="controls" aria-label="Search and filter entries">
+	    <div class="control control-search">
+	      <label for="search">Search</label>
+	      <input id="search" name="q" type="search" placeholder="Names, series, or studios" autocomplete="off" spellcheck="false" />
+	    </div>
+	    <div class="control">
+	      <label for="kind-filter">Kind</label>
+	      <hl-select>
+	        <select id="kind-filter" name="kind">
+	          <option value="">All kinds</option>
+	          <option value="game">Games</option>
+	          <option value="studio">Studios</option>
+	          <option value="project">Projects</option>
+	        </select>
+	      </hl-select>
+	    </div>
+	    <div class="control">
+	      <label for="year-filter">Year</label>
+	      <hl-select>
+	        <select id="year-filter" name="year">
+	          <option value="">All years</option>
+	        </select>
+	      </hl-select>
+	    </div>
+	  </section>
+
+	  <p id="result-count" class="result-count" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">Loading entries</p>
+	  <section id="timeline" class="timeline" aria-label="Entries by year"></section>
+	  <section id="empty-state" class="empty-state" aria-labelledby="empty-title" hidden>
+	    <h2 id="empty-title">No entries match</h2>
+	    <p>Clear the search and filters to see the full archive.</p>
+	    <hl-btn variant="primary"><button id="clear-filters" type="button">Clear filters</button></hl-btn>
+	  </section>
+
+	  <section id="counts" class="counts-section" aria-labelledby="counts-title">
+	    <h2 id="counts-title">Counts</h2>
+	    <div class="counts-table-wrap">
+	      <table id="counts-table" class="counts-table">
+	        <caption id="counts-caption"></caption>
+	        <thead>
+	          <tr>
+	            <th scope="col">Year</th>
+	            <th scope="col">Games</th>
+	            <th scope="col">Studios closed</th>
+	            <th scope="col">Studios merged</th>
+	            <th scope="col">Projects</th>
+	            <th scope="col">Total</th>
+	          </tr>
+	        </thead>
+	        <tbody id="counts-rows"></tbody>
+	        <tfoot id="counts-total"></tfoot>
+	      </table>
+	    </div>
+	  </section>
+
+	  <section id="how-entries-are-chosen" class="rules-section" aria-labelledby="rules-title">
+	    <p class="eyebrow">Scope and sources</p>
+	    <h2 id="rules-title">How entries are chosen</h2>
+	    <p>This archive covers supported events through 22 October 2026. Each entry links to a source and an archived copy; its date line is an event date or is labeled “Announced:” or “Reported:”.</p>
+	    <ul>
+	      <li>A game appears only when evidence shows that the specific project ended during development. A cancellation known from reporting is labelled “reported cancelled”. A move or redesign alone does not count.</li>
+	      <li>A studio is marked merged when its team and work continued under a named operating successor. A studio that ceased and whose staff were laid off or scattered is marked closed. A rename alone does not count. If a closure or merger is announced but completion is not established, it is labelled “closure announced” or “merger announced”.</li>
+	      <li>A project is a named, standalone product, platform, label, or initiative that ended. Rebrands, store removals, and server or online-service shutdowns of released games are outside this archive.</li>
+	      <li>Dates show the supported event date when known. Otherwise, the timeline may use a dated announcement or contemporary report; “Announced:” and “Reported:” label those dates, and the note explains what they establish and what remains unknown. Announcement and report dates do not establish when an event happened. Unknown dates are grouped under “Date unknown”.</li>
+	      <li>Summaries use neutral wording and describe past events. Entries make no current-status claims.</li>
+	    </ul>
+	    <p class="correction-link">Spotted an error or a missing entry? <a href="https://github.com/ajustinjames/ajustinjames-v2/issues/new?title=Correction%20to%20Killed%20by%20EA">Open a correction</a>.</p>
+	  </section>
+	</main>
+</AppLayout>
+
+<script>
+	import "../../apps/killed-by-ea/main.ts";
+</script>
