@@ -1,11 +1,9 @@
-/* Styles for /apps/* pages. Tailwind's theme and utilities (for the site header
-   and footer) without its preflight reset, so each app's own CSS behaves as it
-   was written. Utilities are !important so the header and footer keep their
-   look even when an app styles bare elements like `a`. Each app imports its
-   own style.css from its main.ts. */
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities) important;
+/* Styles for /apps/* pages. Only the hardline tokens and fonts, plus a small
+   reset for the shared site header and footer (wrapped in .site-chrome), so
+   each app's own CSS behaves as it was written. These rules are unlayered and
+   class-qualified so an app that styles bare elements like `a` or `button`
+   doesn't restyle the header and footer. Each app imports its own style.css
+   from its main.ts. */
 @import "@ajustinjames/hardline-tokens/css";
 @import "@ajustinjames/hardline-tokens/css-dark";
 
@@ -13,47 +11,44 @@
 @import "@fontsource/inter/600.css";
 @import "@fontsource/jetbrains-mono/400.css";
 
-@config "../../tailwind.config.mjs";
+.site-chrome {
+	background-color: var(--hl-alias-surface-bg-alt);
+	color: var(--hl-alias-text-main);
+	font-family: var(--hl-alias-font-ui);
+	line-height: 1.5;
+}
 
-/* The small part of preflight the shared header and footer rely on. */
-@layer base {
-	.site-chrome,
-	.site-chrome * {
-		box-sizing: border-box;
-		border-width: 0;
-		border-style: solid;
-	}
+.site-chrome,
+.site-chrome * {
+	box-sizing: border-box;
+	border-width: 0;
+	border-style: solid;
+}
 
-	.site-chrome {
-		font-family: Inter, system-ui, sans-serif;
-		line-height: 1.5;
-	}
+.site-chrome ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
 
-	.site-chrome ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+.site-chrome p {
+	margin: 0;
+}
 
-	.site-chrome p {
-		margin: 0;
-	}
+.site-chrome a {
+	color: inherit;
+	text-decoration: inherit;
+}
 
-	.site-chrome a {
-		color: inherit;
-		text-decoration: inherit;
-	}
+.site-chrome img,
+.site-chrome svg {
+	display: block;
+}
 
-	.site-chrome img,
-	.site-chrome svg {
-		display: block;
-	}
-
-	.site-chrome button {
-		background: transparent;
-		color: inherit;
-		font: inherit;
-		padding: 0;
-		cursor: pointer;
-	}
+.site-chrome button {
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	padding: 0;
+	cursor: pointer;
 }

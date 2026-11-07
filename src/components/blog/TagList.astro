@@ -1,18 +1,30 @@
 ---
 interface Props {
-    tags: string[];
+		tags: string[];
 }
 const { tags } = Astro.props;
 
 function tagSlug(tag: string) {
-  return tag.toLowerCase().replace(/\s+/g, '-');
+	return tag.toLowerCase().replace(/\s+/g, '-');
 }
 ---
 
-<div class="flex flex-wrap gap-2">
-  {tags.map((tag) => (
-    <a href={`/blog/tags/${tagSlug(tag)}`} class="no-underline">
-      <hl-tag>{tag.toUpperCase()}</hl-tag>
-    </a>
-  ))}
+<div class="tag-list">
+	{tags.map((tag) => (
+		<a href={`/blog/tags/${tagSlug(tag)}`}>
+			<hl-tag>{tag.toUpperCase()}</hl-tag>
+		</a>
+	))}
 </div>
+
+<style>
+	.tag-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag-list a {
+		text-decoration: none;
+	}
+</style>

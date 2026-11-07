@@ -35,11 +35,6 @@
 			"quoteStyle": "double"
 		}
 	},
-	"css": {
-		"parser": {
-			"tailwindDirectives": true
-		}
-	},
 	"html": {
 		"experimentalFullSupportEnabled": true
 	},

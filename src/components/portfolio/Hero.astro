@@ -3,28 +3,18 @@ import { Icon } from "astro-icon/components";
 import { socialLinks } from "../../data/social-links";
 ---
 
-<section class="max-w-6xl mx-auto w-full py-16 md:py-24">
-	<div class="flex items-center justify-between gap-8 xl:gap-12">
-		<div class="min-w-0">
-			<p
-				class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary"
-			>
-				Software Engineer / Est. 2018
-			</p>
-			<h1
-				class="mt-4 font-bold tracking-tight leading-[0.95] text-lightTextPrimary dark:text-darkTextPrimary text-[clamp(3.5rem,12vw,7rem)]"
-			>
-				Aaron James
-			</h1>
-			<div class="mt-6 h-1.5 w-32 bg-primary" aria-hidden="true"></div>
-			<p
-				class="mt-8 max-w-prose text-base md:text-lg text-lightTextSecondary dark:text-darkTextSecondary"
-			>
+<section class="hero">
+	<div class="hero__row">
+		<div class="hero__text">
+			<p class="eyebrow">Software Engineer / Est. 2018</p>
+			<h1 class="hero__name">Aaron James</h1>
+			<div class="hero__rule" aria-hidden="true"></div>
+			<p class="hero__intro">
 				I've spent years building web and mobile apps. I love tackling tough
 				problems and finding smart solutions. Tech is always changing, and I'm
 				always learning. That's what keeps this work exciting.
 			</p>
-			<div class="mt-8 flex items-center gap-5">
+			<div class="hero__social">
 				{
 					socialLinks.map((link) => (
 						<a
@@ -32,7 +22,7 @@ import { socialLinks } from "../../data/social-links";
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={link.label}
-							class="text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary motion-safe:transition-colors"
+							class="hero__social-link"
 						>
 							<Icon name={link.iconName} size="28px" />
 						</a>
@@ -41,11 +31,106 @@ import { socialLinks } from "../../data/social-links";
 			</div>
 		</div>
 		{/* Below lg the display type claims the full column, so the seal drops out. */}
-		<img
-			src="/ajlogo.svg"
-			alt=""
-			aria-hidden="true"
-			class="hidden lg:block shrink-0 w-48 xl:w-[17rem] dark:invert"
-		/>
+		<img src="/ajlogo.svg" alt="" aria-hidden="true" class="hero__seal" />
 	</div>
 </section>
+
+<style>
+	.hero {
+		width: 100%;
+		max-width: 72rem;
+		margin-inline: auto;
+		padding-block: 4rem;
+	}
+
+	.hero__row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+
+	.hero__text {
+		min-width: 0;
+	}
+
+	.hero__name {
+		margin-top: 1rem;
+		font-size: clamp(3.5rem, 12vw, 7rem);
+		line-height: 0.95;
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		color: var(--hl-alias-text-main);
+	}
+
+	.hero__rule {
+		margin-top: 1.5rem;
+		width: 8rem;
+		height: 0.375rem;
+		background: var(--hl-alias-action-bg-primary);
+	}
+
+	.hero__intro {
+		margin-top: 2rem;
+		max-width: 65ch;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.hero__social {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		margin-top: 2rem;
+	}
+
+	.hero__social-link {
+		color: var(--hl-alias-text-muted);
+	}
+
+	.hero__social-link:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.hero__seal {
+		display: none;
+		flex-shrink: 0;
+		width: 12rem;
+	}
+
+	:global([data-theme="dark"]) .hero__seal {
+		filter: invert(1);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.hero__social-link {
+			transition: color 0.15s;
+		}
+	}
+
+	@media (min-width: 48rem) {
+		.hero {
+			padding-block: 6rem;
+		}
+
+		.hero__intro {
+			font-size: 1.125rem;
+			line-height: 1.75rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.hero__seal {
+			display: block;
+		}
+	}
+
+	@media (min-width: 80rem) {
+		.hero__row {
+			gap: 3rem;
+		}
+
+		.hero__seal {
+			width: 17rem;
+		}
+	}
+</style>

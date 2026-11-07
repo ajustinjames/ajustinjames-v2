@@ -6,70 +6,88 @@ import Section from '../../../components/Section.astro';
 import Layout from '../../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
-  const tagMap = new Map<string, { slug: string; displayTag: string; posts: typeof allPosts }>();
+	const allPosts = await getCollection('blog');
+	const tagMap = new Map<string, { slug: string; displayTag: string; posts: typeof allPosts }>();
 
-  for (const post of allPosts) {
-    for (const tag of post.data.tags) {
-      const slug = tag.toLowerCase().replace(/\s+/g, '-');
-      if (!tagMap.has(slug)) {
-        tagMap.set(slug, { slug, displayTag: tag, posts: [] });
-      }
-      tagMap.get(slug)!.posts.push(post);
-    }
-  }
+	for (const post of allPosts) {
+		for (const tag of post.data.tags) {
+			const slug = tag.toLowerCase().replace(/\s+/g, '-');
+			if (!tagMap.has(slug)) {
+				tagMap.set(slug, { slug, displayTag: tag, posts: [] });
+			}
+			tagMap.get(slug)!.posts.push(post);
+		}
+	}
 
-  return Array.from(tagMap.values()).map(({ slug, displayTag, posts }) => ({
-    params: { tag: slug },
-    props: {
-      displayTag,
-      posts: posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
-    },
-  }));
+	return Array.from(tagMap.values()).map(({ slug, displayTag, posts }) => ({
+		params: { tag: slug },
+		props: {
+			displayTag,
+			posts: posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+		},
+	}));
 }
 
 interface Props {
-  displayTag: string;
-  posts: Awaited<ReturnType<typeof getCollection<'blog'>>>;
+	displayTag: string;
+	posts: Awaited<ReturnType<typeof getCollection<'blog'>>>;
 }
 
 const { displayTag, posts } = Astro.props;
 ---
 
 <Layout title={`Posts tagged "${displayTag}"`} description={`All blog posts tagged with "${displayTag}".`}>
-  <Section
-    eyebrow="Tag"
-    title={`Posts tagged “${displayTag}”`}
-    description={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'} found.`}
-    as="h1"
-    width="narrow"
-  >
-    <div slot="top" class="mb-4">
-      <Breadcrumb
-        crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Blog', href: '/blog' },
-          { label: `Tag: ${displayTag}` },
-        ]}
-      />
-    </div>
+	<Section
+		eyebrow="Tag"
+		title={`Posts tagged “${displayTag}”`}
+		description={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'} found.`}
+		as="h1"
+		width="narrow"
+	>
+		<div slot="top" class="tag-page__crumbs">
+			<Breadcrumb
+				crumbs={[
+					{ label: 'Home', href: '/' },
+					{ label: 'Blog', href: '/blog' },
+					{ label: `Tag: ${displayTag}` },
+				]}
+			/>
+		</div>
 
-    <ul class="grid gap-6 md:grid-cols-2">
-      {posts.map((post) => (
-        <li>
-          <BlogPostCard
-            url={`/posts/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            tags={post.data.tags}
-          />
-        </li>
-      ))}
-    </ul>
+		<ul class="card-grid">
+			{posts.map((post) => (
+				<li>
+					<BlogPostCard
+						url={`/posts/${post.id}`}
+						title={post.data.title}
+						description={post.data.description}
+						pubDate={post.data.pubDate}
+						tags={post.data.tags}
+					/>
+				</li>
+			))}
+		</ul>
 
-    <div class="mt-8">
-      <a href="/blog" class="text-primary hover:underline">&larr; Back to all posts</a>
-    </div>
-  </Section>
+		<div class="tag-page__back">
+			<a href="/blog">&larr; Back to all posts</a>
+		</div>
+	</Section>
 </Layout>
+
+<style>
+	.tag-page__crumbs {
+		margin-bottom: 1rem;
+	}
+
+	.tag-page__back {
+		margin-top: 2rem;
+	}
+
+	.tag-page__back a {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.tag-page__back a:hover {
+		text-decoration: underline;
+	}
+</style>

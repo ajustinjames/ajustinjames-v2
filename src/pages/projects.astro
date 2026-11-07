@@ -13,38 +13,33 @@ const statusLabels = {
 
 <Layout title="Projects" description="A showcase of personal projects and side apps by Aaron James.">
 	<Section eyebrow="Projects" title="Projects" description="Things I've built" as="h1" width="narrow">
-		<ul class="grid gap-6 md:grid-cols-2">
+		<ul class="card-grid">
 			{projects.map((project) => (
 				<li class="hl-card-shell hover-lift">
 					{project.screenshot && (
-						<Image
-							src={project.screenshot}
-							alt={`Screenshot of ${project.name}`}
-							widths={[400, 800]}
-							sizes="(min-width: 768px) 400px, 100vw"
-							class="mb-4 w-full border border-borderLight dark:border-borderDark"
-						/>
+						<div class="project__shot">
+							<Image
+								src={project.screenshot}
+								alt={`Screenshot of ${project.name}`}
+								widths={[400, 800]}
+								sizes="(min-width: 768px) 400px, 100vw"
+							/>
+						</div>
 					)}
-					<div class="flex items-baseline justify-between gap-3">
-						<h2 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
-							{project.name}
-						</h2>
-						<span class="shrink-0 font-mono text-xs uppercase tracking-wide text-lightTextSecondary dark:text-darkTextSecondary">
-							{statusLabels[project.status]}
-						</span>
+					<div class="project__head">
+						<h2 class="card-title">{project.name}</h2>
+						<span class="project__status">{statusLabels[project.status]}</span>
 					</div>
-					<p class="mt-3 text-lightTextSecondary dark:text-darkTextSecondary">
-						{project.description}
-					</p>
-					<div class="mt-4">
+					<p class="project__description">{project.description}</p>
+					<div class="project__tags">
 						<TagList tags={project.technologies} />
 					</div>
-					<div class="mt-4 flex gap-4 text-sm font-mono uppercase tracking-wide">
+					<div class="project__links">
 						{project.siteUrl && (
-							<a href={project.siteUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Live &#8599;</a>
+							<a href={project.siteUrl} target="_blank" rel="noopener noreferrer" class="project__live">Live &#8599;</a>
 						)}
 						{project.repoUrl && (
-							<a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="text-lightTextSecondary hover:text-primary dark:text-darkTextSecondary">GitHub</a>
+							<a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="project__repo">GitHub</a>
 						)}
 					</div>
 				</li>
@@ -52,3 +47,64 @@ const statusLabels = {
 		</ul>
 	</Section>
 </Layout>
+
+<style>
+	.project__shot :global(img) {
+		width: 100%;
+		margin-bottom: 1rem;
+		border: 1px solid var(--hl-alias-surface-border);
+	}
+
+	.project__head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.project__status {
+		flex-shrink: 0;
+		font-family: var(--hl-alias-font-technical);
+		font-size: 0.75rem;
+		line-height: 1rem;
+		text-transform: uppercase;
+		letter-spacing: 0.025em;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.project__description {
+		margin-top: 0.75rem;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.project__tags {
+		margin-top: 1rem;
+	}
+
+	.project__links {
+		display: flex;
+		gap: 1rem;
+		margin-top: 1rem;
+		font-family: var(--hl-alias-font-technical);
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		text-transform: uppercase;
+		letter-spacing: 0.025em;
+	}
+
+	.project__live {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.project__live:hover {
+		text-decoration: underline;
+	}
+
+	.project__repo {
+		color: var(--hl-alias-text-muted);
+	}
+
+	.project__repo:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+</style>

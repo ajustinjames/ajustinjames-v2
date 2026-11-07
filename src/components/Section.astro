@@ -24,30 +24,73 @@ const {
 } = Astro.props;
 
 const Heading = as;
-const maxW = width === "narrow" ? "max-w-4xl" : "max-w-6xl";
 ---
 
-<section id={id} class:list={[maxW, "mx-auto w-full py-12 md:py-16", className]}>
+<section id={id} class:list={["section", `section--${width}`, className]}>
 	<slot name="top" />
-	<header class="mb-8 md:mb-10">
-		<p
-			class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary"
-		>
-			{eyebrow}
-		</p>
-		<Heading
-			class="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary"
-		>
-			{title}
-		</Heading>
-		<div class="mt-4 h-1 w-12 bg-primary" aria-hidden="true"></div>
-		{
-			description && (
-				<p class="mt-4 max-w-prose text-lightTextSecondary dark:text-darkTextSecondary">
-					{description}
-				</p>
-			)
-		}
+	<header class="section__header">
+		<p class="eyebrow">{eyebrow}</p>
+		<Heading class="section__title">{title}</Heading>
+		<div class="section__rule" aria-hidden="true"></div>
+		{description && <p class="section__description">{description}</p>}
 	</header>
 	<slot />
 </section>
+
+<style>
+	.section {
+		width: 100%;
+		margin-inline: auto;
+		padding-block: 3rem;
+	}
+
+	.section--wide {
+		max-width: 72rem;
+	}
+
+	.section--narrow {
+		max-width: 56rem;
+	}
+
+	.section__header {
+		margin-bottom: 2rem;
+	}
+
+	/* The heading's tag is dynamic, so it's styled through its parent. */
+	.section__header > :global(.section__title) {
+		margin-top: 0.75rem;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		color: var(--hl-alias-text-main);
+	}
+
+	.section__rule {
+		margin-top: 1rem;
+		width: 3rem;
+		height: 0.25rem;
+		background: var(--hl-alias-action-bg-primary);
+	}
+
+	.section__description {
+		margin-top: 1rem;
+		max-width: 65ch;
+		color: var(--hl-alias-text-muted);
+	}
+
+	@media (min-width: 48rem) {
+		.section {
+			padding-block: 4rem;
+		}
+
+		.section__header {
+			margin-bottom: 2.5rem;
+		}
+
+		.section__header > :global(.section__title) {
+			font-size: 2.25rem;
+			line-height: 2.5rem;
+		}
+	}
+</style>

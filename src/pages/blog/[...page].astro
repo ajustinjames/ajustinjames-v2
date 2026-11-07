@@ -8,7 +8,7 @@ import Layout from '../../layouts/Layout.astro';
 import { type FeedType, getFeed } from '../../utils/feed';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  return paginate(await getFeed(), { pageSize: 10 });
+	return paginate(await getFeed(), { pageSize: 10 });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -17,186 +17,286 @@ const { page } = Astro.props as Props;
 
 // Pre-render note Markdown bodies (render() must run in frontmatter, not JSX).
 const noteContents = await Promise.all(
-  page.data.map((entry) =>
-    entry.type === 'note' && entry.noteEntry
-      ? render(entry.noteEntry).then((r) => r.Content)
-      : Promise.resolve(null),
-  ),
+	page.data.map((entry) =>
+		entry.type === 'note' && entry.noteEntry
+			? render(entry.noteEntry).then((r) => r.Content)
+			: Promise.resolve(null),
+	),
 );
 
 const chipLabels: Record<FeedType, string> = {
-  post: 'POST',
-  note: 'TIL',
-  link: 'LINK',
+	post: 'POST',
+	note: 'TIL',
+	link: 'LINK',
 };
 
 const filters: { label: string; type: FeedType | 'all' }[] = [
-  { label: 'All', type: 'all' },
-  { label: 'Posts', type: 'post' },
-  { label: 'Notes', type: 'note' },
-  { label: 'Links', type: 'link' },
+	{ label: 'All', type: 'all' },
+	{ label: 'Posts', type: 'post' },
+	{ label: 'Notes', type: 'note' },
+	{ label: 'Links', type: 'link' },
 ];
 
 function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  }).format(date);
+	return new Intl.DateTimeFormat('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		timeZone: 'UTC',
+	}).format(date);
 }
 ---
 
 <Layout title="Blog" description={blogDescription}>
-    <Section eyebrow="Blog" title="Latest" description="Posts, notes, and links — the newest first." as="h1" width="narrow">
-        <!-- biome-ignore lint/a11y/useSemanticElements: a fieldset would add default border/legend styling to this button row -->
-        <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filter the stream by type" id="stream-filters">
-            {filters.map(({ label, type }) => (
-                <button
-                    type="button"
-                    data-filter={type}
-                    aria-pressed={type === 'all' ? 'true' : 'false'}
-                    class="border border-borderLight dark:border-borderDark px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary aria-pressed:border-primary aria-pressed:text-primary motion-safe:transition-colors"
-                >
-                    {label}
-                </button>
-            ))}
-        </div>
+	<Section eyebrow="Blog" title="Latest" description="Posts, notes, and links — the newest first." as="h1" width="narrow">
+		<!-- biome-ignore lint/a11y/useSemanticElements: a fieldset would add default border/legend styling to this button row -->
+		<div class="filters" role="group" aria-label="Filter the stream by type" id="stream-filters">
+			{filters.map(({ label, type }) => (
+				<button
+					type="button"
+					data-filter={type}
+					aria-pressed={type === 'all' ? 'true' : 'false'}
+					class="meta-label filters__button"
+				>
+					{label}
+				</button>
+			))}
+		</div>
 
-        <ul class="space-y-6" id="stream">
-            {page.data.map((entry, index) => {
-                const NoteBody = noteContents[index];
-                return (
-                    <li data-type={entry.type} id={entry.anchor} class:list={[entry.type === 'note' && 'scroll-mt-24']}>
-                        {entry.type === 'post' && (
-                            <div class="relative">
-                                <span class="absolute right-4 top-4 z-10 inline-flex items-center border border-borderLight dark:border-borderDark bg-cardLightBg dark:bg-cardDarkBg px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
-                                    {chipLabels.post}
-                                </span>
-                                <BlogPostCard
-                                    url={entry.href}
-                                    title={entry.title ?? ''}
-                                    description={entry.description ?? ''}
-                                    pubDate={entry.date}
-                                    tags={entry.tags}
-                                />
-                            </div>
-                        )}
+		<ul class="stream" id="stream">
+			{page.data.map((entry, index) => {
+				const NoteBody = noteContents[index];
+				return (
+					<li data-type={entry.type} id={entry.anchor} class="stream__entry">
+						{entry.type === 'post' && (
+							<div class="stream__post">
+								<span class="chip stream__chip">{chipLabels.post}</span>
+								<BlogPostCard
+									url={entry.href}
+									title={entry.title ?? ''}
+									description={entry.description ?? ''}
+									pubDate={entry.date}
+									tags={entry.tags}
+								/>
+							</div>
+						)}
 
-                        {entry.type === 'note' && (
-                            <div class="hl-card-shell">
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="inline-flex items-center border border-borderLight dark:border-borderDark px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
-                                        {chipLabels.note}
-                                    </span>
-                                    <a
-                                        href={`#${entry.anchor}`}
-                                        class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary hover:text-primary"
-                                    >
-                                        <time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>
-                                    </a>
-                                </div>
-                                {NoteBody && (
-                                    <div class="prose prose-zinc dark:prose-invert max-w-none mt-3">
-                                        <NoteBody />
-                                    </div>
-                                )}
-                                {entry.tags.length > 0 && (
-                                    <div class="mt-4 flex flex-wrap gap-2">
-                                        {entry.tags.map((tag) => (
-                                            <hl-tag>{tag.toUpperCase()}</hl-tag>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        )}
+						{entry.type === 'note' && (
+							<div class="hl-card-shell">
+								<div class="meta-row">
+									<span class="chip">{chipLabels.note}</span>
+									<a href={`#${entry.anchor}`} class="meta-date stream__permalink">
+										<time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>
+									</a>
+								</div>
+								{NoteBody && (
+									<div class="prose stream__note">
+										<NoteBody />
+									</div>
+								)}
+								{entry.tags.length > 0 && (
+									<div class="stream__tags">
+										{entry.tags.map((tag) => (
+											<hl-tag>{tag.toUpperCase()}</hl-tag>
+										))}
+									</div>
+								)}
+							</div>
+						)}
 
-                        {entry.type === 'link' && (
-                            <div class="border-t border-b border-borderLight dark:border-borderDark py-5">
-                                <div class="flex flex-wrap items-center gap-3">
-                                    <span class="inline-flex items-center border border-borderLight dark:border-borderDark px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
-                                        {chipLabels.link}
-                                    </span>
-                                    <span class="font-mono text-xs uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
-                                        {entry.domain}
-                                    </span>
-                                    <time
-                                        datetime={entry.date.toISOString()}
-                                        class="font-mono text-sm text-lightTextSecondary dark:text-darkTextSecondary"
-                                    >
-                                        {formatDate(entry.date)}
-                                    </time>
-                                </div>
-                                <h2 class="mt-2 text-xl font-semibold tracking-tight text-lightTextPrimary dark:text-darkTextPrimary">
-                                    <a href={entry.href} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
-                                        {entry.title} &nearr;
-                                    </a>
-                                </h2>
-                                {entry.description && (
-                                    <p class="mt-2 text-lightTextSecondary dark:text-darkTextSecondary">
-                                        {entry.description}
-                                    </p>
-                                )}
-                            </div>
-                        )}
-                    </li>
-                );
-            })}
-        </ul>
+						{entry.type === 'link' && (
+							<div class="stream__link">
+								<div class="meta-row">
+									<span class="chip">{chipLabels.link}</span>
+									<span class="meta-label">{entry.domain}</span>
+									<time datetime={entry.date.toISOString()} class="meta-date">
+										{formatDate(entry.date)}
+									</time>
+								</div>
+								<h2 class="card-title stream__title">
+									<a href={entry.href} target="_blank" rel="noopener noreferrer">
+										{entry.title} &nearr;
+									</a>
+								</h2>
+								{entry.description && (
+									<p class="stream__description">{entry.description}</p>
+								)}
+							</div>
+						)}
+					</li>
+				);
+			})}
+		</ul>
 
-        {page.lastPage > 1 && (
-            <nav aria-label="Blog pagination" class="mt-12 flex justify-center gap-4">
-                {page.url.prev ? (
-                    <a href={page.url.prev} class="hl-card-shell px-4 py-2 hover-lift no-underline text-lightTextPrimary dark:text-darkTextPrimary hover:text-primary">
-                        &larr; Previous
-                    </a>
-                ) : (
-                    <span class="px-4 py-2 text-lightTextSecondary dark:text-darkTextSecondary opacity-40">
-                        &larr; Previous
-                    </span>
-                )}
-                <span class="flex items-center text-lightTextSecondary dark:text-darkTextSecondary">
-                    Page {page.currentPage} of {page.lastPage}
-                </span>
-                {page.url.next ? (
-                    <a href={page.url.next} class="hl-card-shell px-4 py-2 hover-lift no-underline text-lightTextPrimary dark:text-darkTextPrimary hover:text-primary">
-                        Next &rarr;
-                    </a>
-                ) : (
-                    <span class="px-4 py-2 text-lightTextSecondary dark:text-darkTextSecondary opacity-40">
-                        Next &rarr;
-                    </span>
-                )}
-            </nav>
-        )}
-    </Section>
+		{page.lastPage > 1 && (
+			<nav aria-label="Blog pagination" class="pagination">
+				{page.url.prev ? (
+					<a href={page.url.prev} class="hl-card-shell hover-lift pagination__link">
+						&larr; Previous
+					</a>
+				) : (
+					<span class="pagination__disabled">&larr; Previous</span>
+				)}
+				<span class="pagination__status">
+					Page {page.currentPage} of {page.lastPage}
+				</span>
+				{page.url.next ? (
+					<a href={page.url.next} class="hl-card-shell hover-lift pagination__link">
+						Next &rarr;
+					</a>
+				) : (
+					<span class="pagination__disabled">Next &rarr;</span>
+				)}
+			</nav>
+		)}
+	</Section>
 </Layout>
 
-<script is:inline>
-    // Progressive enhancement: type filter for the blog stream. Without JS all
-    // entries stay visible. Re-initialized after ClientRouter swaps.
-    (() => {
-        function initStreamFilters() {
-            const group = document.getElementById("stream-filters");
-            const stream = document.getElementById("stream");
-            if (!group || !stream) return;
+<style>
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 2rem;
+	}
 
-            const buttons = group.querySelectorAll("button[data-filter]");
-            buttons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const filter = button.getAttribute("data-filter");
-                    buttons.forEach((b) => {
-                        b.setAttribute("aria-pressed", b === button ? "true" : "false");
-                    });
-                    stream.querySelectorAll("li[data-type]").forEach((item) => {
-                        item.hidden =
-                            filter !== "all" && item.getAttribute("data-type") !== filter;
-                    });
-                });
-            });
-        }
+	.filters__button {
+		border: 1px solid var(--hl-alias-surface-border);
+		padding: 0.375rem 0.75rem;
+		cursor: pointer;
+	}
 
-        initStreamFilters();
-        document.addEventListener("astro:after-swap", initStreamFilters);
-    })();
+	.filters__button:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.filters__button[aria-pressed="true"] {
+		border-color: var(--hl-alias-action-bg-primary);
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.filters__button {
+			transition:
+				color 0.15s,
+				border-color 0.15s;
+		}
+	}
+
+	/* Flex gap, not sibling margins, so filtered-out (hidden) entries leave
+	   no extra space. */
+	.stream {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	/* Clear the header when jumping to a note's permalink. */
+	.stream__entry {
+		scroll-margin-top: 6rem;
+	}
+
+	.stream__post {
+		position: relative;
+	}
+
+	.stream__chip {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 10;
+		background-color: var(--hl-alias-surface-bg);
+	}
+
+	.stream__permalink:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.stream__note {
+		margin-top: 0.75rem;
+	}
+
+	.stream__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.stream__link {
+		border-block: 1px solid var(--hl-alias-surface-border);
+		padding-block: 1.25rem;
+	}
+
+	.stream__title {
+		margin-top: 0.5rem;
+		letter-spacing: -0.025em;
+	}
+
+	.stream__title a:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.stream__description {
+		margin-top: 0.5rem;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.pagination {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		margin-top: 3rem;
+	}
+
+	.pagination__link,
+	.pagination__disabled {
+		padding: 0.5rem 1rem;
+	}
+
+	.pagination__link {
+		color: var(--hl-alias-text-main);
+	}
+
+	.pagination__link:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.pagination__disabled {
+		color: var(--hl-alias-text-muted);
+		opacity: 0.4;
+	}
+
+	.pagination__status {
+		display: flex;
+		align-items: center;
+		color: var(--hl-alias-text-muted);
+	}
+</style>
+
+<script>
+	// Progressive enhancement: type filter for the blog stream. Without JS all
+	// entries stay visible. Bundled scripts run once, so re-initialize on
+	// `astro:page-load`, which fires on first load and after each ClientRouter
+	// navigation.
+	function initStreamFilters() {
+		const group = document.getElementById("stream-filters");
+		const stream = document.getElementById("stream");
+		if (!group || !stream) return;
+
+		const buttons = group.querySelectorAll<HTMLButtonElement>("button[data-filter]");
+		for (const button of buttons) {
+			button.addEventListener("click", () => {
+				const filter = button.dataset.filter;
+				for (const b of buttons) {
+					b.setAttribute("aria-pressed", b === button ? "true" : "false");
+				}
+				for (const item of stream.querySelectorAll<HTMLElement>("li[data-type]")) {
+					item.hidden = filter !== "all" && item.dataset.type !== filter;
+				}
+			});
+		}
+	}
+
+	document.addEventListener("astro:page-load", initStreamFilters);
 </script>

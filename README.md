@@ -2,12 +2,12 @@
 
 [![Website](https://img.shields.io/badge/website-ajustinjames.com-blue?style=flat-square&logo=internet-explorer)](https://ajustinjames.com)
 
-A modern, performant personal website built with Astro and Tailwind CSS. This website combines static site generation with minimal JavaScript for optimal performance and SEO.
+A modern, performant personal website built with Astro and plain CSS on the hardline design tokens. This website combines static site generation with minimal JavaScript for optimal performance and SEO.
 
 ## 🚀 Tech Stack
 
 - [Astro](https://astro.build) - Static Site Generator
-- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
+- [hardline](https://www.npmjs.com/package/@ajustinjames/hardline-tokens) - Design tokens and Web Components
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 - [Vitest](https://vitest.dev) - Testing framework
 
@@ -60,7 +60,7 @@ npm test
 - Portfolio section
 - Contact form
 - SEO optimization with @astrojs/sitemap
-- Responsive design with Tailwind CSS
+- Responsive design with scoped component CSS
 - Icon support via astro-icon
 - Unit testing with Vitest
 
