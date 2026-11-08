@@ -3,25 +3,78 @@ import { Icon } from "astro-icon/components";
 import { socialLinks } from "../data/social-links";
 ---
 
-<footer class="mt-auto w-full border-t border-borderLight dark:border-borderDark">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-		<div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
-			<p class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">
-				© {new Date().getFullYear()} Aaron James
-			</p>
-			<div class="flex items-center space-x-2">
-				{socialLinks.map((link) => (
+<footer class="site-footer">
+	<div class="site-footer__inner">
+		<p class="site-footer__copy">© {new Date().getFullYear()} Aaron James</p>
+		<div class="site-footer__social">
+			{
+				socialLinks.map((link) => (
 					<a
 						href={link.href}
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label={link.label}
-						class="p-2 transition-colors hover:text-primary"
+						class="site-footer__link"
 					>
 						<Icon name={link.iconName} size="20px" />
 					</a>
-				))}
-			</div>
+				))
+			}
 		</div>
 	</div>
 </footer>
+
+<style>
+	/* Prefixed class names: this footer also renders on /apps pages. */
+	.site-footer {
+		margin-top: auto;
+		width: 100%;
+		border-top: 1px solid var(--hl-alias-surface-border);
+	}
+
+	.site-footer__inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		max-width: 80rem;
+		margin-inline: auto;
+		padding: 1rem;
+	}
+
+	.site-footer__copy {
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.site-footer__social {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.site-footer__link {
+		padding: 0.5rem;
+		transition: color 0.15s;
+	}
+
+	.site-footer__link:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	@media (min-width: 40rem) {
+		.site-footer__inner {
+			flex-direction: row;
+			gap: 0;
+			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.site-footer__inner {
+			padding-inline: 2rem;
+		}
+	}
+</style>

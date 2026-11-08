@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import SkipLink from "../components/SkipLink.astro";
 import ThemeScript from "../components/ThemeScript.astro";
 import { socialLinks } from "../data/social-links";
 import Footer from "./Footer.astro";
@@ -15,9 +16,8 @@ interface Props {
 }
 
 const { title, description, image, type = "website", publishedDate } = Astro.props;
-const siteUrl = "https://ajustinjames.com";
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const ogImage = image ? new URL(image, siteUrl).href : `${siteUrl}/og-default.png`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image ?? "/og-default.png", Astro.site).href;
 
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
 const personSchema = isHomePage
@@ -25,7 +25,7 @@ const personSchema = isHomePage
 			"@context": "https://schema.org",
 			"@type": "Person",
 			name: "Aaron James",
-			url: siteUrl,
+			url: Astro.site?.href,
 			sameAs: socialLinks.map((link) => link.href),
 		}
 	: null;
@@ -75,15 +75,10 @@ const personSchema = isHomePage
 		)}
 	</head>
 	<body>
-		<a
-			href="#main-content"
-			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded"
-		>
-			Skip to content
-		</a>
-		<div class="min-h-screen flex flex-col">
+		<SkipLink />
+		<div class="page">
 			<Header />
-			<main id="main-content" class="flex-1 w-full px-4 sm:px-6 lg:px-8">
+			<main id="main-content" class="page-main">
 				<slot />
 			</main>
 			<Footer />
@@ -98,3 +93,29 @@ const personSchema = isHomePage
 		)}
 	</body>
 </html>
+
+<style>
+	.page {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	.page-main {
+		flex: 1;
+		width: 100%;
+		padding-inline: 1rem;
+	}
+
+	@media (min-width: 40rem) {
+		.page-main {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.page-main {
+			padding-inline: 2rem;
+		}
+	}
+</style>

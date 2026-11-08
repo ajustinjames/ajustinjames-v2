@@ -4,20 +4,23 @@ This file provides guidance to coding agents working in this repository.
 
 ## About
 
-Personal website for ajustinjames.com built with Astro 5, Tailwind CSS, and TypeScript. Statically generated with a blog (Markdown) and portfolio sections.
+Personal website for ajustinjames.com built with Astro, plain CSS on the hardline design tokens, and TypeScript. Statically generated with a blog (Markdown) and portfolio sections.
 
 New blog posts follow the template at `src/pages/posts/_template.md`.
 
 ## Key Conventions
 
-- **No `@apply` directive** in Tailwind — use utility classes directly in component markup. The one exception is body base styles in `src/styles/global.css`, where `@apply` is necessary since the `<body>` tag lives in a layout file.
-- **Design tokens**: Use the Tailwind color tokens defined in `tailwind.config.mjs` (e.g. `text-primary`, `bg-cardLightBg`, `border-borderLight`). Always use explicit `dark:` variant pairs (e.g. `text-lightTextPrimary dark:text-darkTextPrimary`) — do not use CSS custom properties.
+- **Styling**: plain CSS, no Tailwind. Style each component in a scoped `<style>` block with BEM-ish class names (`post-card__title`). Build colors, borders and shadows on the hardline tokens (`--hl-alias-*`), e.g. `var(--hl-alias-text-main)`, `var(--hl-alias-text-muted)`, `var(--hl-alias-action-bg-primary)` (the accent), `var(--hl-alias-surface-border)`.
+- **Dark mode**: the tokens switch with `[data-theme]` on `<html>`, so most colors need no dark rules. When something does differ by theme, scope it with `:global([data-theme="dark"]) .thing`.
+- **Shared CSS** lives in `src/styles/`: `global.css` (page base plus a few shared classes: `.eyebrow`, `.chip`, `.meta-label`, `.meta-date`, `.meta-row`, `.card-title`, `.card-grid`, `.hl-card-shell`, `.hover-lift`), `reset.css` (in the `reset` cascade layer, so any component rule beats it) and `prose.css` (`.prose` for rendered Markdown). Add a shared class only when several components need it.
+- **Breakpoints** (min-width): 40rem, 48rem, 64rem, 80rem. Style phone-first.
+- To style a child component's root (`<Image>`, `<Icon>`, a dynamic tag), wrap or target it from a scoped parent with `:global()`.
 - **Social links**: Edit `src/data/social-links.ts` to add or change social profiles. Do not hardcode URLs in components.
 - Prefer `.astro` components; use React components only when client-side interactivity is required.
 - Use `client:*` directives sparingly — favor static generation. Prefer `client:visible` for below-the-fold interactive components.
 - Icons use `astro-icon` with Iconify JSON icon sets (devicon, fa6-brands, fa6-solid, line-md).
 - TypeScript strict mode (`astro/tsconfigs/strict`). All components must define a `Props` interface.
-- **Lint and format with Biome** (`biome.json`). `npm run lint` checks; `npm run format` applies fixes. Blog content (`src/content/`, post templates) is excluded so prose is never reformatted; other Markdown is formatted. Biome doesn't format `.astro` templates yet, so match the surrounding indentation by hand.
+- **Lint and format with Biome** (`biome.json`). `npm run lint` checks; `npm run format` applies fixes. Blog content (`src/content/`, post templates) is excluded so prose is never reformatted; other Markdown is formatted. Biome doesn't format `.astro` files yet, so indent them by hand with tabs, frontmatter and `<style>` blocks included.
 
 ## Apps
 
@@ -25,7 +28,7 @@ Small single-page tools live at `/apps/<slug>/`. They're quick builds: an idea g
 
 - Scaffold: `npm run new-app -- <slug> "<Name>" "<One-sentence description>"`. This creates `src/apps/<slug>/` (`app.json`, `main.ts`, `style.css`) and `src/pages/apps/<slug>.astro`. Apps are found automatically: each `src/apps/<slug>/app.json` (name, description, added date, `listed`) is one app, so there's no list to update by hand.
 - Markup goes in the `.astro` page, behavior in `main.ts`, and styles in the app's `style.css`. Put pure logic in `src/apps/<slug>/core/*.ts` with a `*.test.ts` beside it. Vitest picks those up.
-- The site conventions above (Tailwind utilities, `dark:` pairs, no custom properties) don't apply inside an app. `AppLayout` loads no Tailwind preflight, so apps use plain CSS with the hardline tokens (`--hl-alias-*`) and plain TypeScript. Use the hardline Web Components (`<hl-btn>`, `<hl-select>`, …) for controls.
+- Apps use plain CSS with the hardline tokens (`--hl-alias-*`) and plain TypeScript, like the rest of the site, but `AppLayout` loads neither `global.css` nor its reset, so an app's `style.css` starts from browser defaults. Use the hardline Web Components (`<hl-btn>`, `<hl-select>`, …) for controls.
 - Support dark mode by building colors on `--hl-alias-*` tokens. If an app can't support it yet, set `"lightOnly": true` in its `app.json`.
 - Astro's HTML compression drops the whitespace at line breaks between inline elements. Where text has to flow across tags (a sentence with inputs, a list of inline links), add `{" "}`.
 - No server code, accounts, or third-party APIs without asking first. Keep data in the page or the browser.

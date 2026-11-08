@@ -10,16 +10,16 @@ import { readingTime } from '../utils/reading-time';
 import Layout from './Layout.astro';
 
 interface PostLink {
-  slug: string;
-  title: string;
+	slug: string;
+	title: string;
 }
 
 interface Props {
-  frontmatter: CollectionEntry<'blog'>['data'];
-  rawContent: () => string;
-  headings?: MarkdownHeading[];
-  prevPost?: PostLink | null;
-  nextPost?: PostLink | null;
+	frontmatter: CollectionEntry<'blog'>['data'];
+	rawContent: () => string;
+	headings?: MarkdownHeading[];
+	prevPost?: PostLink | null;
+	nextPost?: PostLink | null;
 }
 
 const { frontmatter, rawContent, headings = [], prevPost, nextPost } = Astro.props;
@@ -27,89 +27,210 @@ const { frontmatter, rawContent, headings = [], prevPost, nextPost } = Astro.pro
 const estimatedReadingTime = readingTime(rawContent());
 
 const formattedDate = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC',
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+	timeZone: 'UTC',
 }).format(new Date(frontmatter.pubDate));
 ---
 <Layout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  image={frontmatter.image?.src?.src}
-  type="article"
-  publishedDate={frontmatter.pubDate?.toString()}
+	title={frontmatter.title}
+	description={frontmatter.description}
+	image={frontmatter.image?.src?.src}
+	type="article"
+	publishedDate={frontmatter.pubDate?.toString()}
 >
-  <div class="max-w-3xl lg:max-w-6xl mx-auto py-8">
-    <div class="mb-4">
-      <Breadcrumb
-        crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Blog', href: '/blog' },
-          { label: frontmatter.title },
-        ]}
-      />
-    </div>
-    <!-- The aside comes first in source order so it stacks above the post on
-         narrow screens; on lg+ it is placed into the second grid column. -->
-    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-8 lg:items-start">
-      <aside class="mb-4 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:sticky lg:top-8">
-        <TableOfContents headings={headings} />
-      </aside>
-      <div class="min-w-0 lg:col-start-1 lg:row-start-1">
-        <div class="hl-card-shell">
-          <article data-post-article>
-            <header class="mb-8">
-              <h1 class="text-3xl font-bold mb-4">{frontmatter.title}</h1>
-              <div class="flex flex-wrap gap-4 items-center text-lightTextSecondary dark:text-darkTextSecondary">
-                <time datetime={frontmatter.pubDate.toString()}>
-                  {formattedDate}
-                </time>
-                <span>{estimatedReadingTime} min read</span>
-                <p>Written by: {frontmatter.author}</p>
-              </div>
-              {frontmatter.tags?.length > 0 && (
-                <div class="mt-3">
-                  <TagList tags={frontmatter.tags} />
-                </div>
-              )}
-              <p class="mt-4 text-lg italic">{frontmatter.description}</p>
-            </header>
+	<div class="post">
+		<div class="post__crumbs">
+			<Breadcrumb
+				crumbs={[
+					{ label: 'Home', href: '/' },
+					{ label: 'Blog', href: '/blog' },
+					{ label: frontmatter.title },
+				]}
+			/>
+		</div>
+		<!-- The aside comes first in source order so it stacks above the post on
+				 narrow screens; on lg+ it is placed into the second grid column. -->
+		<div class="post__grid">
+			<aside class="post__toc">
+				<TableOfContents headings={headings} />
+			</aside>
+			<div class="post__main">
+				<div class="hl-card-shell">
+					<article data-post-article>
+						<header class="post__header">
+							<h1 class="post__title">{frontmatter.title}</h1>
+							<div class="post__meta">
+								<time datetime={frontmatter.pubDate.toString()}>
+									{formattedDate}
+								</time>
+								<span>{estimatedReadingTime} min read</span>
+								<p>Written by: {frontmatter.author}</p>
+							</div>
+							{frontmatter.tags?.length > 0 && (
+								<div class="post__tags">
+									<TagList tags={frontmatter.tags} />
+								</div>
+							)}
+							<p class="post__description">{frontmatter.description}</p>
+						</header>
 
-            {frontmatter.image && (
-              <Image
-                src={frontmatter.image.src}
-                alt={frontmatter.image.alt}
-                widths={[400, 800, 1200]}
-                sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
-                class="w-full max-w-2xl mx-auto mb-8"
-              />
-            )}
+						{frontmatter.image && (
+							<div class="post__image">
+								<Image
+									src={frontmatter.image.src}
+									alt={frontmatter.image.alt}
+									widths={[400, 800, 1200]}
+									sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
+								/>
+							</div>
+						)}
 
-            <div class="prose prose-zinc dark:prose-invert max-w-none">
-              <slot />
-            </div>
-          </article>
-        </div>
+						<div class="prose">
+							<slot />
+						</div>
+					</article>
+				</div>
 
-        {(prevPost || nextPost) && (
-          <nav aria-label="Post navigation" class="mt-8 grid grid-cols-2 gap-4">
-            {prevPost ? (
-              <a href={`/posts/${prevPost.slug}`} class="hl-card-shell p-4 group hover-lift flex flex-col items-start no-underline">
-                <span class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">&larr; Older</span>
-                <span class="mt-1 font-medium text-lightTextPrimary dark:text-darkTextPrimary group-hover:text-primary">{prevPost.title}</span>
-              </a>
-            ) : <div />}
-            {nextPost ? (
-              <a href={`/posts/${nextPost.slug}`} class="hl-card-shell p-4 group hover-lift flex flex-col items-end text-right no-underline">
-                <span class="text-sm text-lightTextSecondary dark:text-darkTextSecondary">Newer &rarr;</span>
-                <span class="mt-1 font-medium text-lightTextPrimary dark:text-darkTextPrimary group-hover:text-primary">{nextPost.title}</span>
-              </a>
-            ) : <div />}
-          </nav>
-        )}
-      </div>
-    </div>
-  </div>
-  <CopyCodeButtons target="[data-post-article] .prose" />
+				{(prevPost || nextPost) && (
+					<nav aria-label="Post navigation" class="post-nav">
+						{prevPost ? (
+							<a href={`/posts/${prevPost.slug}`} class="hl-card-shell hover-lift post-nav__link">
+								<span class="post-nav__label">&larr; Older</span>
+								<span class="post-nav__title">{prevPost.title}</span>
+							</a>
+						) : <div />}
+						{nextPost ? (
+							<a href={`/posts/${nextPost.slug}`} class="hl-card-shell hover-lift post-nav__link post-nav__link--next">
+								<span class="post-nav__label">Newer &rarr;</span>
+								<span class="post-nav__title">{nextPost.title}</span>
+							</a>
+						) : <div />}
+					</nav>
+				)}
+			</div>
+		</div>
+	</div>
+	<CopyCodeButtons target="[data-post-article] .prose" />
 </Layout>
+
+<style>
+	.post {
+		max-width: 48rem;
+		margin-inline: auto;
+		padding-block: 2rem;
+	}
+
+	.post__crumbs {
+		margin-bottom: 1rem;
+	}
+
+	.post__toc {
+		margin-bottom: 1rem;
+	}
+
+	.post__main {
+		min-width: 0;
+	}
+
+	.post__header {
+		margin-bottom: 2rem;
+	}
+
+	.post__title {
+		margin-bottom: 1rem;
+		font-size: 1.875rem;
+		line-height: 2.25rem;
+		font-weight: 700;
+	}
+
+	.post__meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.post__tags {
+		margin-top: 0.75rem;
+	}
+
+	.post__description {
+		margin-top: 1rem;
+		font-size: 1.125rem;
+		line-height: 1.75rem;
+		font-style: italic;
+	}
+
+	.post__image :global(img) {
+		width: 100%;
+		max-width: 42rem;
+		margin-inline: auto;
+		margin-bottom: 2rem;
+	}
+
+	.post-nav {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.post-nav__link {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 1rem;
+	}
+
+	.post-nav__link--next {
+		align-items: flex-end;
+		text-align: right;
+	}
+
+	.post-nav__label {
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		color: var(--hl-alias-text-muted);
+	}
+
+	.post-nav__title {
+		margin-top: 0.25rem;
+		font-weight: 500;
+		color: var(--hl-alias-text-main);
+	}
+
+	@media (hover: hover) {
+		.post-nav__link:hover .post-nav__title {
+			color: var(--hl-alias-action-bg-primary);
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.post {
+			max-width: 72rem;
+		}
+
+		.post__grid {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 16rem;
+			align-items: start;
+			gap: 2rem;
+		}
+
+		.post__toc {
+			position: sticky;
+			top: 2rem;
+			grid-column-start: 2;
+			grid-row-start: 1;
+			margin-bottom: 0;
+		}
+
+		.post__main {
+			grid-column-start: 1;
+			grid-row-start: 1;
+		}
+	}
+</style>

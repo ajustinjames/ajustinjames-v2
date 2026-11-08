@@ -6,15 +6,15 @@ import Layout from "../../layouts/Layout.astro";
 
 <Layout title="Apps" description="Small single-page apps by Aaron James.">
 	<Section eyebrow="Apps" title="Apps" description="Small tools, each on one page" as="h1" width="narrow">
-		<ul class="grid gap-6 md:grid-cols-2">
+		<ul class="card-grid">
 			{listedApps.map((app) => (
 				<li class="hl-card-shell hover-lift">
-					<h2 class="text-xl font-semibold text-lightTextPrimary dark:text-darkTextPrimary">
-						<a href={`/apps/${app.slug}/`} class="hover:text-primary" data-astro-reload>
+					<h2 class="card-title app-card__name">
+						<a href={`/apps/${app.slug}/`} data-astro-reload>
 							{app.name}
 						</a>
 					</h2>
-					<p class="mt-3 text-lightTextSecondary dark:text-darkTextSecondary">
+					<p class="app-card__description">
 						{app.description}
 					</p>
 				</li>
@@ -22,3 +22,14 @@ import Layout from "../../layouts/Layout.astro";
 		</ul>
 	</Section>
 </Layout>
+
+<style>
+	.app-card__name a:hover {
+		color: var(--hl-alias-action-bg-primary);
+	}
+
+	.app-card__description {
+		margin-top: 0.75rem;
+		color: var(--hl-alias-text-muted);
+	}
+</style>

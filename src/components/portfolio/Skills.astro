@@ -13,14 +13,12 @@ const skills: { label: string; items: string[] }[] = [
 ---
 
 <Section id="skills" eyebrow="Skills" title="Technical Skills">
-	<dl class="border-t border-borderLight dark:border-borderDark">
+	<dl class="skills">
 		{
 			skills.map((group) => (
-				<div class="grid grid-cols-1 gap-2 border-b border-borderLight dark:border-borderDark py-5 md:grid-cols-[10rem_1fr] md:gap-6">
-					<dt class="font-mono text-sm uppercase tracking-widest text-lightTextSecondary dark:text-darkTextSecondary">
-						{group.label}
-					</dt>
-					<dd class="flex flex-wrap gap-2">
+				<div class="skills__row">
+					<dt class="eyebrow">{group.label}</dt>
+					<dd class="skills__items">
 						{group.items.map((item) => (
 							<hl-tag>{item.toUpperCase()}</hl-tag>
 						))}
@@ -30,3 +28,30 @@ const skills: { label: string; items: string[] }[] = [
 		}
 	</dl>
 </Section>
+
+<style>
+	.skills {
+		border-top: 1px solid var(--hl-alias-surface-border);
+	}
+
+	.skills__row {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--hl-alias-surface-border);
+	}
+
+	.skills__items {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	@media (min-width: 48rem) {
+		.skills__row {
+			grid-template-columns: 10rem 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>

@@ -1,16 +1,17 @@
 ---
 export interface Crumb {
-  label: string;
-  /** Omit on the final crumb — it renders as the current page, not a link. */
-  href?: string;
+	label: string;
+	/** Omit on the final crumb — it renders as the current page, not a link. */
+	href?: string;
 }
 
 interface Props {
-  crumbs: Crumb[];
+	crumbs: Crumb[];
 }
 
 const { crumbs } = Astro.props;
 ---
+
 <!--
   Plain markup rather than <hl-breadcrumb>: that component hides its slot and
   re-renders the crumbs into its shadow DOM, lifting the <a>/<span> children
@@ -20,25 +21,57 @@ const { crumbs } = Astro.props;
   invalid markup besides. Same approach as .hl-card-shell in global.css.
 -->
 <nav aria-label="Breadcrumb">
-  <ol class="flex flex-wrap items-center gap-2 font-mono text-xs">
-    {crumbs.map((crumb, index) => (
-      <li class="flex items-center gap-2">
-        {index > 0 && (
-          <span aria-hidden="true" class="text-lightTextSecondary dark:text-darkTextSecondary">/</span>
-        )}
-        {crumb.href ? (
-          <a
-            href={crumb.href}
-            class="no-underline text-lightTextPrimary dark:text-darkTextPrimary hover:text-primary hover:underline"
-          >
-            {crumb.label}
-          </a>
-        ) : (
-          <span aria-current="page" class="text-lightTextSecondary dark:text-darkTextSecondary">
-            {crumb.label}
-          </span>
-        )}
-      </li>
-    ))}
-  </ol>
+	<ol class="breadcrumb">
+		{
+			crumbs.map((crumb, index) => (
+				<li class="breadcrumb__item">
+					{index > 0 && (
+						<span aria-hidden="true" class="breadcrumb__muted">
+							/
+						</span>
+					)}
+					{crumb.href ? (
+						<a href={crumb.href} class="breadcrumb__link">
+							{crumb.label}
+						</a>
+					) : (
+						<span aria-current="page" class="breadcrumb__muted">
+							{crumb.label}
+						</span>
+					)}
+				</li>
+			))
+		}
+	</ol>
 </nav>
+
+<style>
+	.breadcrumb {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--hl-alias-font-technical);
+		font-size: 0.75rem;
+		line-height: 1rem;
+	}
+
+	.breadcrumb__item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.breadcrumb__muted {
+		color: var(--hl-alias-text-muted);
+	}
+
+	.breadcrumb__link {
+		color: var(--hl-alias-text-main);
+	}
+
+	.breadcrumb__link:hover {
+		color: var(--hl-alias-action-bg-primary);
+		text-decoration: underline;
+	}
+</style>

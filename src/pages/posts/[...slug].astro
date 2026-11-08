@@ -3,53 +3,49 @@ import { getCollection, render } from 'astro:content';
 import MarkdownPostLayout from '../../layouts/MarkdownPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  const sorted = [...posts].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+	const posts = await getCollection('blog');
+	const sorted = [...posts].sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-  return sorted.map((post, i) => {
-    const newerPost = sorted[i - 1] ?? null;
-    const olderPost = sorted[i + 1] ?? null;
-    return {
-      params: { slug: post.id },
-      props: {
-        post,
-        prevPost: olderPost ? { slug: olderPost.id, title: olderPost.data.title } : null,
-        nextPost: newerPost ? { slug: newerPost.id, title: newerPost.data.title } : null,
-      },
-    };
-  });
+	return sorted.map((post, i) => {
+		const newerPost = sorted[i - 1] ?? null;
+		const olderPost = sorted[i + 1] ?? null;
+		return {
+			params: { slug: post.id },
+			props: {
+				post,
+				prevPost: olderPost ? { slug: olderPost.id, title: olderPost.data.title } : null,
+				nextPost: newerPost ? { slug: newerPost.id, title: newerPost.data.title } : null,
+			},
+		};
+	});
 }
 
 const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
 
-const siteUrl = "https://ajustinjames.com";
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
-const ogDefaultImage = `${siteUrl}/og-default.png`;
-const postImage = post.data.image?.src?.src
-  ? new URL(post.data.image.src.src, siteUrl).href
-  : ogDefaultImage;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const postImage = new URL(post.data.image?.src?.src ?? "/og-default.png", Astro.site).href;
 
 const blogPostingSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.description,
-  datePublished: post.data.pubDate.toISOString(),
-  author: {
-    "@type": "Person",
-    name: post.data.author ?? "Aaron James",
-  },
-  image: postImage,
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": canonicalUrl,
-  },
-  url: canonicalUrl,
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	headline: post.data.title,
+	description: post.data.description,
+	datePublished: post.data.pubDate.toISOString(),
+	author: {
+		"@type": "Person",
+		name: post.data.author ?? "Aaron James",
+	},
+	image: postImage,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": canonicalUrl,
+	},
+	url: canonicalUrl,
 };
 ---
 
 <MarkdownPostLayout frontmatter={post.data} rawContent={() => post.body ?? ''} headings={headings} prevPost={prevPost} nextPost={nextPost}>
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
-  <Content />
+	<script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+	<Content />
 </MarkdownPostLayout>

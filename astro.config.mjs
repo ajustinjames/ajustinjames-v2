@@ -1,7 +1,5 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import lit from "@astrojs/lit";
 import sitemap from "@astrojs/sitemap";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
@@ -19,16 +17,10 @@ export default defineConfig({
 	output: "static",
 	integrations: [
 		icon(),
-		lit(),
 		sitemap({
 			changefreq: "weekly",
 			priority: 0.7,
 			filter: (page) => !unlistedAppPaths.some((path) => page.endsWith(path)),
-			lastmod: new Date(),
 		}),
 	],
-	vite: {
-		plugins: [tailwindcss()],
-	},
-	minify: true,
 });
