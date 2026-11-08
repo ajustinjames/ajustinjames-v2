@@ -14,13 +14,33 @@ export const COLOR_KEYS = [
 ] as const;
 export type ColorKey = (typeof COLOR_KEYS)[number];
 
+/** Each color's name in the settings form. */
+export const COLOR_LABELS: Record<ColorKey, string> = {
+	store_name: "Store name",
+	item_label: "Item label",
+	tagline: "Tagline",
+	footer: "Footer",
+	border: "Border",
+	divider: "Divider",
+};
+
 /** Colors used for text, which must stay dark enough for a thermal printer. */
-const TEXT_COLOR_KEYS: readonly ColorKey[] = [
+export const TEXT_COLOR_KEYS: readonly ColorKey[] = [
 	"store_name",
 	"item_label",
 	"tagline",
 	"footer",
 ];
+
+/** The platform choices in settings. Anything else is saved as typed under "Other". */
+export const PLATFORMS = [
+	"eBay",
+	"Etsy",
+	"Mercari",
+	"Poshmark",
+	"Amazon",
+	"Facebook Marketplace",
+] as const;
 
 export const MAX_TAGLINES = 4;
 export const MAX_FOOTER_LINES = 3;

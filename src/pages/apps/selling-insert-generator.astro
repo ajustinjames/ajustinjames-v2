@@ -1,4 +1,10 @@
 ---
+import {
+	COLOR_KEYS,
+	COLOR_LABELS,
+	PLATFORMS,
+	TEXT_COLOR_KEYS,
+} from "../../apps/selling-insert-generator/core/config";
 import { getApp } from "../../data/apps";
 import AppLayout from "../../layouts/AppLayout.astro";
 
@@ -152,13 +158,8 @@ const app = getApp("selling-insert-generator");
 						<label class="field-label" for="s_platform">PLATFORM</label>
 						<hl-select>
 							<select id="s_platform" class="field-select">
-								<option value="eBay">eBay</option>
-								<option value="Etsy">Etsy</option>
-								<option value="Mercari">Mercari</option>
-								<option value="Poshmark">Poshmark</option>
-								<option value="Amazon">Amazon</option>
-								<option value="Facebook Marketplace">Facebook Marketplace</option>
-								<option value="Other">Other...</option>
+								{PLATFORMS.map((platform) => <option value={platform}>{platform}</option>)}
+								<option value="Other">Other…</option>
 							</select>
 						</hl-select>
 						<hl-input id="s_platform_other_field" label-for="s_platform_other" class="mt-sm" hidden>
@@ -210,64 +211,20 @@ const app = getApp("selling-insert-generator");
 				<hl-card class="settings-section" elevation="1">
 					<h2 slot="header" class="section-legend">COLORS</h2>
 					<div class="color-grid">
-						<div class="color-field">
-							<label class="field-label" for="c_store_name">STORE NAME</label>
-							<div class="color-row">
-								<input id="c_store_name" type="color" class="color-picker" data-color-key="store_name" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_store_name_hex" type="text" class="color-hex" maxlength="7" data-color-key="store_name" aria-label="Store name color hex" />
-								</hl-input>
+						{COLOR_KEYS.map((key) => (
+							<div class="color-field">
+								<label class="field-label" for={`c_${key}`}>{COLOR_LABELS[key].toUpperCase()}</label>
+								<div class="color-row">
+									<input id={`c_${key}`} type="color" class="color-picker" data-color-key={key} />
+									<hl-input density="compact" class="color-hex-shell">
+										<input id={`c_${key}_hex`} type="text" class="color-hex" maxlength="7" data-color-key={key} aria-label={`${COLOR_LABELS[key]} color hex`} />
+									</hl-input>
+								</div>
+								{TEXT_COLOR_KEYS.includes(key) && (
+									<hl-error-message class="thermal-warn" id={`warn_${key}`} hidden>May be too light for thermal</hl-error-message>
+								)}
 							</div>
-							<hl-error-message class="thermal-warn" id="warn_store_name" hidden>May be too light for thermal</hl-error-message>
-						</div>
-						<div class="color-field">
-							<label class="field-label" for="c_item_label">ITEM LABEL</label>
-							<div class="color-row">
-								<input id="c_item_label" type="color" class="color-picker" data-color-key="item_label" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_item_label_hex" type="text" class="color-hex" maxlength="7" data-color-key="item_label" aria-label="Item label color hex" />
-								</hl-input>
-							</div>
-							<hl-error-message class="thermal-warn" id="warn_item_label" hidden>May be too light for thermal</hl-error-message>
-						</div>
-						<div class="color-field">
-							<label class="field-label" for="c_tagline">TAGLINE</label>
-							<div class="color-row">
-								<input id="c_tagline" type="color" class="color-picker" data-color-key="tagline" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_tagline_hex" type="text" class="color-hex" maxlength="7" data-color-key="tagline" aria-label="Tagline color hex" />
-								</hl-input>
-							</div>
-							<hl-error-message class="thermal-warn" id="warn_tagline" hidden>May be too light for thermal</hl-error-message>
-						</div>
-						<div class="color-field">
-							<label class="field-label" for="c_footer">FOOTER</label>
-							<div class="color-row">
-								<input id="c_footer" type="color" class="color-picker" data-color-key="footer" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_footer_hex" type="text" class="color-hex" maxlength="7" data-color-key="footer" aria-label="Footer color hex" />
-								</hl-input>
-							</div>
-							<hl-error-message class="thermal-warn" id="warn_footer" hidden>May be too light for thermal</hl-error-message>
-						</div>
-						<div class="color-field">
-							<label class="field-label" for="c_border">BORDER</label>
-							<div class="color-row">
-								<input id="c_border" type="color" class="color-picker" data-color-key="border" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_border_hex" type="text" class="color-hex" maxlength="7" data-color-key="border" aria-label="Border color hex" />
-								</hl-input>
-							</div>
-						</div>
-						<div class="color-field">
-							<label class="field-label" for="c_divider">DIVIDER</label>
-							<div class="color-row">
-								<input id="c_divider" type="color" class="color-picker" data-color-key="divider" />
-								<hl-input density="compact" class="color-hex-shell">
-									<input id="c_divider_hex" type="text" class="color-hex" maxlength="7" data-color-key="divider" aria-label="Divider color hex" />
-								</hl-input>
-							</div>
-						</div>
+						))}
 					</div>
 				</hl-card>
 

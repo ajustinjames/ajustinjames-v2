@@ -13,6 +13,7 @@ import {
 	MAX_FOOTER_LINES,
 	MAX_TAGLINES,
 	needsThermalWarning,
+	PLATFORMS,
 	removeLogo,
 	resetConfig,
 	saveConfig,
@@ -20,7 +21,6 @@ import {
 	validateConfig,
 } from "./core/config.ts";
 import { insertFileName, logoFileError } from "./core/files.ts";
-import { generateInsertPdf } from "./core/pdf.ts";
 import { renderPreview } from "./ui/preview.ts";
 
 function byId<T extends HTMLElement = HTMLElement>(id: string): T {
@@ -95,6 +95,17 @@ function triggerDownload(bytes: Uint8Array, filename: string): void {
 	setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+// pdf-lib is most of this app's JavaScript, so it loads on first use instead of
+// with the page. Hovering or focusing a PDF button starts the download early.
+let pdfModule: Promise<typeof import("./core/pdf.ts")> | undefined;
+function loadPdf() {
+	pdfModule ??= import("./core/pdf.ts").catch((err) => {
+		pdfModule = undefined; // Let the next click try again.
+		throw err;
+	});
+	return pdfModule;
+}
+
 /**
  * Runs a PDF action with its button busy, then restores the button. Shows any
  * failure under the buttons.
@@ -114,6 +125,7 @@ async function withPdf(
 	setButtonDisabled(btn, true);
 	setButtonLabel(btn, "GENERATING…");
 	try {
+		const { generateInsertPdf } = await loadPdf();
 		action(await generateInsertPdf(config, details, logoDataUrl), details);
 	} catch (err) {
 		showActionError(`Error: ${err instanceof Error ? err.message : err}`);
@@ -147,6 +159,14 @@ itemName.addEventListener("input", () => {
 
 for (const id of ["order_number", "buyer_name", "custom_note"]) {
 	byId(id).addEventListener("input", updatePreview);
+}
+
+for (const btn of [downloadBtn, printBtn]) {
+	for (const event of ["pointerenter", "focus"]) {
+		btn.addEventListener(event, () => loadPdf().catch(() => {}), {
+			once: true,
+		});
+	}
 }
 
 downloadBtn.addEventListener("click", () =>
@@ -193,8 +213,7 @@ function colorInputs(key: ColorKey) {
 function populateSettingsForm(): void {
 	byId<HTMLInputElement>("s_store_name").value = config.store_name;
 
-	const builtIn = Array.from(platformSelect.options, (o) => o.value);
-	if (builtIn.includes(config.platform)) {
+	if ((PLATFORMS as readonly string[]).includes(config.platform)) {
 		platformSelect.value = config.platform;
 		platformOther.value = "";
 	} else {
