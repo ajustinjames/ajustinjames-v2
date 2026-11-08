@@ -38,13 +38,4 @@ export const projects: Project[] = [
 		status: "active",
 		repoUrl: "https://github.com/ajustinjames/decky-portal",
 	},
-	{
-		name: "Selling Insert Generator",
-		description:
-			"Client-side web app for generating thermal-printable 4×6 package insert PDFs for online seller storefronts. Fully configurable — runs entirely in the browser, no server required.",
-		technologies: ["Vite", "JavaScript", "pdf-lib", "CSS"],
-		status: "stable",
-		repoUrl: "https://github.com/ajustinjames/selling-insert-generator",
-		siteUrl: "https://sig.ajustinjames.com",
-	},
 ];
